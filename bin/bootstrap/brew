@@ -3,21 +3,24 @@
 set -euo pipefail
 
 install_homebrew() {
-    # https://github.com/Homebrew/brew/issues/3228
     pushd /usr/local > /dev/null
-    sudo mkdir homebrew
-    sudo chown -R "$(whoami)":admin homebrew
+    if [[ -e homebrew ]]; then
+        echo "Updating homebrew..."
+        brew update
+    else
+        # https://github.com/Homebrew/brew/issues/3228
+        sudo mkdir homebrew
+        sudo chown -R "$(whoami)":admin homebrew
+        curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
+    fi
     popd > /dev/null
-    # https://brew.sh/#install
-    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
 }
 
 main() {
     install_homebrew
-
-    local -r DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)
-    pushd "$DIR/../.." > /dev/null
-    brew bundle
+    pushd "$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)/../.." > /dev/null
+    echo "Installing packages..."
+    brew bundle install
     popd > /dev/null
 }
 
