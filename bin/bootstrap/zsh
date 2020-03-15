@@ -23,7 +23,10 @@ main() {
 
     mkdir -p ~/.oh-my-zsh/custom
     ln -Ffsv "$ROOT_DIR/zsh/plugins" ~/.oh-my-zsh/custom
-
+    # Run commands
+    ln -Ffsv "$ROOT_DIR/.alias" ~/.alias
+    ln -Ffsv "$ROOT_DIR/.exports" ~/.exports
+    ln -Ffsv "$ROOT_DIR/.functions" ~/.functions
     ln -Ffsv "$ROOT_DIR/.zshrc" ~/.zshrc
     # shellcheck disable=SC1090
     source ~/.zshrc

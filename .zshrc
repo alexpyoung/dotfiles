@@ -1,31 +1,17 @@
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools/
-export ZSH=$HOME/.oh-my-zsh
-
-eval "$(pyenv init -)"
-
-export NVM_DIR="$HOME/.nvm"
-  . "/usr/local/opt/nvm/nvm.sh" --no-use
-
-export FZF_DEFAULT_COMMAND='rg --files' # Use ripgrep instead of find to respect gitignore
-
-export ZSH_DISABLE_COMPFIX=true
-export LC_ALL=en_US.UTF-8
-
-ZSH_THEME='spaceship'
+source .exports
+source .alias
+source .functions
 
 plugins=(
   colored-man-pages
   git
   zsh_reload
   gamechanger
-  apy-tools
   mbq
   zsh-syntax-highlighting
 )
 
+ZSH_THEME='spaceship'
 SPACESHIP_PROMPT_ORDER=(
   time
   dir
@@ -95,11 +81,6 @@ SPACESHIP_DOCKER_COLOR=cyan
 
 source $ZSH/oh-my-zsh.sh
 
+. "/usr/local/opt/nvm/nvm.sh" --no-use
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-source .alias
-
-# For GitHub commit signing
-export GPG_TTY=$(tty)
+eval "$(pyenv init -)"

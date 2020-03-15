@@ -1,0 +1,20 @@
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/templates/zshrc.zsh-template#L2
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+export ZSH=$HOME/.oh-my-zsh
+
+# https://stackoverflow.com/questions/17901692/set-up-adb-on-mac-os-x
+export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools/
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# https://github.com/nvm-sh/nvm/blob/master/README.md#git-install
+export NVM_DIR="$HOME/.nvm"
+
+# Use ripgrep instead of find to respect gitignore
+export FZF_DEFAULT_COMMAND='rg --files'
+
+# Blackbox
+export LC_ALL=en_US.UTF-8
+
+# GitHub commit signing
+export GPG_TTY=$(tty)
