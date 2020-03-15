@@ -2,8 +2,13 @@
 [user]
 	name = Alex Young
 	email = alexyoung1992@gmail.com
+	signingkey = 8A6C87FB61C12484
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[gpg]
+	program = gpg
+[commit]
+	gpgsign = true
