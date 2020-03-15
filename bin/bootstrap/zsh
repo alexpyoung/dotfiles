@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+
+install_ohmyzsh() {
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+}
+
+install_spaceship() {
+    if [[ -d "$ZSH/themes/spaceship-prompt" ]]; then
+        return
+    else
+        git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH/themes/spaceship-prompt"
+        ln -Ffsv "$ZSH/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH/themes/spaceship.zsh-theme"
+    fi
+}
+
+main() {
+    local -r ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)/../.."
+    ln -Ffsv "$ROOT_DIR/.alias" ~/.alias
+
+    [[ -d ~/.oh-my-zsh ]] || install_ohmyzsh
+
+    mkdir -p ~/.oh-my-zsh/custom
+    ln -Ffsv "$ROOT_DIR/zsh/plugins" ~/.oh-my-zsh/custom
+
+    ln -Ffsv "$ROOT_DIR/zsh/.zshrc" ~/.zshrc
+    # shellcheck disable=SC1090
+    source ~/.zshrc
+    install_spaceship
+}
+
+main
