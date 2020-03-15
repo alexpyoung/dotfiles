@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Git
 alias grbm='gfo && grb origin/master'
 alias ga='git add .'
@@ -27,4 +29,3 @@ alias tks='tmux kill-session -t'
 # Docker
 alias d=docker
 alias dc=docker-compose
-

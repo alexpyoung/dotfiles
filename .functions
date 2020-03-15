@@ -1,6 +1,6 @@
-#
+#!/usr/bin/env bash
+
 # git
-#
 function gpr() {
     local -r BRANCH="$1"
     g --no-pager diff --stat "$BRANCH"
@@ -21,14 +21,11 @@ function gx() {
     done
 }
 
-#
 # gpg
-#
 function gpg-id() {
     gpg-long | grep -B 2 "$1" | head -n1 | cut -d/ -f2 | cut -d' ' -f1
 }
-# gpg-export [-secret-key] ID
-function gpg-export() {
+function gpg-export() { # gpg-export [-secret-key] ID
     if [[ -n $2 ]]; then
         gpg "--export$1" --armor "$2" | pbcopy
     else
@@ -46,10 +43,8 @@ function gpg-git() {
     gpg-id "$1" | xargs git config --global user.signingkey
 }
 
-#
 # fzf
-#
-fe() {
+function fe() {
     local EDITOR
     local QUERY
     if [ $# -eq 1 ]; then
@@ -65,7 +60,7 @@ fe() {
     # shellcheck disable=SC2128
     [[ -n $FILES ]] && ${EDITOR:-$EDITOR} "${FILES[@]}"
 }
-fd() {
+function fd() {
     local DIRECTORY
     DIRECTORY=$(find "${1:-.}" -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) &&
     cd "$DIRECTORY" || exit 1
