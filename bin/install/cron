@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+    pushd "${0%/*}/../.." > /dev/null
+    cat crontab | pbcopy
+    popd >/dev/null
+    echo "crontab has been loaded into clipboard; paste and save."
+    read  -n 1 -p "Press any key to continue: " input
+    crontab -e
+}
+
+main
+
