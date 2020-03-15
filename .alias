@@ -1,0 +1,44 @@
+alias grbm='gfo && grb origin/master'
+alias ga='git add .'
+alias grbmi='gfo && grb -i origin/master'
+alias gast='ga && git stash'
+alias gdsg='gd --staged'
+alias gdst='echo $(gd --stat) && echo $(gd --numstat)'
+alias gh='github ./'
+gpr() {
+    local -r BRANCH="$1"
+    g --no-pager diff --stat "$BRANCH"
+}
+
+gx() {
+    git fetch origin
+    for branch in $(git --no-pager branch | grep -v master); do
+        echo "Attempting delete with -d"
+        git branch -d $branch 2>/dev/null
+        if [[ $? -ne 0 ]]; then
+            git ls-remote --exit-code --heads origin $branch
+            if [[ $? -eq 2 ]]; then
+                echo "Force deleting"
+                git branch -D $branch
+            fi
+        fi
+    done
+}
+
+alias xc='open *.xcworkspace([1])'
+alias h='history'
+alias snip='pet search | pbcopy'
+
+# Tmux
+alias ta='tmux attach -t'
+alias tn='tmux new-session -s'
+alias tls='tmux list-sessions'
+alias tk9='tmux kill-server'
+alias tks='tmux kill-session -t'
+
+alias spd='speedtest-cli'
+
+# Docker
+alias d=docker
+alias dc=docker-compose
+
