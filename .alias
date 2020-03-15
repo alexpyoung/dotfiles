@@ -9,7 +9,6 @@ gpr() {
     local -r BRANCH="$1"
     g --no-pager diff --stat "$BRANCH"
 }
-
 gx() {
     git fetch origin
     for branch in $(git --no-pager branch | grep -v master); do
@@ -23,6 +22,25 @@ gx() {
             fi
         fi
     done
+}
+
+alias gpg-new='gpg --full-generate-key'
+alias gpg-long='gpg --list-secret-keys --keyid-format LONG'
+gpg-rm() {
+    gpg --delete-secret-key $1
+    gpg --delete-key $1
+}
+gpg-exp() {
+    gpg --export --armor $1 | pbcopy
+}
+gpg-exp-sec() {
+    gpg --export --armor $1 | pbcopy
+}
+gpg-id() {
+    gpg-long | grep -B 2 "$1" | head -n1 | cut -d/ -f2 | cut -d' ' -f1
+}
+gpg-git() {
+    gpg-id "$1" | xargs git config --global user.signingkey
 }
 
 alias xc='open *.xcworkspace([1])'
