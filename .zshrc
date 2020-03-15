@@ -1,5 +1,5 @@
 source .exports
-source .alias
+source .aliases
 source .functions
 
 plugins=(
