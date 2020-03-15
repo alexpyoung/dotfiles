@@ -2,10 +2,21 @@
 
 set -euo pipefail
 
-main() {
+install_homebrew() {
+    # https://github.com/Homebrew/brew/issues/3228
+    pushd /usr/local > /dev/null
+    sudo mkdir homebrew
+    sudo chown -R $(whoami):admin homebrew
+    popd > /dev/null
     # https://brew.sh/#install
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)
-    pushd "${0%/*}/../.." > /dev/null
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
+}
+
+main() {
+    install_homebrew
+
+    local -r DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)
+    pushd "$DIR/../.." > /dev/null
     brew bundle
     popd > /dev/null
 }
