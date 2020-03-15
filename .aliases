@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # Git
 alias grbm='gfo && grb origin/master'
 alias ga='git add .'
