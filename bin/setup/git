@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+    local -r ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)/../.."
+    ln -Ffsv "$ROOT_DIR/.gitconfig" ~/.gitconfig
+}
+
+main
