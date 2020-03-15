@@ -6,11 +6,11 @@
 
 - https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 - `git clone git@github.com:alexpyoung/dotfiles.git`
-- `bin/install/vim`
-- `bin/install/zsh`
-- `bin/install/cron`
-- `bin/install/brew`
-- `bin/bootstrap/macos`
+- `bin/bootstrap/vim`
+- `bin/bootstrap/zsh`
+- `bin/bootstrap/cron`
+- `bin/bootstrap/brew`
+- `bin/setup/macos`
 
 ## Resources
 - https://github.com/holman/dotfiles/

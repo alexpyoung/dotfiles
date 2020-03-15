@@ -28,3 +28,6 @@
 [submodule ".vim/vim-plug/yats.vim"]
 	path = .vim/vim-plug/yats.vim
 	url = https://github.com/HerringtonDarkholme/yats.vim
+[submodule "zsh/plugins/zsh-syntax-highlighting"]
+	path = zsh/plugins/zsh-syntax-highlighting
+	url = git://github.com/zsh-users/zsh-syntax-highlighting.git
