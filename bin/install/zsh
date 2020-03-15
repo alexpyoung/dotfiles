@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+main() {
+    local -r ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)/../.."
+    ln -Ffsv "$ROOT_DIR/.alias" ~/.alias
+
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+    mkdir -p ~/.oh-my-zsh/custom
+    ln -Ffsv "$ROOT_DIR/zsh/plugins" ~/.oh-my-zsh/custom/plugins
+
+    ln -Ffsv "$ROOT_DIR/zsh/.zshrc" ~/.zshrc
+    # shellcheck disable=SC1090
+    source ~/.zshrc
+    sleep 15 # Wait for oh-my-zsh to bootstrap
+    ln -Ffsv "$ROOT_DIR/zsh/plugins" "$ZSH_CUSTOM/plugins"
+    git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH/themes/spaceship-prompt"
+    ln -s "$ZSH/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH/themes/spaceship.zsh-theme"
+}
+
+main

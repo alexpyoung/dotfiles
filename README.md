@@ -4,12 +4,13 @@
 
 ## New Machine
 
-1. https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
-2. `git clone git@github.com:alexpyoung/dotfiles.git`
-3. `bin/install/vim`
-4. `bin/install/cron`
-5. `bin/install/brew`
-6. `bin/bootstrap/macos`
+- https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+- `git clone git@github.com:alexpyoung/dotfiles.git`
+- `bin/install/vim`
+- `bin/install/zsh`
+- `bin/install/cron`
+- `bin/install/brew`
+- `bin/bootstrap/macos`
 
 ## Resources
 - https://github.com/holman/dotfiles/
