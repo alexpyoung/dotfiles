@@ -3,11 +3,15 @@
 set -o pipefail
 
 install_ohmyzsh() {
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    if [[ -d ~/.oh-my-zsh ]]; then
+        return
+    else
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    fi
 }
 
 install_spaceship() {
-    if [[ -d "$ZSH/themes/spaceship-prompt" ]]; then
+    if [[ -d ~/.oh-my-zsh/themes/spaceship-prompt ]]; then
         return
     else
         git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH/themes/spaceship-prompt"
@@ -17,12 +21,11 @@ install_spaceship() {
 
 main() {
     local -r ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)/../.."
-    ln -Ffsv "$ROOT_DIR/.alias" ~/.alias
-
-    [[ -d ~/.oh-my-zsh ]] || install_ohmyzsh
-
+    # Plugins
+    install_ohmyzsh
     mkdir -p ~/.oh-my-zsh/custom
     ln -Ffsv "$ROOT_DIR/zsh/plugins" ~/.oh-my-zsh/custom
+    install_spaceship
     # Run commands
     ln -Ffsv "$ROOT_DIR/.alias" ~/.alias
     ln -Ffsv "$ROOT_DIR/.exports" ~/.exports
@@ -30,7 +33,6 @@ main() {
     ln -Ffsv "$ROOT_DIR/.zshrc" ~/.zshrc
     # shellcheck disable=SC1090
     source ~/.zshrc
-    install_spaceship
 }
 
 main
