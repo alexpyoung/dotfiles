@@ -5,7 +5,7 @@ set tabstop=4 " number of spaces that <Tab> in file uses
 set softtabstop=4 " number of spaces that <Tab> uses while editing
 set expandtab " use spaces when <Tab> is inserted
 set autoindent " take indent for new line from previous line
-set shiftwidth=4 " number of spaces to use for (auto)indent step 
+set shiftwidth=4 " number of spaces to use for (auto)indent step
 
 set number " print the line number in front of each line
 set showcmd " show (partial) command in status line
@@ -28,7 +28,7 @@ hi StatusLineNC ctermfg=249 guifg=#b2b2b2 ctermbg=237 guibg=#3a3a3a cterm=none g
 call plug#begin('~/.vim/vim-plug')
 
 " Navigation
-Plug 'scrooloose/nerdtree' 
+Plug 'scrooloose/nerdtree'
 
 " Search
 Plug '/usr/local/opt/fzf' " Homebrew installation
@@ -54,7 +54,7 @@ let g:rg_highlight=1
 " NERDTree
 cnoreabbrev nt NERDTree
 cnoreabbrev ntc NERDTreeClose
-cnoreabbrev ntr NERDTreeVCS 
+cnoreabbrev ntr NERDTreeVCS
 
 let g:NERDTreeShowHidden=1
 let g:NERDTreeNodeDelimiter="\u00a0"
