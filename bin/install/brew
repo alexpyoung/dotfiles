@@ -4,7 +4,7 @@ set -euo pipefail
 
 main() {
     # https://brew.sh/#install
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)
     pushd "${0%/*}/../.." > /dev/null
     brew bundle
     popd > /dev/null
