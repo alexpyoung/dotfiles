@@ -1,0 +1,3 @@
+ 0 14 * * * rm -f "$HOME"/Desktop/Screen\ Shot*
+ 0 14 * * * pushd "$HOME"/Downloads/ && rm -rf *.gif *.mkv *.mp4 *.dmg && popd
+
