@@ -10,6 +10,7 @@
 - `bin/bootstrap/zsh`
 - `bin/bootstrap/cron`
 - `bin/bootstrap/brew`
+- `bin/setup/git`
 - `bin/setup/macos`
 
 ## Resources

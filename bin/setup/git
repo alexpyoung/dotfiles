@@ -2,9 +2,25 @@
 
 set -euo pipefail
 
-main() {
+gitconfig() {
     local -r ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)/../.."
     ln -Ffsv "$ROOT_DIR/.gitconfig" ~/.gitconfig
+}
+
+op_signin() {
+    eval "$(op signin https://my.1password.com alexyoung1992@gmail.com)"
+}
+
+import_secret_key() {
+    local -r UUID=sxwjjzpdgndurmevma5ozxlxei
+    read -s -r -p "Enter GPG passphrase: " PASSPHRASE
+    echo -e "$(op get item "$UUID" | jq -r '.details.password')" | gpg --batch --passphrase "$PASSPHRASE" --import
+}
+
+main() {
+    gitconfig
+    op_signin
+    import_secret_key
 }
 
 main
