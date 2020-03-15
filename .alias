@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Git
 alias grbm='gfo && grb origin/master'
 alias ga='git add .'
 alias grbmi='gfo && grb -i origin/master'
@@ -25,28 +26,36 @@ gx() {
     done
 }
 
+# GPG
 alias gpg-new='gpg --full-generate-key'
 alias gpg-long='gpg --list-secret-keys --keyid-format LONG'
+gpg-id() {
+    gpg-long | grep -B 2 "$1" | head -n1 | cut -d/ -f2 | cut -d' ' -f1
+}
+# gpg-export [-secret-key] ID
+gpg-export() {
+    if [[ -n $2 ]]; then
+        gpg "--export$1" --armor "$2" | pbcopy
+    else
+        gpg --export --armor "$1" | pbcopy
+    fi
+}
+gpg-import() {
+    echo -e "$(pbpaste)" | gpg --batch --passphrase "$1" --import
+}
 gpg-rm() {
     gpg --delete-secret-key "$1"
     gpg --delete-key "$1"
-}
-gpg-exp() {
-    gpg --export --armor "$1" | pbcopy
-}
-gpg-exp-sec() {
-    gpg --export --armor "$1" | pbcopy
-}
-gpg-id() {
-    gpg-long | grep -B 2 "$1" | head -n1 | cut -d/ -f2 | cut -d' ' -f1
 }
 gpg-git() {
     gpg-id "$1" | xargs git config --global user.signingkey
 }
 
+# Misc
 alias xc='open *.xcworkspace([1])'
 alias h='history'
 alias snip='pet search | pbcopy'
+alias spd='speedtest-cli'
 
 # Tmux
 alias ta='tmux attach -t'
@@ -54,8 +63,6 @@ alias tn='tmux new-session -s'
 alias tls='tmux list-sessions'
 alias tk9='tmux kill-server'
 alias tks='tmux kill-session -t'
-
-alias spd='speedtest-cli'
 
 # Docker
 alias d=docker
