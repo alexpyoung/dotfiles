@@ -81,6 +81,6 @@ SPACESHIP_DOCKER_COLOR=cyan
 
 source $ZSH/oh-my-zsh.sh
 
-. "/usr/local/opt/nvm/nvm.sh" --no-use
-
+eval "$(nodenv init -)"
 eval "$(pyenv init -)"
+eval "$(rbenv init -)"

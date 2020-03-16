@@ -21,6 +21,11 @@ install_spaceship() {
 
 main() {
     local -r ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)/../.."
+    # Dev dependencies
+    mkdir -p ~/.pyenv ~/.rbenv ~/.nodenv
+    ln -Ffsv "$ROOT_DIR/.pyenv/version" ~/.pyenv/version
+    ln -Ffsv "$ROOT_DIR/.rbenv/version" ~/.rbenv/version
+    ln -Ffsv "$ROOT_DIR/.nodenv/version" ~/.nodenv/version
     # Plugins
     install_ohmyzsh
     mkdir -p ~/.oh-my-zsh/custom
