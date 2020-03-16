@@ -12,6 +12,7 @@
 - `bin/bootstrap/brew`
 - `bin/setup/git`
 - `bin/setup/macos`
+- `bin/setup/vscode`
 
 ## Resources
 - https://github.com/holman/dotfiles/
