@@ -4,10 +4,11 @@
 
 ## New Machine
 - [ ] `git clone git@github.com:alexpyoung/dotfiles.git`
+- [ ] `bin/bootstrap/links`
 - [ ] `bin/bootstrap/vim`
+- [ ] `bin/bootstrap/brew`
 - [ ] `bin/bootstrap/zsh`
 - [ ] `bin/bootstrap/cron`
-- [ ] `bin/bootstrap/brew`
 - [ ] `bin/setup/git`
 - [ ] `bin/setup/macos`
 - [ ] `bin/setup/vscode`

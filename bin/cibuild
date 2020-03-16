@@ -5,8 +5,8 @@ set -euo pipefail
 main() {
     local -r ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)/.."
     pushd $ROOT_DIR > /dev/null
-    file bin/**/* | grep executable | cut -d: -f1 | xargs shellcheck
-    shellcheck .aliases .exports .functions
+    file bin/**/* | grep executable | cut -d: -f1 | xargs shellcheck -e SC1071
+    shellcheck zsh/.aliases zsh/.exports zsh/.functions
     popd > /dev/null
 }
 

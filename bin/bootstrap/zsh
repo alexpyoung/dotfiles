@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 set -o pipefail
 
@@ -20,24 +20,12 @@ install_spaceship() {
 }
 
 main() {
-    local -r ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)/../.."
-    # Dev dependencies
-    mkdir -p ~/.pyenv ~/.rbenv ~/.nodenv
-    ln -Ffsv "$ROOT_DIR/.pyenv/version" ~/.pyenv/version
-    ln -Ffsv "$ROOT_DIR/.rbenv/version" ~/.rbenv/version
-    ln -Ffsv "$ROOT_DIR/.nodenv/version" ~/.nodenv/version
-    # Plugins
     install_ohmyzsh
-    mkdir -p ~/.oh-my-zsh/custom
-    ln -Ffsv "$ROOT_DIR/zsh/plugins" ~/.oh-my-zsh/custom
     install_spaceship
-    # Run commands
-    ln -Ffsv "$ROOT_DIR/.aliases" ~/.aliases
-    ln -Ffsv "$ROOT_DIR/.exports" ~/.exports
-    ln -Ffsv "$ROOT_DIR/.functions" ~/.functions
-    ln -Ffsv "$ROOT_DIR/.zshrc" ~/.zshrc
-    # shellcheck disable=SC1090
-    source ~/.zshrc
+    pushd ~ > /dev/null || return 1
+    # shellcheck disable=SC1091
+    source .zshrc
+    popd > /dev/null || return 1
 }
 
 main

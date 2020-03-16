@@ -5,9 +5,9 @@ sshotgun() {
 # SSH Aliases
 gcssh() {
     if [[ $# -eq 3 ]]; then
-        ssh $(awsprey list $1:$2 | grep -i $3 | sort -R | head -n1) 
+        ssh $(awsprey list $1:$2 | grep -i $3 | sort -R | head -n1)
     else
-        ssh $(awsprey list $1:$2 | sort -R | head -n1) 
+        ssh $(awsprey list $1:$2 | sort -R | head -n1)
     fi
 }
 
@@ -29,7 +29,7 @@ alias dsshotgun=sshotgun
 alias evald='eval $(docker-machine env dusty)'
 
 # Redshift Aliases
-redshift() {
+function redshift() {
     psql() {
         local -r IP_ADDRESS="$1"
         docker-machine env dusty > /tmp/denv \
@@ -41,7 +41,7 @@ redshift() {
     local -r STAGING_IP='10.0.96.9'
     local -r PRODUCTION_IP='10.0.0.81'
     if [[ "$ENV" =~ production ]]; then
-        psql "$PRODUCTION_IP" 
+        psql "$PRODUCTION_IP"
     elif [[ "$ENV" =~ staging ]]; then
         psql "$STAGING_IP"
     else
@@ -49,7 +49,6 @@ redshift() {
     fi
 
 }
-alias redshift=redshift
 
 # PAPI Aliases
 alias papi='psql -h papi-prod.crzmm8cpdhmt.us-east-1.rds.amazonaws.com -U gamechanger papi'
@@ -58,7 +57,7 @@ export PGPASSWORD=0Ltli9BFuvROxbgU8AqDyrJtLIDCyvOFRrpLjEHWUtfjh0ZgTt
 gc_dir_decorator() {
     cd ~/gc/$1
     echo 'Fetching origin...' && gfo
-    gst 
+    gst
     g --no-pager diff --stat origin/master
 }
 

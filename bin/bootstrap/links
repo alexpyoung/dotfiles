@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+  stow --verbose=2 git vim lib zsh
+}
+
+main

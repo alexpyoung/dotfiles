@@ -1,3 +1,5 @@
+echo $(pwd)
+
 source .exports
 source .aliases
 source .functions
