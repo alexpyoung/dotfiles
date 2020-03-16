@@ -22,10 +22,8 @@ install_spaceship() {
 main() {
     install_ohmyzsh
     install_spaceship
-    pushd ~ > /dev/null || return 1
     # shellcheck disable=SC1091
-    source .zshrc
-    popd > /dev/null || return 1
+    source ~/.zshrc
 }
 
 main

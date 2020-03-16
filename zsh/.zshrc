@@ -1,8 +1,6 @@
-echo $(pwd)
-
+pushd ~ > /dev/null
 source .exports
-source .aliases
-source .functions
+popd > /dev/null
 
 plugins=(
   colored-man-pages
@@ -86,3 +84,8 @@ source $ZSH/oh-my-zsh.sh
 eval "$(nodenv init -)"
 eval "$(pyenv init -)"
 eval "$(rbenv init -)"
+
+pushd ~ > /dev/null
+source .aliases
+source .functions
+popd > /dev/null
