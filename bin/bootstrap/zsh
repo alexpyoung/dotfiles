@@ -20,7 +20,7 @@ install_spaceship() {
 }
 
 main() {
-    stow --verbose=2 zsh lib
+    stow --verbose=2 zsh "~"
     install_ohmyzsh
     install_spaceship
     # shellcheck disable=SC1091
