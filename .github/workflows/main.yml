@@ -16,6 +16,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: HOMEBREW_NO_AUTO_UPDATE=1 brew install stow
-      - run: bin/bootstrap/links
       - run: bin/bootstrap/vim
       - run: bin/bootstrap/zsh

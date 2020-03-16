@@ -3,15 +3,16 @@
 ![CI](https://github.com/alexpyoung/dotfiles/workflows/CI/badge.svg?branch=master)
 
 ## New Machine
-- [ ] `git clone git@github.com:alexpyoung/dotfiles.git`
-- [ ] `bin/bootstrap/links`
-- [ ] `bin/bootstrap/vim`
-- [ ] `bin/bootstrap/brew`
-- [ ] `bin/bootstrap/zsh`
-- [ ] `bin/bootstrap/cron`
-- [ ] `bin/setup/git`
-- [ ] `bin/setup/macos`
-- [ ] `bin/setup/vscode`
+1. `git clone git@github.com:alexpyoung/dotfiles.git`
+2. `bin/bootstrap/...`
+   1. `brew`
+   2. `vim`
+   3. `zsh`
+   4. `cron`
+3. `bin/setup/...`
+   1. `macos`
+   2. `git`
+   3. `vscode`
 
 ## Existing Machine
 - [ ] `bin/update/brew`

@@ -9,8 +9,9 @@ install_homebrew() {
         brew update
     else
         # https://github.com/Homebrew/brew/issues/3228
-        sudo mkdir homebrew
+        sudo mkdir -p homebrew
         sudo chown -R "$(whoami)":admin homebrew
+        echo "Installing homebrew..."
         curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
     fi
     popd > /dev/null

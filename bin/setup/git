@@ -13,6 +13,7 @@ import_secret_key() {
 }
 
 main() {
+    stow --verbose=2 git
     op_signin
     import_secret_key
 }
