@@ -14,8 +14,9 @@
 - [ ] `bin/setup/vscode`
 
 ## Resources
-- https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
-- https://help.github.com/en/github/authenticating-to-github/managing-commit-signature-verification
+- [Generating a new SSH key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+- [Managing commit signature verification](https://help.github.com/en/github/authenticating-to-github/managing-commit-signature-verification)
+- [Colors codes for xterm 256 compatible emulators](https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg)
 
 ## Credits
 - https://github.com/holman/dotfiles/
