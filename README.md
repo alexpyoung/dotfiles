@@ -13,6 +13,9 @@
 - [ ] `bin/setup/macos`
 - [ ] `bin/setup/vscode`
 
+## Existing Machine
+- [ ] `bin/update/brew`
+
 ## Resources
 - [Generating a new SSH key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 - [Managing commit signature verification](https://help.github.com/en/github/authenticating-to-github/managing-commit-signature-verification)
