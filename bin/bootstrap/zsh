@@ -14,6 +14,7 @@ install_spaceship() {
     if [[ -d ~/.oh-my-zsh/themes/spaceship-prompt ]]; then
         return
     else
+    local -r ZSH=~/.oh-my-zsh
         git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH/themes/spaceship-prompt"
         ln -Ffsv "$ZSH/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH/themes/spaceship.zsh-theme"
     fi
