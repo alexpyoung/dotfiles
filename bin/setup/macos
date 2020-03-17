@@ -2,6 +2,18 @@
 
 set -euo pipefail
 
+# Enable TouchID for sudo
+function touch_id() {
+  if grep tid /private/etc/pam.d/sudo; then
+    return
+  fi
+  local -r CONFIG=/private/etc/pam.d/sudo
+  sudo chown "$(whoami)" "$CONFIG"
+  chmod u+w "$CONFIG"
+  printf "%s\n%s" "auth       sufficient     pam_tid.so" "$(cat $CONFIG)" > "$CONFIG"
+  chmod u-w /private/etc/pam.d/sudo
+}
+
 function init() {
   # Prevent System Preferences from overriding settings we’re about to change
   osascript -e 'tell application "System Preferences" to quit'
@@ -12,14 +24,7 @@ function init() {
   # Keep-alive: update existing `sudo` time stamp until `.macos` has finished
   while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-  # Enable TouchID for sudo
-  sudo chown "$(whoami)" /private/etc/pam.d/sudo
-  chmod u+w /private/etc/pam.d/sudo
-  echo "auth       sufficient     pam_tid.so" | pbcopy
-  echo "To enable TouchID for sudo, paste the following as the first privilege."
-  read -r -n 1 -p "Press any key to continue: "
-  sudo vim /private/etc/pam.d/sudo
-  chmod u-w /private/etc/pam.d/sudo
+  touch_id
 }
 
 init
