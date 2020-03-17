@@ -27,5 +27,5 @@ alias tk9='tmux kill-server'
 alias tks='tmux kill-session -t'
 
 # Docker
-alias d=docker
-alias dc=docker-compose
+alias dk=docker
+alias dkc=docker-compose
