@@ -1,20 +1,19 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
-
-op_signin() {
-    eval "$(op signin https://my.1password.com alexyoung1992@gmail.com)"
-}
+set -eo pipefail
 
 import_secret_key() {
     local -r UUID=sxwjjzpdgndurmevma5ozxlxei
-    read -s -r -p "Enter GPG passphrase: " PASSPHRASE
-    echo -e "$(op get item "$UUID" | jq -r '.details.password')" | gpg --batch --passphrase "$PASSPHRASE" --import
+    [[ -z $GPG_PASSPHRASE ]] && read -s -r -p "Enter GPG passphrase: " GPG_PASSPHRASE
+    echo -e "$(op get item "$UUID" | jq -r '.details.password')" | gpg --batch --passphrase "$GPG_PASSPHRASE" --import
 }
 
+# batch mode:
+# export GPG_PASSPHRASE=...
+# export OP_SECRET_KEY=...
 main() {
     stow --verbose=2 git
-    op_signin
+    eval "$(op signin my alexyoung1992@gmail.com "$OP_SECRET_KEY")"
     import_secret_key
 }
 
