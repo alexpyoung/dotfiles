@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Fasd
+alias vim='f -e vim'
+
 # Git
 alias grbm='gfo && grb origin/master'
 alias ga='git add .'

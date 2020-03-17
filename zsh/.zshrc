@@ -6,11 +6,23 @@ source .spaceship
 popd > /dev/null
 
 plugins=(
+  brew
+  bundler
   colored-man-pages
-  git
-  zsh_reload
+  command-not-found
+  common-aliases
+  docker
+  docker-compose
   gamechanger
+  git
+  git-extras
+  git-auto-fetch
+  heroku
   mbq
+  ripgrep
+  tmux
+  zsh-interactive-cd
+  zsh_reload
   zsh-syntax-highlighting
 )
 
@@ -18,6 +30,8 @@ plugins=(
 [[ -f $HOME/.travis/travis.sh ]] && source $HOME/.travis/travis.sh
 
 source $ZSH/oh-my-zsh.sh
+
+eval "$(fasd --init auto)"
 
 eval "$(nodenv init -)"
 eval "$(pyenv init -)"
