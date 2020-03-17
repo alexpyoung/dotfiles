@@ -4,10 +4,10 @@ set -euo pipefail
 
 # Enable TouchID for sudo
 function touch_id() {
-  if grep tid /private/etc/pam.d/sudo; then
+  local -r CONFIG=/private/etc/pam.d/sudo
+  if grep tid $CONFIG > /dev/null; then
     return
   fi
-  local -r CONFIG=/private/etc/pam.d/sudo
   sudo chown "$(whoami)" "$CONFIG"
   chmod u+w "$CONFIG"
   printf "%s\n%s" "auth       sufficient     pam_tid.so" "$(cat $CONFIG)" > "$CONFIG"
