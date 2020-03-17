@@ -2,8 +2,13 @@
 
 # Fasd
 alias vim='f -e vim'
+alias code='f -e code'
+alias ls='d -e ls'
+alias open='a -e open'
+alias less='a -e less'
 
 # Git
+alias gwip='ga . && gcam "wip"'
 alias grbm='gfo && grb origin/master'
 alias ga='git add .'
 alias grbmi='gfo && grb -i origin/master'
