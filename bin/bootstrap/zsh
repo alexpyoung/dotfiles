@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
 
-set -o pipefail
+set -euo pipefail
 
 install_ohmyzsh() {
-    if [[ -d ~/.oh-my-zsh ]]; then
+    if [[ -d ~/.oh-my-zsh/.git ]]; then
         return
     else
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -20,9 +20,12 @@ install_spaceship() {
 }
 
 main() {
-    stow --verbose=2 zsh "~"
     install_ohmyzsh
+    rm ~/.zshrc # Stow fails when trying to link to an existing file
+    stow --verbose=2 zsh "~"
     install_spaceship
+
+    set +eu
     # shellcheck disable=SC1091
     source ~/.zshrc
 }
