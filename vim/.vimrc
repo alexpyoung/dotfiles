@@ -50,11 +50,13 @@ call plug#end()
 " Ripgrep
 let g:rg_command="rg --vimgrep -C 2"
 let g:rg_highlight=1
+cnoreabbrev rg Rg
 
 " NERDTree
 cnoreabbrev nt NERDTree
 cnoreabbrev ntc NERDTreeClose
 cnoreabbrev ntr NERDTreeVCS
+cnoreabbrev ntf NERDTree %
 
 let g:NERDTreeShowHidden=1
 let g:NERDTreeNodeDelimiter="\u00a0"
