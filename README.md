@@ -17,6 +17,7 @@
 ## Existing Machine
 - [ ] `bin/update/brew`
 - [ ] `bin/update/vim`
+- [ ] `bin/update/cron`
 
 ## Resources
 - [Generating a new SSH key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
