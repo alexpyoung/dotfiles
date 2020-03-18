@@ -3,6 +3,7 @@
 source ~/.exports
 source ~/.spaceship
 
+# zhelp|zalias PLUGIN_NAME
 plugins=(
   brew
   bundler
