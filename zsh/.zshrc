@@ -29,8 +29,6 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-eval "$(fasd --init auto)"
-
 eval "$(nodenv init -)"
 eval "$(pyenv init -)"
 eval "$(rbenv init -)"

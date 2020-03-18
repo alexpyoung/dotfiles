@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-# Fasd
-alias fe='f -e'
-alias de='d -e'
-alias ae='a -e'
-
 # Git
 alias gwip='ga . && gcam "wip"'
 alias grbm='gfo && grb origin/master'
