@@ -1,13 +1,15 @@
+#!/usr/bin/env zsh
+
 sshotgun() {
-    dusty scripts sshotgun sshotgun -r $1 -e $2
+    dusty scripts sshotgun sshotgun -r "$1" -e "$2"
 }
 
 # SSH Aliases
 gcssh() {
     if [[ $# -eq 3 ]]; then
-        ssh $(awsprey list $1:$2 | grep -i $3 | sort -R | head -n1)
+        ssh "$(awsprey list "$1":"$2" | grep -i "$3" | sort -R | head -n1)"
     else
-        ssh $(awsprey list $1:$2 | sort -R | head -n1)
+        ssh "$(awsprey list "$1":"$2" | sort -R | head -n1)"
     fi
 }
 
@@ -32,8 +34,8 @@ alias evald='eval $(docker-machine env dusty)'
 function redshift() {
     psql() {
         local -r IP_ADDRESS="$1"
-        docker-machine env dusty > /tmp/denv \
-            && source /tmp/denv \
+        # shellcheck disable=SC1091
+        docker-machine env dusty > /tmp/denv && source /tmp/denv \
             && docker run -ti --rm postgres psql -h "$IP_ADDRESS" -p 5439 -U alex_young -d insights
     }
 
@@ -55,7 +57,7 @@ alias papi='psql -h papi-prod.crzmm8cpdhmt.us-east-1.rds.amazonaws.com -U gamech
 export PGPASSWORD=0Ltli9BFuvROxbgU8AqDyrJtLIDCyvOFRrpLjEHWUtfjh0ZgTt
 
 gc_dir_decorator() {
-    cd ~/gc/$1
+    cd ~/gc/"$1" || return 1
     echo 'Fetching origin...' && gfo
     gst
     g --no-pager diff --stat origin/master

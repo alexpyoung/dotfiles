@@ -1,27 +1,29 @@
+#!/usr/bin/env zsh
+
 alias mbqlog='open https://papertrailapp.com/systems/`curl -s -H "X-Papertrail-Token: $PAPERTRAIL_API_TOKEN" https://papertrailapp.com/api/v1/groups.json | jq -r ".[0].systems | map(.name) | .[]" | fzf`/events'
 alias mbqtail='curl -s -H "X-Papertrail-Token: $PAPERTRAIL_API_TOKEN" https://papertrailapp.com/api/v1/groups.json | jq -r ".[0].systems | map(.name) | .[]" | fzf | xargs papertrail -f -s'
 alias cpnpm='cat ~/.npmrc | cut -d= -f2'
 
 mbqclone() {
-    cd ~/q
-    if [[ -d $1 ]]; then
-        cd $1
+    cd ~/q || return 1
+    if [[ -d "$1" ]]; then
+        cd "$1" || return 1
         grbm
     else
         git clone "git@github.com:managedbyq/$1.git"
-        cd $1
+        cd "$1" || return 1
     fi
 }
 mbqssh() {
     local -r RACK=$(convox racks | tail -n +2 | grep running | cut -d/ -f2 | cut -d" " -f1 | fzf)
-    local -r APP=$(convox apps -r $RACK | tail -n +2 | grep running | cut -d" " -f1 | fzf)
-    local -r SERVICE=$(convox services -r $RACK -a $APP | tail -n +2 | cut -d" " -f1 | fzf)
+    local -r APP=$(convox apps -r "$RACK" | tail -n +2 | grep running | cut -d" " -f1 | fzf)
+    local -r SERVICE=$(convox services -r "$RACK" -a "$APP" | tail -n +2 | cut -d" " -f1 | fzf)
     printf "%s\n" "SSHing into $APP $SERVICE..."
-    convox run $SERVICE bash -r $RACK -a $APP
+    convox run "$SERVICE" bash -r "$RACK" -a "$APP"
 }
 
 mbq_dir_decorator() {
-    cd ~/q/$1
+    cd ~/q/"$1" || return 1
     echo 'Fetching origin...' && gfo
     gst
     g --no-pager diff --stat origin/master
@@ -47,7 +49,7 @@ alias oscore='mbq_dir_decorator os-core'
 alias ptrd='mbq_dir_decorator partner-dashboard'
 
 hivyup() {
-    cd ~/q/hivy
+    cd ~/q/hivy || return 1
     grbm
     mbq op sync
     dkc build
@@ -58,7 +60,7 @@ hivyup() {
 }
 
 oscup() {
-    cd ~/q/os-core
+    cd ~/q/os-core || return 1
     grbm
     mbq op sync
     dkc build
@@ -69,7 +71,7 @@ oscup() {
 }
 
 cdup() {
-    cd ~/q/client-dashboard
+    cd ~/q/client-dashboard || return 1
     grbm
     mbq op sync
     dkc build
@@ -78,7 +80,7 @@ cdup() {
 }
 
 irisup() {
-    cd ~/q/iris
+    cd ~/q/iris || return 1
     grbm
     mbq op sync
     dkc build
