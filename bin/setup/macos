@@ -139,7 +139,7 @@ function expensive() {
   sudo softwareupdate --download --background
 
   xcode-select --install || true
-  sudo xcodebuild -license
+  sudo xcodebuild -license accept
 
   # Check and enable full-disk encryption.
   sudo fdesetup enable -user "$USER" || true
