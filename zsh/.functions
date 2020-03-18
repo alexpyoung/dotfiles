@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# change browser
+function cb() {
+    open /System/Library/PreferencePanes/Appearance.prefPane
+}
+
 # git
 function gpr() {
     local -r BRANCH="$1"
@@ -64,4 +69,22 @@ function fd() {
     local DIRECTORY
     DIRECTORY=$(find "${1:-.}" -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) &&
     cd "$DIRECTORY" || exit 1
+}
+alias fd=fd # Override oh my zsh
+function fvim() {
+    fe vim $1
+}
+
+# zsh
+function zhelp() {
+    if [[ -d ~/.oh-my-zsh/plugins/$1 ]]; then
+        less ~/.oh-my-zsh/plugins/$1/$1.plugin.zsh
+    elif [[ -d ~/.oh-my-zsh/custom/plugins/$1 ]]; then
+        less ~/.oh-my-zsh/custom/plugins/$1/$1.plugin.zsh
+    else
+        echo "Could not find plugin $1"
+    fi
+}
+function zalias() {
+    zhelp $1 | rg "alias\b"
 }
