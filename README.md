@@ -16,7 +16,6 @@
 
 ## Existing Machine
 - [ ] `bin/update/brew`
-- [ ] `bin/update/vim`
 - [ ] `bin/update/cron`
 
 ## Resources
