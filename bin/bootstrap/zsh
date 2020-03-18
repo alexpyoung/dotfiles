@@ -20,11 +20,19 @@ install_spaceship() {
     fi
 }
 
+install_syntax_highlighting() {
+    local -r DIR=~/.oh-my-zsh/plugins/zsh-syntax-highlighting
+    if [[ ! -d $DIR ]]; then
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
+    fi
+}
+
 main() {
     install_ohmyzsh
     rm ~/.zshrc # Stow fails when trying to link to an existing file
     stow --verbose=2 zsh "~"
     install_spaceship
+    install_syntax_highlighting
 
     set +eu
     # shellcheck disable=SC1091
