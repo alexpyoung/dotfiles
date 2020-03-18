@@ -1,9 +1,7 @@
 #!/usr/bin/env zsh
 
-pushd ~ > /dev/null
-source .exports
-source .spaceship
-popd > /dev/null
+source ~/.exports
+source ~/.spaceship
 
 plugins=(
   brew
@@ -37,7 +35,5 @@ eval "$(nodenv init -)"
 eval "$(pyenv init -)"
 eval "$(rbenv init -)"
 
-pushd ~ > /dev/null
-source .aliases
-source .functions
-popd > /dev/null
+source ~/.aliases
+source ~/.functions
