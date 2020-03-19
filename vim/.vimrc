@@ -63,17 +63,15 @@ let g:NERDTreeNodeDelimiter="\u00a0"
 let g:NERDTreeShowLineNumbers=1
 let g:NERDTreeWinSize=50
 
-function! StartUp()
-    if 0 == argc()
-        NERDTree
-    end
-endfunction
-
-" open NERDTree if vim is invoked with no file
-autocmd VimEnter * call StartUp()
-
 " FZF
 cnoreabbrev f FZF!
+function! StartUp()
+    if 0 == argc()
+        FZF!
+    end
+endfunction
+" open fzf if vim is invoked with no file
+autocmd VimEnter * call StartUp()
 
 " Quick directories
 cnoreabbrev cd cd ~/q/
