@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
+# fzf
+alias h='$(history | fzf | cut -c8-)'
+alias l='ls -hAlF | fzf'
 # Git
-alias gwip='ga . && gcam "wip"'
 alias grbm='gfo && grb origin/master'
 alias ga='git add .'
+alias gwip='ga && gcm "wip"'
+alias gcommit='ga && gc'
 alias grbmi='gfo && grb -i origin/master'
-alias gast='ga && git stash'
+alias gstash='ga && git stash'
 alias gdsg='gd --staged'
 alias gdst='echo $(gd --stat) && echo $(gd --numstat)'
 alias gh='github ./'
@@ -16,7 +20,7 @@ alias gpg-long='gpg --list-secret-keys --keyid-format LONG'
 
 # Misc
 alias xc='open *.xcworkspace([1])'
-alias h='history'
+
 alias snip='pet search | pbcopy'
 alias spd='speedtest-cli'
 
