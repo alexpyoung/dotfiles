@@ -73,7 +73,7 @@ endfunction
 autocmd VimEnter * call StartUp()
 
 " FZF
-cnoreabbrev f Files
+cnoreabbrev f FZF!
 
 " Quick directories
 cnoreabbrev cd cd ~/q/
