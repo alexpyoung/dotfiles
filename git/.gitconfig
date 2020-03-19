@@ -1,16 +1,32 @@
-# This is Git's per-user configuration file.
+# https://git-scm.com/docs/git-config
 [user]
-	name = Alex Young
-	email = alexyoung1992@gmail.com
-	signingkey = 8A6C87FB61C12484
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-[gpg]
-	program = gpg
+    name = Alex Young
+    email = alexyoung1992@gmail.com
+    signingkey = 8A6C87FB61C12484
+[alias]
+    aliases = !git config --get-regexp alias | cut -d. -f2 | cut -d' ' -f1 | grep -v aliases
+    back = reset --soft HEAD~1
+    fixup = commit --amend -a
+    reword = commit --amend
+    rmtag = push --delete origin
+    tree = log --graph --date=relative --pretty=tformat:'%Cgreen%h%Creset -%C(auto)%d%Creset %s %Cblue(%an %ad)%Creset'
+    undo = reset --hard HEAD~1
+    untrack = rm --cache --
 [commit]
-	gpgsign = true
+    gpgsign = true
 [core]
-	excludesfile = ~/.gitignore
+    excludesfile = ~/.gitignore
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    process = git-lfs filter-process
+    required = true
+    smudge = git-lfs smudge -- %f
+[merge]
+    ff = only
+[push]
+    followTags = true
+[status]
+    showUntrackedFiles = all
+[tag]
+    # Sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0.
+    sort = version:refname
