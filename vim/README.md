@@ -8,9 +8,10 @@
 - https://codeincomplete.com/posts/split-windows-and-tabs-in-vim/
 
 ### What else?
-- Shell: `:!COMMAND`
-- Syntax: `:set syntax=swift`
+- Multicursor: `Ctrl-N`
 - Redo: `Ctrl-R`
-- Replace: 
+- Replace:
    - Global: `:%s/foo/bar/g`
    - Range: `:5,12s/foo/bar/g`
+- Shell: `:!COMMAND`
+- Syntax: `:set syntax=swift`

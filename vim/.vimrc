@@ -35,10 +35,13 @@ Plug '/usr/local/opt/fzf' " Homebrew installation
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
 
-" Git
-Plug 'tpope/vim-fugitive'
+" Editor
+Plug 'terryma/vim-multiple-cursors'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-surround'
 
 " Syntax
+Plug 'luochen1990/rainbow'
 Plug 'vim-scripts/SyntaxComplete'
 
 " TypeScript
