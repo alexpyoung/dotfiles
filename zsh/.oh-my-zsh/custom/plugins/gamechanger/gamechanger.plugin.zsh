@@ -17,13 +17,6 @@ alias ssh-cron='ssh $(awsprey list cron:production)'
 
 # Dusty Aliases
 alias gruntweb='dusty scripts gcweb grunt'
-alias ds='dusty scripts'
-alias dl='dusty logs'
-alias du='dusty up'
-alias dr='dusty restart'
-alias dt='dusty test'
-alias dsu='dusty shutdown && dusty up'
-alias d='dusty'
 alias dquerysh='dusty scripts querysh querysh'
 alias dsshotgun=sshotgun
 
