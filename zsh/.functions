@@ -49,6 +49,9 @@ function gpg-git() {
 }
 
 # fzf
+function rgvim() {
+    rg $1 | fzf | cut -d':' -f1 | xargs -o vim
+}
 function fe() {
     local EDITOR
     local QUERY
@@ -56,7 +59,7 @@ function fe() {
         EDITOR=$1
         QUERY=$2
     else
-        EDITOR=open
+        EDITOR=vim
         QUERY=$1
     fi
     local FILES
@@ -65,14 +68,10 @@ function fe() {
     # shellcheck disable=SC2128
     [[ -n $FILES ]] && ${EDITOR:-$EDITOR} "${FILES[@]}"
 }
-function fd() {
+function fzcd() {
     local DIRECTORY
     DIRECTORY=$(find "${1:-.}" -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) &&
     cd "$DIRECTORY" || exit 1
-}
-alias fd=fd # Override oh my zsh
-function fvim() {
-    fe vim $1
 }
 
 # zsh
