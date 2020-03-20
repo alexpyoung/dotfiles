@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+function dot() {
+    pushd ~/dotfiles
+    vim
+}
+
 # change browser
 function cb() {
     open /System/Library/PreferencePanes/Appearance.prefPane
