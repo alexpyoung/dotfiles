@@ -8,6 +8,7 @@
     back = reset --soft HEAD~
     fixup = commit --amend -a
     force = push --force
+    nuke = reset --hard HEAD
     reword = commit --amend
     rmtag = push --delete origin
     tree = log --graph --date=relative --pretty=tformat:'%Cgreen%h%Creset -%C(auto)%d%Creset %s %Cblue(%an %ad)%Creset'
