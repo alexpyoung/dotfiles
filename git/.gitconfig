@@ -1,34 +1,99 @@
 # https://git-scm.com/docs/git-config
 [user]
-    name = Alex Young
-    email = alexyoung1992@gmail.com
-    signingkey = 8A6C87FB61C12484
+  name = Alex Young
+  email = alexyoung1992@gmail.com
+  signingkey = 8A6C87FB61C12484
 [alias]
-    aliases = !git config --get-regexp alias | cut -d. -f2 | cut -d' ' -f1 | grep -v aliases
-    back = reset --soft HEAD~
-    fixup = commit --amend -a
-    force = push --force
-    nuke = reset --hard HEAD
-    reword = commit --amend
-    rmtag = push --delete origin
-    tree = log --graph --date=relative --pretty=tformat:'%Cgreen%h%Creset -%C(auto)%d%Creset %s %Cblue(%an %ad)%Creset'
-    undo = reset --hard HEAD~
-    untrack = rm --cache --
+  aliases = !git config --get-regexp alias | cut -d. -f2 | cut -d' ' -f1 | grep -v aliases
+
+  # Working
+  a = add .
+  c = commit
+  rb = rebase
+  back = reset --soft HEAD~
+  undo = reset --hard HEAD~
+  clear = reset --hard HEAD
+  save = !git a && git c
+  isave = !git reset && git add -p && git c
+  fixup = commit --amend -a
+  wip = !git a && git c -m "wip"
+  store = a && git stash
+  untrack = rm --cache --
+
+  # Diff
+  d = diff
+  dsg = diff --staged
+  changes = !git --no-pager diff --stat HEAD
+  origin-diff = !git fo && git diff origin/master HEAD
+
+  # Rebase
+  rbm = !git fo && git rebase origin/master
+  rbmi = !git fo && git rebase -i origin/master
+  rbn = !git a && git rebase --continue
+
+  # Remote
+  force = push --force
+  fo = fetch origin --tags
+  publish = !git branch-name | xargs git push --set-upstream origin
+  x = "!f() {\
+    git fetch origin\
+    for branch in $(git --no-pager branch | grep -v master); do\
+      echo "Attempting delete with -d"\
+      if git branch -d "$branch" 2>/dev/null; then\
+        return\
+      else\
+        git ls-remote --exit-code --heads origin "$branch"\
+        if [[ $? -eq 2 ]]; then\
+        echo "Force deleting"\
+        git branch -D "$branch"\
+        fi\
+      fi\
+    done\
+  }; f"
+
+  # Info
+  st = status
+  last = show HEAD
+  branch-name = rev-parse --abbrev-ref HEAD
+  tree = log --graph --date=relative --pretty=tree
+  stat = !git --no-pager diff --stat && git --no-pager diff --numstat
+  diff-log = !git log --oneline | fzf | cut -d' ' -f1 | xargs -I _ git log --oneline --pretty=diff _..HEAD | sed -e 's/^/- /'
+
+  # Tagging
+  t = "!f() {\
+    git tag "$1"\
+    git push origin :refs/tags/"$1"\
+  }; f"
+  untag = "!f() {\
+    git tag -d "$1"\
+    git push origin :refs/tags/"$1"\
+  }; f"
 [commit]
-    gpgsign = true
+  gpgsign = true
 [core]
-    excludesfile = ~/.gitignore
+  excludesfile = ~/.gitignore
+[fetch]
+  prune = true
 [filter "lfs"]
-    clean = git-lfs clean -- %f
-    process = git-lfs filter-process
-    required = true
-    smudge = git-lfs smudge -- %f
+  clean = git-lfs clean -- %f
+  process = git-lfs filter-process
+  required = true
+  smudge = git-lfs smudge -- %f
+[help]
+  autocorrect = 1
 [merge]
-    ff = only
+  ff = only
+[pager]
+  diff = diff-so-fancy | less --tabs=2 -RFX
+  show = diff-so-fancy | less --tabs=2 -RFX
 [push]
-    followTags = true
+  followTags = true
+[pretty]
+  tree = "%Cgreen%h%Creset -%C(auto)%d%Creset %s %Cblue(%an %ad)%Creset"
+  diff = "[%h] %s (%aN)"
 [status]
-    showUntrackedFiles = all
+  showUntrackedFiles = all
 [tag]
-    # Sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0.
-    sort = version:refname
+  # Sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0.
+  sort = version:refname
+

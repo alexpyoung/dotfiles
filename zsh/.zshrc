@@ -11,7 +11,6 @@ plugins=(
   docker
   docker-compose
   gamechanger
-  git
   git-auto-fetch
   mbq
   ripgrep

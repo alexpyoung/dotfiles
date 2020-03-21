@@ -1,29 +1,17 @@
 #!/usr/bin/env bash
 
-# fzf
 alias h='$(history | fzf | cut -c8-)'
 alias l='ls -hAlF | fzf'
-# Git
-alias grbm='gfo && grb origin/master'
-alias ga='git add .'
-alias gwip='ga && gcm "wip"'
-alias gcommit='ga && gc'
-alias grbmi='gfo && grb -i origin/master'
-alias gstash='ga && git stash'
-alias gdsg='gd --staged'
-alias gdst='echo $(gd --stat) && echo $(gd --numstat)'
+
+alias g=git
 alias gh='github ./'
 
-# GPG
+alias dk=docker
+alias dkc=docker-compose
+
 alias gpg-new='gpg --full-generate-key'
 alias gpg-long='gpg --list-secret-keys --keyid-format LONG'
 
-# Misc
 alias xc='open *.xcworkspace([1])'
-
 alias snip='pet search | pbcopy'
 alias spd='speedtest-cli'
-
-# Docker
-alias dk=docker
-alias dkc=docker-compose
