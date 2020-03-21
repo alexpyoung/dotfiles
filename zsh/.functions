@@ -28,10 +28,6 @@ function gpg-rm() {
     gpg --delete-secret-key "$1"
     gpg --delete-key "$1"
 }
-# Set the gpg key of the provided ID as the Git key for verified commits
-function gpg-git() {
-    gpg-id "$1" | xargs git config --global user.signingkey
-}
 
 # fzf
 function rgvim() {

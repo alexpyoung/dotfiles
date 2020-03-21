@@ -8,13 +8,27 @@ import_secret_key() {
     echo -e "$(op get item "$UUID" | jq -r '.details.password')" | gpg --batch --passphrase "$GPG_PASSPHRASE" --import
 }
 
+configure_signing_key() {
+    gpg --list-secret-keys --keyid-format LONG\
+        | grep -B 2 "$1"\
+        | head -n1\
+        | cut -d/ -f2\
+        | cut -d' ' -f1\
+        | xargs git config --file ~/.gitconfig.local user.signingkey
+}
+
 # batch mode:
+# export GIT_EMAIL=...
 # export GPG_PASSPHRASE=...
 # export OP_SECRET_KEY=...
 main() {
     stow --verbose=2 git
-    eval "$(op signin my "$(git config user.email)" "$OP_SECRET_KEY")"
+    [[ -z $GIT_EMAIL ]] && read -s -r -p "Enter git email: " GIT_EMAIL
+    git config --file ~/.gitconfig.local user.email "$GIT_EMAIL"
+    local -r TOKEN=$(op signin my "$GIT_EMAIL" "$OP_SECRET_KEY")
+    eval "$TOKEN"
     import_secret_key
+    configure_signing_key "$GIT_EMAIL"
 }
 
 main
