@@ -6,16 +6,13 @@ source ~/.spaceship
 # zhelp|zalias PLUGIN_NAME
 plugins=(
   brew
-  bundler
   colored-man-pages
   command-not-found
   docker
   docker-compose
   gamechanger
   git
-  git-extras
   git-auto-fetch
-  heroku
   mbq
   ripgrep
   zsh-interactive-cd
