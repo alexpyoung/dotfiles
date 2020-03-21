@@ -11,6 +11,11 @@ function cb() {
 }
 
 # git
+# Interactive log diff with Markdown-friendly output
+function gdlog() {
+    local -r SHA=$(git log --oneline | fzf | cut -d' ' -f1)
+    git log --oneline --pretty=format:'[%h] %s (%aN)' $SHA..HEAD | sed -e 's/^/- /'
+}
 function gpr() {
     local -r BRANCH="$1"
     g --no-pager diff --stat "$BRANCH"
@@ -49,6 +54,7 @@ function gpg-rm() {
     gpg --delete-secret-key "$1"
     gpg --delete-key "$1"
 }
+# Set the gpg key of the provided ID as the Git key for verified commits
 function gpg-git() {
     gpg-id "$1" | xargs git config --global user.signingkey
 }
