@@ -1,8 +1,8 @@
 # https://git-scm.com/docs/git-config
+[include]
+  path = ~/.gitconfig.local
 [user]
   name = Alex Young
-  email = alexyoung1992@gmail.com
-  signingkey = 8A6C87FB61C12484
 [alias]
   aliases = !git config --get-regexp alias | cut -d. -f2 | cut -d' ' -f1 | grep -v aliases
 

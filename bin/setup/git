@@ -13,7 +13,7 @@ import_secret_key() {
 # export OP_SECRET_KEY=...
 main() {
     stow --verbose=2 git
-    eval "$(op signin my alexyoung1992@gmail.com "$OP_SECRET_KEY")"
+    eval "$(op signin my "$(git config user.email)" "$OP_SECRET_KEY")"
     import_secret_key
 }
 
