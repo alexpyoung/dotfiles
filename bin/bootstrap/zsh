@@ -26,7 +26,7 @@ install_syntax_highlighting() {
 main() {
     install_ohmyzsh
     rm -f ~/.zshrc # Stow fails when trying to link to an existing file
-    stow --verbose=2 zsh runtimes "~"
+    stow --verbose=2 zsh runtimes
     install_spaceship
     install_syntax_highlighting
 

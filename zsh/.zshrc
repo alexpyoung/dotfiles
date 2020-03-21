@@ -18,7 +18,6 @@ plugins=(
   heroku
   mbq
   ripgrep
-  tmux
   zsh-interactive-cd
   zsh_reload
   zsh-syntax-highlighting

@@ -24,13 +24,6 @@ alias xc='open *.xcworkspace([1])'
 alias snip='pet search | pbcopy'
 alias spd='speedtest-cli'
 
-# Tmux
-alias ta='tmux attach -t'
-alias tn='tmux new-session -s'
-alias tls='tmux list-sessions'
-alias tk9='tmux kill-server'
-alias tks='tmux kill-session -t'
-
 # Docker
 alias dk=docker
 alias dkc=docker-compose
