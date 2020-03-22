@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+    git tag $1
+    git push origin tags/$1
+}
+
+main $@

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+    git fo
+    for BRANCH in $(git branch | grep -v master); do
+        echo "Attempting to delete branch with -d"
+        if ! git branch -d "$BRANCH" 2> /dev/null; then
+            git ls-remote --exit-code --heads origin "$BRANCH"
+            if [[ $? -eq 2 ]]; then
+                echo "Force deleting"
+                git branch -D "$BRANCH"
+            fi
+        fi
+    done
+}
+
+main

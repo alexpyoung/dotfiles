@@ -10,6 +10,7 @@ function cb() {
     open /System/Library/PreferencePanes/Appearance.prefPane
 }
 
+
 # gpg
 function gpg-id() {
     gpg-long | grep -B 2 "$1" | head -n1 | cut -d/ -f2 | cut -d' ' -f1

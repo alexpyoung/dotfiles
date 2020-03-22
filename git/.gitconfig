@@ -4,70 +4,44 @@
 [user]
   name = Alex Young
 [alias]
-  aliases = !git config --get-regexp alias | cut -d. -f2 | cut -d' ' -f1 | grep -v aliases
-
   # Working
-  a = add .
+  a = !git add --intent-to-add . && git add -p
   c = commit
-  rb = rebase
   back = reset --soft HEAD~
   undo = reset --hard HEAD~
   clear = reset --hard HEAD
-  save = !git a && git c
-  isave = !git reset && git add -p && git c
-  fixup = commit --amend -a
+  save = !git reset && git a && git c
+  fixup = !git a && git c --amend
   wip = !git a && git c -m "wip"
-  store = a && git stash
+  store = !git a && git stash
   untrack = rm --cache --
 
   # Diff
   d = diff
   dsg = diff --staged
-  changes = !git --no-pager diff --stat HEAD
-  origin-diff = !git fo && git diff origin/master HEAD
+  odm = !git fo && git diff origin/master HEAD
 
   # Rebase
+  rb = rebase
+  rbi = rebase -i
   rbm = !git fo && git rebase origin/master
   rbmi = !git fo && git rebase -i origin/master
-  rbn = !git a && git rebase --continue
+  rbc = !git a && git rebase --continue
 
   # Remote
+  p = push
   force = push --force
   fo = fetch origin --tags
   publish = !git branch-name | xargs git push --set-upstream origin
-  x = "!f() {\
-    git fetch origin\
-    for branch in $(git --no-pager branch | grep -v master); do\
-      echo "Attempting delete with -d"\
-      if git branch -d "$branch" 2>/dev/null; then\
-        return\
-      else\
-        git ls-remote --exit-code --heads origin "$branch"\
-        if [[ $? -eq 2 ]]; then\
-        echo "Force deleting"\
-        git branch -D "$branch"\
-        fi\
-      fi\
-    done\
-  }; f"
 
   # Info
   st = status
   last = show HEAD
-  branch-name = rev-parse --abbrev-ref HEAD
+  brn = rev-parse --abbrev-ref HEAD
   tree = log --graph --date=relative --pretty=tree
   stat = !git --no-pager diff --stat && git --no-pager diff --numstat
-  diff-log = !git log --oneline | fzf | cut -d' ' -f1 | xargs -I _ git log --oneline --pretty=diff _..HEAD | sed -e 's/^/- /'
-
-  # Tagging
-  t = "!f() {\
-    git tag "$1"\
-    git push origin :refs/tags/"$1"\
-  }; f"
-  untag = "!f() {\
-    git tag -d "$1"\
-    git push origin :refs/tags/"$1"\
-  }; f"
+  lol = log --oneline
+  lgd = !git lol --pretty=diff $(git lol | fzf | cut -d' ' -f1)..HEAD | sed -e 's/^/- /'
 [commit]
   gpgsign = true
 [core]
@@ -86,12 +60,25 @@
 [pager]
   diff = diff-so-fancy | less --tabs=2 -RFX
   show = diff-so-fancy | less --tabs=2 -RFX
+[pull]
+  rebase = true
+  ff = only
 [push]
   followTags = true
+  current = true
 [pretty]
   tree = "%Cgreen%h%Creset -%C(auto)%d%Creset %s %Cblue(%an %ad)%Creset"
   diff = "[%h] %s (%aN)"
+[rebase]
+  autoStash = true
+  stat = true
+[rerere]
+  enabled = true
+  autoUpdate = true
+[stash]
+  showStat = false
 [status]
+  showStash = true
   showUntrackedFiles = all
 [tag]
   # Sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0.
