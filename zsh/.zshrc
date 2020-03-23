@@ -22,7 +22,7 @@ plugins=(
 # Added by TravisCI gem
 [[ -f $HOME/.travis/travis.sh ]] && source $HOME/.travis/travis.sh
 
-source $ZSH/oh-my-zsh.sh
+source $HOME/.oh-my-zsh/oh-my-zsh.sh
 
 eval "$(nodenv init -)"
 eval "$(pyenv init -)"

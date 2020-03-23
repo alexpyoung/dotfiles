@@ -1,2 +1,4 @@
-*/60 * * * * rm -f "$HOME"/Desktop/Screen\ Shot*
-*/60 * * * * pushd "$HOME"/Downloads/ && rm -rf *.gif *.mkv *.mp4 *.dmg && popd
+0 10 * * * brew update && brew cleanup &> /var/log/cron.log
+0 10 * * * tldr --update &> /var/log/cron.log
+*/60 * * * * rm -f "$HOME"/Desktop/Screen\ Shot* &> /var/log/cron.log
+*/60 * * * * pushd "$HOME"/Downloads/ && rm -rf *.gif *.mkv *.mp4 *.dmg && popd &> /var/log/cron.log
