@@ -7,7 +7,15 @@ main() {
     git config --get-regexp alias\
         | cut -d. -f2\
         | sed -e 's/!f.*/[function]/'\
-        | awk '{ printf "\033[0;36m%-10s\033[0m", $1} { $1=""; printf "%-40s\n", $0}'
+        | awk '{ printf "\033[0;36m%-10s\033[0m", $1 } { $1=""; printf "%-40s\n", $0 }'
+    # awk:
+    # \033[0;36m - cyan
+    # %-10s - max width = 10 columns
+    # \033[0m - reset color
+    # $1 - print 0th column
+    # $1=""; - do not print 0th column
+    # %-40s - max width = 40 columns
+    # $0 - print row
 }
 
 main
