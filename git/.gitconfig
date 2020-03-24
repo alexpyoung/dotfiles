@@ -5,7 +5,7 @@
   name = Alex Young
 [alias]
   # Working
-  a = !git add --intent-to-add . && git add -p
+  a = !git add -N . && git add -p
   c = commit
   back = reset --soft HEAD~
   undo = reset --hard HEAD~
@@ -16,8 +16,12 @@
   store = !git a && git stash
   untrack = rm --cache --
 
+  # Checkout
+  co = checkout
+  cob = checkout -b
+
   # Diff
-  d = diff
+  d = !git add -N && git diff
   dsg = diff --staged
   odm = !git fo && git diff origin/master HEAD
 
@@ -32,7 +36,7 @@
   p = push
   force = push --force
   fo = fetch origin --tags
-  publish = !git branch-name | xargs git push --set-upstream origin
+  publish = !git brn | xargs git push --set-upstream origin
 
   # Info
   st = status

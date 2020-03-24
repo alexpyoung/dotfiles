@@ -2,18 +2,18 @@
 
 set -euo pipefail
 
-main() {
-    git fo
-    for BRANCH in $(git branch | grep -v master); do
-        echo "Attempting to delete branch with -d"
-        if ! git branch -d "$BRANCH" 2> /dev/null; then
-            git ls-remote --exit-code --heads origin "$BRANCH"
-            if [[ $? -eq 2 ]]; then
-                echo "Force deleting"
-                git branch -D "$BRANCH"
-            fi
+# Delete local branches who are tracking deleted upstream branches
+git fo
+for BRANCH in $(git branch | grep -v master); do
+    echo "Attempting to delete $BRANCH with -d"
+    if ! git branch -d "$BRANCH" 2> /dev/null; then
+        if git branch -r | grep $BRANCH; then
+            echo "Skipping $BRANCH because remote still exists"
+        elif [[ $(git branch -a | grep $BRANCH | wc -l) =~ 1 ]]; then
+            echo "Skipping $BRANCH due to no tracking branches"
+        elif ! git ls-remote --exit-code --heads origin "$BRANCH"; then
+            echo "Remote branch has been deleted, force deleting $BRANCH"
+            git branch -D "$BRANCH"
         fi
-    done
-}
-
-main
+    fi
+done
