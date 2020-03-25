@@ -52,9 +52,10 @@ call plug#end()
 cnoreabbrev ss set syntax=
 
 " Ripgrep
-let g:rg_command="rg --vimgrep -C 2"
+let g:rg_command='rg --hidden --vimgrep --glob !.git'
 let g:rg_highlight=1
 cnoreabbrev rg Rg
+cnoreabbrev rgc cclose
 
 " NERDTree
 cnoreabbrev nt NERDTree
