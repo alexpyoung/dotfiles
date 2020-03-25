@@ -15,15 +15,18 @@
   wip = !git a && git c -m "wip"
   store = !git a && git stash
   untrack = rm --cache --
+  dbrm = !git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d
 
   # Checkout
   co = checkout
+  com = checkout master
   cob = checkout -b
+  recent = !git for-each-ref --sort='-committerdate' --format='%(refname)%09%(committerdate:relative)' refs/heads | sed -e 's-refs/heads/--' | fzf | xargs echo | cut -d' ' -f1 | xargs git checkout
 
   # Diff
   d = !git add -N && git diff
   dsg = diff --staged
-  odm = !git fo && git diff origin/master HEAD
+  dom = !git fo && git diff origin/master HEAD
 
   # Rebase
   rb = rebase
@@ -36,16 +39,20 @@
   p = push
   force = push --force
   fo = fetch origin --tags
-  publish = !git brn | xargs git push --set-upstream origin
+  publish = !git name | xargs git push --set-upstream origin
+  tg = "!f() { git tag $1; git push origin tags/$1; }; f"
+  untag = "!f() { git tag -d $1; git push origin :refs/tags/$1; }; f"
 
   # Info
   st = status
   last = show HEAD
-  brn = rev-parse --abbrev-ref HEAD
+  name = rev-parse --abbrev-ref HEAD
   tree = log --graph --date=relative --pretty=tree
   stat = !git --no-pager diff --stat && git --no-pager diff --numstat
-  lol = log --oneline
-  lgd = !git lol --pretty=diff $(git lol | fzf | cut -d' ' -f1)..HEAD | sed -e 's/^/- /'
+  log-diff = !git log --oneline | fzf | cut -d' ' -f1 | xargs -I _ git log --oneline --pretty=diff _..HEAD | sed -e 's/^/- /'
+  users = shortlog --summary --numbered
+[branch]
+  autoSetupRebase = always
 [commit]
   gpgsign = true
 [core]

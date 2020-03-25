@@ -5,8 +5,8 @@ set -euo pipefail
 main() {
     # shellcheck disable=SC2026
     git config --get-regexp alias\
-        | cut -d. -f2\
-        | sed -e 's/!f.*/[function]/'\
+        | cut -c 7-\
+        | sed -e 's/!f() { //' -e 's/}.*//' -e 's/!git//'\
         | awk '{ printf "\033[0;36m%-10s\033[0m", $1 } { $1=""; printf "%-40s\n", $0 }'
     # awk:
     # \033[0;36m - cyan
