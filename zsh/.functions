@@ -10,7 +10,6 @@ function cb() {
     open /System/Library/PreferencePanes/Appearance.prefPane
 }
 
-
 # gpg
 function gpg-id() {
     gpg-long | grep -B 2 "$1" | head -n1 | cut -d/ -f2 | cut -d' ' -f1
@@ -28,6 +27,12 @@ function gpg-import() {
 function gpg-rm() {
     gpg --delete-secret-key "$1"
     gpg --delete-key "$1"
+}
+
+function yqfix() {
+    # booo yq does not support stdin
+    pbpaste > /tmp/yqfix
+    yq --prettyPrint --indent 2 read /tmp/yqfix | pbcopy
 }
 
 # fzf
