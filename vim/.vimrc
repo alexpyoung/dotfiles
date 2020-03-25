@@ -70,14 +70,3 @@ let g:NERDTreeWinSize=50
 
 " FZF
 cnoreabbrev f FZF!
-function! StartUp()
-    if 0 == argc()
-        FZF!
-    end
-endfunction
-" open fzf if vim is invoked with no file
-autocmd VimEnter * call StartUp()
-
-" Quick directories
-cnoreabbrev cd cd ~/q/
-
