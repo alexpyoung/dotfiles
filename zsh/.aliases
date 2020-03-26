@@ -10,7 +10,8 @@ alias dk=docker
 alias dkc=docker-compose
 
 alias gpg-new='gpg --full-generate-key'
-alias gpg-long='gpg --list-secret-keys --keyid-format LONG'
+alias gpg-secret='gpg --list-secret-keys --keyid-format LONG'
+alias gpg-kill='gpgconf --kill gpg-agent'
 
 alias xc='open *.xcworkspace([1])'
 alias snip='pet search | pbcopy'
