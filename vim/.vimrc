@@ -60,8 +60,8 @@ cnoreabbrev rgc cclose
 " NERDTree
 cnoreabbrev nt NERDTree
 cnoreabbrev ntc NERDTreeClose
-cnoreabbrev ntr NERDTreeVCS
-cnoreabbrev ntf NERDTree %
+cnoreabbrev ntr NERDTreeVCS " nearest parent directory containing .git
+cnoreabbrev ntf NERDTree % " parent directory of current buffer
 
 let g:NERDTreeShowHidden=1
 let g:NERDTreeNodeDelimiter="\u00a0"
