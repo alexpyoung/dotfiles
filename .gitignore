@@ -1,3 +1,12 @@
+# Obfuscate PII
 git/.gitconfig.local
+
+# Manage runtimes with :PlugInstall/:PlugUpdate
 vim/.vim/vim-plug/*
+
+# Minimize noise when editing .vimrc
 vim/.vim/.netrwhist
+
+# Manage installations locally
+runtimes/**/versions/*
+runtimes/**/shims/*
