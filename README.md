@@ -21,6 +21,7 @@
 ## Resources
 - [Generating a new SSH key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 - [Writing custom Git commands](https://blog.theodo.com/2017/06/git-game-advanced-git-aliases/)
+- [GNU Stow manual](https://www.gnu.org/software/stow/manual/stow.html)
 - [Colors codes for xterm 256 compatible emulators](https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg)
 
 ## Credits
