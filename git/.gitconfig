@@ -5,18 +5,22 @@
   name = Alex Young
   useConfigOnly = true
 [alias]
+  choose = "!f() { git $(git aliases no-color | fzf | cut -d' ' -f1); }; f"
+
   # Working
   a = !git add --intent-to-add . && git add --patch
   c = commit
+  fixup = !git a && git c --amend
+  wip = !git a && git c --message='wip'
+  untrack = rm --cache --
+  shake = !git branch --merged | grep -v '\\*' | xargs -n 1 git branch --delete
+
+  # Reset
   back = reset --soft HEAD~
   undo = reset --hard HEAD~
   clear = reset --hard HEAD
   save = !git reset && git a && git c
-  fixup = !git a && git c --amend
-  wip = !git a && git c --message='wip'
-  store = !git a && git stash
-  untrack = rm --cache --
-  shake = !git branch --merged | grep -v '\\*' | xargs -n 1 git branch --delete
+  rho = !git fo && git name | xargs -I _ git reset --hard origin/_
 
   # Checkout
   co = checkout
@@ -24,9 +28,14 @@
   cob = checkout -b
   recent = !git for-each-ref --sort='-committerdate' --format='%(refname)%09%(committerdate:relative)' refs/heads | sed -e 's-refs/heads/--' | fzf | xargs echo | cut -d' ' -f1 | xargs git co
 
+  # Stash
+  store = !git a && git stash
+  stp = stash pop
+  sta = stash apply
+
   # Diff
   d = !git add --intent-to-add . && git diff
-  dsg = diff --staged
+  dsg = d --staged
   dom = !git fo && git diff origin/master HEAD
 
   # Rebase
@@ -59,7 +68,7 @@
   gpgsign = true
 [core]
   excludesfile = ~/.gitignore
-	editor = vim
+  editor = vim
 [fetch]
   prune = true
 [filter "lfs"]
