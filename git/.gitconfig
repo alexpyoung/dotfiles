@@ -16,7 +16,7 @@
   shake = !git branch --merged | grep -v '\\*' | xargs -n 1 git branch --delete
 
   # Reset
-  back = reset --soft HEAD~
+  back = !git reset --soft HEAD~ && git reset && git d
   undo = reset --hard HEAD~
   clear = reset --hard HEAD
   save = !git reset && git a && git c
