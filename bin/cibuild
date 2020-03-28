@@ -15,6 +15,9 @@ main() {
     check zsh/.aliases zsh/.exports zsh/.functions
     check zsh/.oh-my-zsh/custom/plugins/**/*.zsh
     popd > /dev/null
+    local -r GREEN='\033[0;32m'
+    local -r RESET='\033[0m'
+    printf "${GREEN}✔︎${RESET} shellcheck passed\n"
 }
 
 main
