@@ -18,5 +18,5 @@ alias snip='pet search | pbcopy'
 alias spd='speedtest-cli'
 alias path='echo $PATH | tr ":" "\n"'
 alias jqfix='pbpaste | jq . | pbcopy'
-alias shrug="echo '¯\_(ツ)_/¯' | pbcopy"
-alias tflip="echo '(╯°□°)╯︵ ┻━┻' | pbcopy"
+alias shrug='echo "¯\_(ツ)_/¯" | pbcopy'
+alias tflip='echo "(╯°□°)╯︵ ┻━┻" | pbcopy'
