@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+bindkey -v
+
 source ~/.exports
 source ~/.spaceship
 
