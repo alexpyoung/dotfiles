@@ -5,7 +5,7 @@
   name = Alex Young
   useConfigOnly = true
 [alias]
-  choose = "!f() { git $(git aliases no-color | fzf | cut -d' ' -f1); }; f"
+  choose = !git $(git aliases no-color | fzf | cut -d' ' -f1)
 
   # Working
   a = !git add --intent-to-add . && git add --patch
@@ -14,7 +14,7 @@
   wip = !git a && git c --message='wip'
   untrack = rm --cache --
   shake = !git branch --merged | grep -v '\\*' | xargs -n 1 git branch --delete
-  edit = "!f() { vim $(git status --short | fzf | cut -c 4-); }; f"
+  edit = !vim $(git status --short | fzf | cut -c 4-)
 
   # Reset
   back = !git reset --soft HEAD~ && git reset && git d
@@ -45,7 +45,7 @@
   rbm = !git fo && git rebase origin/master
   rbmi = !git fo && git rebase --interactive origin/master
   rbc = !git a && git rebase --continue
-  rbfz = "!f() { git rbi $(git tree | fzf | cut -d' ' -f2)~; }; f"
+  rbfz = !git rbi $(git tree | fzf | cut -d' ' -f2)~
 
   # Remote
   p = push
