@@ -36,6 +36,7 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
 
 " Syntax

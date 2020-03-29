@@ -14,3 +14,4 @@
 - https://vim.fandom.com/wiki/Search_and_replace
 - https://vim.fandom.com/wiki/Fix_indentation
 - https://vim.fandom.com/wiki/Undo_and_Redo
+- https://github.com/tpope/vim-eunuch/blob/master/README.markdown
