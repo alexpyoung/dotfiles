@@ -14,6 +14,7 @@
   wip = !git a && git c --message='wip'
   untrack = rm --cache --
   shake = !git branch --merged | grep -v '\\*' | xargs -n 1 git branch --delete
+  edit = "!f() { vim $(git status --short | fzf | cut -c 4-); }; f"
 
   # Reset
   back = !git reset --soft HEAD~ && git reset && git d
