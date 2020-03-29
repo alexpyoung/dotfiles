@@ -8,6 +8,7 @@ set autoindent " take indent for new line from previous line
 set shiftwidth=4 " number of spaces to use for (auto)indent step
 
 set number " print the line number in front of each line
+set noshowmode  " redundant given airline
 set showcmd " show (partial) command in status line
 set wildmenu " use menu for command line completion
 set lazyredraw " don't redraw while executing macros
@@ -21,10 +22,6 @@ set clipboard=unnamed " use the clipboard as the unnamed register
 
 autocmd BufWritePre * %s/\s\+$//e " trim trailing whitespace on save
 
-" Highlight statusline of active window
-hi StatusLine   ctermfg=15  guifg=#ffffff ctermbg=239 guibg=#4e4e4e cterm=bold gui=bold
-hi StatusLineNC ctermfg=249 guifg=#b2b2b2 ctermbg=237 guibg=#3a3a3a cterm=none gui=none
-
 call plug#begin('~/.vim/vim-plug')
 
 " Navigation
@@ -36,6 +33,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
 
 " Editor
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 
@@ -48,6 +47,8 @@ Plug 'HerringtonDarkholme/yats.vim' " syntax highlighting
 Plug 'Quramy/tsuquyomi' " client for TSServer
 
 call plug#end()
+
+let g:airline_theme='dark'
 
 cnoreabbrev ss set syntax=
 
