@@ -31,6 +31,7 @@
 
   # Stash
   store = !git a && git stash
+  stl = stash list
   sts = stash show
   stp = stash pop
   sta = stash apply
@@ -38,13 +39,13 @@
   # Diff
   d = !git add --intent-to-add . && git diff
   dsg = d --staged
-  dom = !git fo && git diff origin/master HEAD
+  dom = !git fo && git d origin/master HEAD
 
   # Rebase
   rb = rebase
   rbi = rebase --interactive
-  rbm = !git fo && git rebase origin/master
-  rbmi = !git fo && git rebase --interactive origin/master
+  rbm = !git fo && git rb origin/master
+  rbmi = !git fo && git rbi origin/master
   rbc = !git a && git rebase --continue
   rbfz = !git rbi $(git tree | fzf | cut -d' ' -f2)~
 
@@ -62,7 +63,7 @@
   name = rev-parse --abbrev-ref HEAD
   tree = log --graph --date=relative --pretty=tree
   stat = !git --no-pager diff --stat && git --no-pager diff --numstat
-  log-diff = !git log --oneline | fzf | cut -d' ' -f1 | xargs -I _ git log --oneline --pretty=diff _..HEAD | sed -e 's/^/- /'
+  changelog = !git log --oneline | fzf | cut -d' ' -f1 | xargs -I _ git log --oneline --pretty=diff _~..HEAD | sed -e 's/^/- /'
   users = shortlog --summary --numbered
 [branch]
   autoSetupRebase = always
