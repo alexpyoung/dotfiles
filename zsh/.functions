@@ -29,6 +29,13 @@ function gpg-rm() {
     gpg --delete-key "$1"
 }
 
+function brew-own() {
+    local -r PREFIX=$(brew --prefix)
+    local -r USER=$(whoami)
+    sudo chown -R $USER $PREFIX/Caskroom
+    sudo chown -R $USER $PREFIX/Cellar
+}
+
 function yqfix() {
     # booo yq does not support stdin
     pbpaste > /tmp/yqfix
