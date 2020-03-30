@@ -4,6 +4,9 @@ git/.gitconfig.local
 # Manage runtimes with :PlugInstall/:PlugUpdate
 vim/.vim/vim-plug/*
 
+# bin/bootstrap/vim
+vim/.vim/autoload
+
 # Minimize noise when editing .vimrc
 vim/.vim/.netrwhist
 
