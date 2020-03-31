@@ -72,6 +72,9 @@
 [core]
   excludesfile = ~/.gitignore
   editor = vim
+[diff "scpt"]
+  textconv = osadecompile
+  binary = true
 [fetch]
   prune = true
 [filter "lfs"]
