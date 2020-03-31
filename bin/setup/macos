@@ -33,7 +33,7 @@ defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 
 function applescripts() {
     local -r ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)/../.."
-    osascript "$ROOT_DIR"/macos/ducky_keyboard.scpt
+    osascript "$ROOT_DIR"/bin/applescript/keyboard.scpt
 }
 applescripts
 
