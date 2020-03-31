@@ -72,7 +72,7 @@
 [core]
   excludesfile = ~/.gitignore
   editor = vim
-[diff "scpt"]
+[diff "applescript"]
   textconv = osadecompile
   binary = true
 [fetch]
