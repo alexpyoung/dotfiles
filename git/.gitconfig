@@ -31,6 +31,7 @@
 
   # Stash
   store = !git a && git stash
+  soon = !git add . && git stash
   stl = stash list
   sts = stash show
   stp = stash pop
