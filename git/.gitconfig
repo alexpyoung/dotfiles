@@ -47,6 +47,7 @@
   rbm = !git fo && git rb origin/master
   rbmi = !git fo && git rbi origin/master
   rbc = !git a && git rebase --continue
+  rba = rebase --abort
   rbfz = !git rbi $(git tree | fzf | cut -d' ' -f2)~
 
   # Remote
