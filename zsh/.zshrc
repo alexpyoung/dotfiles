@@ -12,6 +12,7 @@ plugins=(
   command-not-found
   docker
   docker-compose
+  eden
   gamechanger
   git-auto-fetch
   mbq
