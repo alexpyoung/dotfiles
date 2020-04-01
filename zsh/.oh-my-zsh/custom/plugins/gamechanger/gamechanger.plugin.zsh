@@ -51,8 +51,8 @@ export PGPASSWORD=0Ltli9BFuvROxbgU8AqDyrJtLIDCyvOFRrpLjEHWUtfjh0ZgTt
 
 gc_dir_decorator() {
     cd ~/gc/"$1" || return 1
-    echo 'Fetching origin...' && gfo
-    gst
+    echo 'Fetching origin...' && g fo
+    g st
     g --no-pager diff --stat origin/master
 }
 

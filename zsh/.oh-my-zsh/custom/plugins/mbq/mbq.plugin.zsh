@@ -8,7 +8,7 @@ mbqclone() {
     cd ~/q || return 1
     if [[ -d "$1" ]]; then
         cd "$1" || return 1
-        grbm
+        g rbm
     else
         git clone "git@github.com:managedbyq/$1.git"
         cd "$1" || return 1
@@ -17,8 +17,8 @@ mbqclone() {
 
 mbq_dir_decorator() {
     cd ~/q/"$1" || return 1
-    echo 'Fetching origin...' && gfo
-    gst
+    echo 'Fetching origin...' && g fo
+    g st
     g --no-pager diff --stat origin/master
 }
 
@@ -43,7 +43,7 @@ alias ptrd='mbq_dir_decorator partner-dashboard'
 
 hivyup() {
     cd ~/q/hivy || return 1
-    grbm
+    g rbm
     mbq op sync
     dkc build
     dkc up -d hivy_api
@@ -54,7 +54,7 @@ hivyup() {
 
 oscup() {
     cd ~/q/os-core || return 1
-    grbm
+    g rbm
     mbq op sync
     dkc build
     dkc up -d api
@@ -65,7 +65,7 @@ oscup() {
 
 cdup() {
     cd ~/q/client-dashboard || return 1
-    grbm
+    g rbm
     mbq op sync
     dkc build
     dkc up -d
@@ -74,7 +74,7 @@ cdup() {
 
 irisup() {
     cd ~/q/iris || return 1
-    grbm
+    g rbm
     mbq op sync
     dkc build
     mbq manage migrate
