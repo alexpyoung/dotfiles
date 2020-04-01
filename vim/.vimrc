@@ -35,9 +35,12 @@ Plug 'jremmen/vim-ripgrep'
 " Editor
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
+
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 " Syntax
 Plug 'luochen1990/rainbow'
@@ -72,3 +75,6 @@ let g:NERDTreeWinSize=50
 
 " FZF
 cnoreabbrev f FZF!
+
+" Git
+cnoreabbrev gb Git blame
