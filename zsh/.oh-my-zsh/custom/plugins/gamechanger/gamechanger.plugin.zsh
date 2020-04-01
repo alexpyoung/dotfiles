@@ -57,7 +57,6 @@ gc_dir_decorator() {
 }
 
 # Directory Aliases
-alias eden='gc_dir_decorator eden'
 alias odyssey='gc_dir_decorator odyssey'
 alias gclib='gc_dir_decorator gclib'
 alias gcweb='gc_dir_decorator gcweb'
