@@ -13,6 +13,7 @@ alias gpg-new='gpg --full-generate-key'
 alias gpg-secret='gpg --list-secret-keys --keyid-format LONG'
 alias gpg-kill='gpgconf --kill gpg-agent'
 
+alias size='du -h -d 1'
 alias xc='open *.xcworkspace([1])'
 alias snip='pet search | pbcopy'
 alias spd='speedtest-cli'
