@@ -34,7 +34,6 @@ Plug 'jremmen/vim-ripgrep'
 
 " Editor
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
 
@@ -51,8 +50,6 @@ Plug 'HerringtonDarkholme/yats.vim' " syntax highlighting
 Plug 'Quramy/tsuquyomi' " client for TSServer
 
 call plug#end()
-
-let g:airline_theme='dark'
 
 cnoreabbrev ss set syntax=
 
