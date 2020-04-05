@@ -64,5 +64,6 @@ cask "spotify"
 cask "visual-studio-code"
 cask "vlc"
 cask "xquartz"
+mas "Helium", id: 1054607607
 mas "Kindle", id: 405399194
 mas "Xcode", id: 497799835
