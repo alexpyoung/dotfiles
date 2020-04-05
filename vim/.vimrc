@@ -7,6 +7,7 @@ set expandtab " use spaces when <Tab> is inserted
 set autoindent " take indent for new line from previous line
 set shiftwidth=4 " number of spaces to use for (auto)indent step
 
+set cursorline " highlight line containing cursor
 set number " print the line number in front of each line
 set noshowmode  " redundant given airline
 set showcmd " show (partial) command in status line
