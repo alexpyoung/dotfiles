@@ -5,6 +5,9 @@ import subprocess
 import sys
 
 def main():
+    subprocess.run(["brew", "update"], check=True)
+    subprocess.run(["brew", "upgrade"], check=True)
+    subprocess.run(["brew", "cask", "upgrade"], check=True)
     parent = os.path.dirname(os.path.realpath(__file__))
     brewfile = os.path.realpath(f"{parent}/../../Brewfile")
     subprocess.run([
