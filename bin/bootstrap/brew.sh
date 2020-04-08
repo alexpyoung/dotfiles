@@ -2,21 +2,19 @@
 
 set -euo pipefail
 
+own() {
+    sudo mkdir -p /usr/local/"$1"
+    sudo chown -R "$(whoami)":admin /usr/local/"$1"
+}
+
 install_homebrew() {
-    pushd /usr/local > /dev/null
     # https://github.com/Homebrew/brew/issues/3228
-    sudo mkdir -p homebrew
-    sudo chown -R "$(whoami)":admin homebrew
-    sudo mkdir -p var/homebrew
-    sudo chown -R "$(whoami)":admin var/homebrew
-    if [[ -e homebrew ]]; then
-        echo "Updating homebrew..."
-        brew update
-    else
+    own homebrew
+    own var/homebrew
+    if [[ ! -e /usr/local/homebrew ]]; then
         echo "Installing homebrew..."
         curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
     fi
-    popd > /dev/null
 }
 
 main() {
