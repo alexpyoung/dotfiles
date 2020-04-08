@@ -11,3 +11,5 @@ eden-clone() {
     fi
 }
 
+alias ecr-login='aws ecr get-login-password | docker login --username AWS --password-stdin 779906012886.dkr.ecr.us-west-2.amazonaws.com'
+alias ecr-id='echo "779906012886.dkr.ecr.us-west-2.amazonaws.com" | pbcopy'
