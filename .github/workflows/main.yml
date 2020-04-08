@@ -4,10 +4,14 @@ on:
     branches:
       - master
 jobs:
-  shellcheck:
+  static_analysis:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: sudo apt-get update
       - run: sudo apt-get install shellcheck
-      - run: bin/cibuild
+      - uses: actions/setup-python@v1
+        with:
+          python-version: '3.x'
+      - run: pip install pylint --upgrade
+      - run: bin/cibuild.sh

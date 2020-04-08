@@ -5,18 +5,18 @@
 ## New Machine
 1. `git clone git@github.com:alexpyoung/dotfiles.git`
 2. `bin/bootstrap/...`
-   1. `brew`
-   2. `vim`
-   3. `zsh`
-   4. `cron`
+   1. `brew.sh`
+   2. `vim.sh`
+   3. `zsh.sh`
+   4. `cron.sh`
 3. `bin/setup/...`
-   1. `macos`
-   2. `git`
-   3. `vscode`
+   1. `macos.sh`
+   2. `git.sh`
+   3. `vscode.sh`
 
 ## Existing Machine
-- [ ] `bin/update/brew`
-- [ ] `bin/update/cron`
+- [ ] `bin/update/brew.py`
+- [ ] `bin/update/cron.sh`
 
 ## Resources
 - [Generating a new SSH key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
@@ -28,4 +28,3 @@
 - https://github.com/holman/dotfiles/
 - https://github.com/mathiasbynens/dotfiles
 - https://github.com/github/scripts-to-rule-them-all
-- https://github.com/MikeMcQuaid/strap
