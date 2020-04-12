@@ -22,7 +22,7 @@
   clear = reset --hard HEAD
   wipe = !git checkout -- $(git status --short | fzf | cut -c 4-)
   save = !git reset && git a && git c
-  rho = !git fo && git name | xargs -I _ git reset --hard origin/_
+  rho = !git fo && git reset --hard origin/$(git name)
 
   # Checkout
   co = checkout
@@ -66,7 +66,7 @@
   last = show HEAD
   name = rev-parse --abbrev-ref HEAD
   tree = log --graph --date=relative --pretty=tree
-  stat = !git --no-pager diff --stat && git --no-pager diff --numstat
+  stat = !git add --intent-to-add . && git --no-pager diff --stat && git --no-pager diff --numstat
   changelog = !git log --oneline | fzf | cut -d' ' -f1 | xargs -I _ git log --oneline --pretty=diff _~..HEAD | sed -e 's/^/- /'
   users = shortlog --summary --numbered
 [branch]
