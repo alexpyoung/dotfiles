@@ -114,6 +114,6 @@
   showStash = true
   showUntrackedFiles = all
 [tag]
-  # Sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0.
   sort = version:refname
-
+[url "ssh://git@github.com/"]
+  insteadOf = https://github.com/
