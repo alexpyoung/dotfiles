@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+    echo "Updating Homebrew dependencies..."
+    brew update
+    brew upgrade
+    brew cask upgrade
+    echo "Generating Brewfile..."
+    local -r DIR="$(pwd)/$(dirname "${BASH_SOURCE[0]}")/../.."
+    local -r FILE=$(python -c "import os; print(os.path.realpath('$DIR/Brewfile'))")
+    brew bundle dump --force --no-lock --file "$FILE"
+    git diff
+}
+
+main
