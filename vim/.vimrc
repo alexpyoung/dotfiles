@@ -1,5 +1,36 @@
+call plug#begin('~/.vim/vim-plug')
+
+" Navigation
+Plug 'scrooloose/nerdtree'
+
+" Search
+Plug '/usr/local/opt/fzf' " Homebrew installation
+Plug 'junegunn/fzf.vim'
+Plug 'jremmen/vim-ripgrep'
+
+" Editor
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-surround'
+
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+" Colors
+Plug 'luochen1990/rainbow'
+Plug 'vim-scripts/SyntaxComplete'
+Plug 'morhetz/gruvbox'
+
+" TypeScript
+Plug 'HerringtonDarkholme/yats.vim' " syntax highlighting
+Plug 'Quramy/tsuquyomi' " client for TSServer
+
+call plug#end()
+
+let g:gruvbox_contrast_dark='hard'
 set background=dark
-colorscheme brogrammer
+colorscheme gruvbox
 
 set tabstop=4 " number of spaces that <Tab> in file uses
 set softtabstop=4 " number of spaces that <Tab> uses while editing
@@ -22,35 +53,6 @@ set hlsearch " highlight matches with last search pattern
 set clipboard=unnamed " use the clipboard as the unnamed register
 
 autocmd BufWritePre * %s/\s\+$//e " trim trailing whitespace on save
-
-call plug#begin('~/.vim/vim-plug')
-
-" Navigation
-Plug 'scrooloose/nerdtree'
-
-" Search
-Plug '/usr/local/opt/fzf' " Homebrew installation
-Plug 'junegunn/fzf.vim'
-Plug 'jremmen/vim-ripgrep'
-
-" Editor
-Plug 'vim-airline/vim-airline'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-surround'
-
-" Git
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-
-" Syntax
-Plug 'luochen1990/rainbow'
-Plug 'vim-scripts/SyntaxComplete'
-
-" TypeScript
-Plug 'HerringtonDarkholme/yats.vim' " syntax highlighting
-Plug 'Quramy/tsuquyomi' " client for TSServer
-
-call plug#end()
 
 cnoreabbrev ss set syntax=
 
