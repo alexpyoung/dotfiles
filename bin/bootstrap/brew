@@ -19,10 +19,9 @@ install_homebrew() {
 
 main() {
     install_homebrew
+    local -r FILE=$(realpath "${0%/*}/../../Brewfile")
     echo "Installing packages..."
-    local -r DIR="$(pwd)/$(dirname "${BASH_SOURCE[0]}")/../.."
-    local -r FILE=$(python -c "import os; print(os.path.realpath('$DIR/Brewfile'))")
-    brew bundle install --file "$FILE"
+    brew bundle install --no-lock --file "$FILE"
 }
 
 main
