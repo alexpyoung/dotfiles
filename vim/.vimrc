@@ -28,7 +28,7 @@ Plug 'Quramy/tsuquyomi' " client for TSServer
 
 call plug#end()
 
-let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_contrast_dark='hard' " https://github.com/morhetz/gruvbox/wiki/Configuration#ggruvbox_contrast_dark
 set background=dark
 colorscheme gruvbox
 
@@ -54,7 +54,10 @@ set clipboard=unnamed " use the clipboard as the unnamed register
 
 autocmd BufWritePre * %s/\s\+$//e " trim trailing whitespace on save
 
+" Misc Shortcuts
 cnoreabbrev ss set syntax=
+cnoreabbrev b buffer
+cnoreabbrev src source ~/.vimrc
 
 " Ripgrep
 let g:rg_command='rg --hidden --vimgrep --glob !.git'
