@@ -10,7 +10,6 @@
   # Working
   a = !git add --intent-to-add . && git add --patch
   c = commit
-  fixup = !git a && git c --amend
   wip = !git a && git c --message='wip'
   untrack = rm --cache --
   shake = !git branch --merged | grep -v '\\*' | xargs -n 1 git branch --delete
@@ -45,13 +44,15 @@
   dom = !git fo && git d origin/master HEAD
 
   # Rebase
-  rb = rebase
   rbi = rebase --interactive
-  rbm = !git fo && git rb origin/master
+  rbm = !git fo && git rebase origin/master
   rbmi = !git fo && git rbi origin/master
   rbc = !git a && git rebase --continue
   rba = rebase --abort
   rbfz = !git rbi $(git tree | fzf | cut -d' ' -f2)~
+  squash = "!f() { git a; git c --fixup=$1; git rebase $2 --autosquash $1~; }; f"
+  fix = !git squash $(git tree | fzf | cut -d' ' -f2)
+  fixi = !git fix --interactive
 
   # Remote
   p = push
