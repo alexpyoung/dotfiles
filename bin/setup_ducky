@@ -1,0 +1,26 @@
+#!/usr/bin/env osascript
+
+tell application "System Preferences"
+	activate
+	set current pane to pane id "com.apple.preference.keyboard"
+	delay 1
+
+	tell application "System Events"
+		tell window "Keyboard" of process "System Preferences"
+			tell tab group 1
+				click radio button "Keyboard"
+				click button "Modifier Keys…"
+			end tell
+			tell sheet 1
+				click pop up button "Select keyboard:"
+				click menu item "Ducky One2 Mini RGB" of menu 1 of pop up button "Select keyboard:"
+				click pop up button "Option (⌥) Key:"
+				click menu item "⌘ Command" of menu 1 of pop up button "Option (⌥) Key:"
+				click pop up button "Command (⌘) Key:"
+				click menu item "⌥ Option" of menu 1 of pop up button "Command (⌘) Key:"
+				click button "OK"
+			end tell
+		end tell
+	end tell
+	quit
+end tell
