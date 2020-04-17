@@ -10,4 +10,4 @@ jobs:
       - uses: actions/checkout@v2
       - run: sudo apt-get update
       - run: sudo apt-get install shellcheck
-      - run: bin/cibuild
+      - run: scripts/cibuild

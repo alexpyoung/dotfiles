@@ -31,11 +31,8 @@ init
 defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "$HOME/dotfiles/iterm"
 defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 
-function applescripts() {
-    local -r ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)/../.."
-    osascript "$ROOT_DIR"/bin/applescript/keyboard.scpt
-}
-applescripts
+# .aliases should have been sourced by now
+setup_ducky
 
 # Disable Resume system-wide
 defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false

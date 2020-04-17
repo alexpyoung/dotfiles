@@ -4,19 +4,19 @@
 
 ## New Machine
 1. `git clone git@github.com:alexpyoung/dotfiles.git`
-2. `bin/bootstrap/...`
+2. `scripts/bootstrap/...`
    1. `brew`
    2. `vim`
    3. `zsh`
    4. `cron`
-3. `bin/setup/...`
+3. `scripts/setup/...`
    1. `macos`
    2. `git`
    3. `vscode`
 
 ## Existing Machine
-- [ ] `bin/update/brew`
-- [ ] `bin/update/cron`
+- [ ] `scripts/update/brew`
+- [ ] `scripts/update/cron`
 
 ## Resources
 - [Generating a new SSH key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)

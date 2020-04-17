@@ -10,7 +10,7 @@ main() {
     local -r ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)/.."
     pushd $ROOT_DIR > /dev/null
     export -f check
-    check "$(file bin/**/* | grep executable | cut -d: -f1)"
+    check "$(file scripts/**/* | grep executable | cut -d: -f1)"
     check git/bin/*
     check zsh/.aliases zsh/.exports zsh/.functions
     check zsh/.oh-my-zsh/custom/plugins/**/*.zsh
