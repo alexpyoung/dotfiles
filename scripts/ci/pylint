@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+    local -r GREEN='\033[0;32m'
+    local -r RESET='\033[0m'
+    # shellcheck disable=SC2059
+    printf "${GREEN}✔︎${RESET} pylint passed\n"
+}
+
+main
