@@ -3,12 +3,13 @@
 set -euo pipefail
 
 check() {
+    # shellcheck disable=SC2086
     shellcheck --exclude=SC1071 --shell=bash $1
 }
 
 main() {
-    local -r ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)/.."
-    pushd $ROOT_DIR > /dev/null
+    local -r ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)/../.."
+    pushd "$ROOT_DIR" > /dev/null
     export -f check
     check "$(file scripts/**/* | grep executable | cut -d: -f1)"
     check git/bin/*
@@ -17,6 +18,7 @@ main() {
     popd > /dev/null
     local -r GREEN='\033[0;32m'
     local -r RESET='\033[0m'
+    # shellcheck disable=SC2059
     printf "${GREEN}✔︎${RESET} shellcheck passed\n"
 }
 
