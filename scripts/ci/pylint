@@ -3,6 +3,7 @@
 set -euo pipefail
 
 main() {
+    pylint "${0%/*}"/../../bin/reading_list_to_pocket
     local -r GREEN='\033[0;32m'
     local -r RESET='\033[0m'
     # shellcheck disable=SC2059

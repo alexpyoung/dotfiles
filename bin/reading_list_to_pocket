@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+
+import logging
+import os
+import plistlib
+import sys
+import webbrowser
+import requests
+
+
+CONSUMER_KEY = os.environ["POCKET_CONSUMER_KEY"]
+BASE_URL = "https://getpocket.com"
+REDIRECT_URL = "localhost"
+
+LOGGER = logging.getLogger(__name__)
+URLS = []
+
+
+def extract_urls(node):
+    children = node.get("Children", [])
+    url = node.get("URLString")
+    if url:
+        URLS.append(url)
+    for child in children:
+        extract_urls(child)
+
+
+def read_plist():
+    filename = os.path.expanduser("~/Library/Safari/Bookmarks.plist")
+    with open(filename, 'rb') as handler:
+        plist = plistlib.load(handler)
+        extract_urls(plist)
+
+
+def post(url, data):
+    headers = {
+        "x-accept": "application/json",
+    }
+    response = requests.post(url, data=data, headers=headers)
+    error = response.headers.get("X-Error")
+    if error:
+        LOGGER.error("%s, %s", response.status_code, error)
+        response.raise_for_status()
+    return response.json()
+
+
+def request_code():
+    payload = {
+        "consumer_key": CONSUMER_KEY,
+        "redirect_uri": REDIRECT_URL,
+    }
+    response = post(f"{BASE_URL}/v3/oauth/request", payload)
+    return response["code"]
+
+
+def request_access_token(code):
+    payload = {
+        "consumer_key": CONSUMER_KEY,
+        "code": code,
+    }
+    response = post(f"{BASE_URL}/v3/oauth/authorize", payload)
+    return response["access_token"]
+
+
+def request_authorization(code):
+    url = f"{BASE_URL}/auth/authorize?request_token={code}&redirect_uri={REDIRECT_URL}"
+    webbrowser.open(url, new=2)
+
+
+def authenticate_pocket():
+    code = request_code()
+    request_authorization(code)
+    input("Press any key after authorizing app...")
+    return request_access_token(code)
+
+
+def add_item(url, token):
+    payload = {
+        "url": url,
+        "consumer_key": CONSUMER_KEY,
+        "access_token": token,
+    }
+    return post("https://getpocket.com/v3/add", payload)
+
+
+def main():
+    read_plist()
+    access_token = authenticate_pocket()
+    LOGGER.info("Successfully authenticated with Pocket")
+    for url in URLS:
+        add_item(url, access_token)
+    LOGGER.info("Added %s urls to Pocket!", len(URLS))
+
+
+if __name__ == '__main__':
+    sys.exit(main())
