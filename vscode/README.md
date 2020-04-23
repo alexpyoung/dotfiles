@@ -1,2 +1,0 @@
-- [Configure Settings Sync](https://github.com/shanalikhan/code-settings-sync#configure-settings-sync)
-- [Configuration File](https://gist.github.com/alexpyoung/5a7dd29b572f5fb1623a61c815e5865a)

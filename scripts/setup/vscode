@@ -3,10 +3,11 @@
 set -euo pipefail
 
 main() {
-    local -r ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)/../.."
     code --install-extension shan.code-settings-sync
-    pbcopy < "$ROOT_DIR/vscode/.gist"
-    echo "Gist copied to clipboard."
+    local -r GIST_ID="5a7dd29b572f5fb1623a61c815e5865a"
+    echo $GIST_ID | pbcopy
+    echo "Gist ID copied to clipboard."
+    open https://gist.github.com/alexpyoung/$GIST_ID
     open https://github.com/shanalikhan/code-settings-sync#download-your-settings
     open https://github.com/shanalikhan/code-settings-sync#toggle-auto-upload-on-change
     open https://github.com/shanalikhan/code-settings-sync#toggle-auto-download
