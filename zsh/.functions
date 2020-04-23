@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
 
 function dot() {
-    pushd ~/dotfiles
-    vim
+    local -r ROOT_DIR=~/dotfiles
+    case $(printf "cd\nscripts\nvim\n" | fzf) in
+        "cd" ) pushd $ROOT_DIR || exit ;;
+        "vim" ) pushd $ROOT_DIR && vim || exit ;;
+        "scripts" )
+            local -r PARENT_DIR=$ROOT_DIR/scripts
+            local -r BIN=$(find $PARENT_DIR -type f | sed "s|$PARENT_DIR/||" | fzf)
+            bash "$PARENT_DIR/$BIN"
+            ;;
+    esac
 }
 
 # change browser
