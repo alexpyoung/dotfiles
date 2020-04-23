@@ -28,4 +28,3 @@
 - https://github.com/holman/dotfiles/
 - https://github.com/mathiasbynens/dotfiles
 - https://github.com/github/scripts-to-rule-them-all
-- https://github.com/MikeMcQuaid/strap
