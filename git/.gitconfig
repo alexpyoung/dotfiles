@@ -74,6 +74,7 @@
   autoSetupRebase = always
 [commit]
   gpgsign = true
+  verbose = true
 [core]
   excludesfile = ~/.gitignore
   editor = vim
