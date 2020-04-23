@@ -40,8 +40,8 @@ convox-ssh() {
 function brew-own() {
     local -r PREFIX=$(brew --prefix)
     local -r USER=$(whoami)
-    sudo chown -R $USER $PREFIX/Caskroom
-    sudo chown -R $USER $PREFIX/Cellar
+    sudo chown -R "$USER" "$PREFIX"/Caskroom
+    sudo chown -R "$USER" "$PREFIX"/Cellar
 }
 
 function yqfix() {
@@ -52,7 +52,7 @@ function yqfix() {
 
 # fzf
 function rgvim() {
-    rg $1 | fzf | cut -d':' -f1 | xargs -o vim
+    rg "$1" | fzf | cut -d':' -f1 | xargs -o vim
 }
 function fe() {
     local EDITOR
@@ -79,13 +79,13 @@ function fzcd() {
 # zsh
 function zhelp() {
     if [[ -d ~/.oh-my-zsh/plugins/$1 ]]; then
-        less ~/.oh-my-zsh/plugins/$1/$1.plugin.zsh
+        less "$HOME/.oh-my-zsh/plugins/$1/$1.plugin.zsh"
     elif [[ -d ~/.oh-my-zsh/custom/plugins/$1 ]]; then
-        less ~/.oh-my-zsh/custom/plugins/$1/$1.plugin.zsh
+        less "$HOME/.oh-my-zsh/custom/plugins/$1/$1.plugin.zsh"
     else
         echo "Could not find plugin $1"
     fi
 }
 function zalias() {
-    zhelp $1 | rg "alias\b"
+    zhelp "$1" | rg "alias\b"
 }

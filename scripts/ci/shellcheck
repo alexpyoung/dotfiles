@@ -13,7 +13,9 @@ main() {
     export -f check
     check "$(file scripts/**/* | grep executable | cut -d: -f1)"
     check git/bin/*
-    check zsh/.aliases zsh/.exports zsh/.functions
+    check zsh/.aliases
+    check zsh/.exports
+    check zsh/.functions
     check zsh/.oh-my-zsh/custom/plugins/**/*.zsh
     popd > /dev/null
     local -r GREEN='\033[0;32m'
