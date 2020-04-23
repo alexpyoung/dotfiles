@@ -1,12 +1,22 @@
+""""""""""""""""""""
+" VimPlug
+""""""""""""""""""""
+
 call plug#begin('~/.vim/vim-plug')
 
 " Navigation
 Plug 'scrooloose/nerdtree'
+let g:NERDTreeShowHidden=1
+let g:NERDTreeNodeDelimiter="\u00a0"
+let g:NERDTreeShowLineNumbers=1
+let g:NERDTreeWinSize=50
 
 " Search
 Plug '/usr/local/opt/fzf' " Homebrew installation
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
+let g:rg_command='rg --hidden --vimgrep --glob !.git'
+let g:rg_highlight=1
 
 " Editor
 Plug 'vim-airline/vim-airline'
@@ -21,6 +31,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'luochen1990/rainbow'
 Plug 'vim-scripts/SyntaxComplete'
 Plug 'morhetz/gruvbox'
+let g:gruvbox_contrast_dark='hard' " https://github.com/morhetz/gruvbox/wiki/Configuration#ggruvbox_contrast_dark
 
 " TypeScript
 Plug 'HerringtonDarkholme/yats.vim' " syntax highlighting
@@ -28,15 +39,17 @@ Plug 'Quramy/tsuquyomi' " client for TSServer
 
 call plug#end()
 
-let g:gruvbox_contrast_dark='hard' " https://github.com/morhetz/gruvbox/wiki/Configuration#ggruvbox_contrast_dark
-set background=dark
-colorscheme gruvbox
+""""""""""""""""""""
+" Options
+""""""""""""""""""""
 
-set tabstop=4 " number of spaces that <Tab> in file uses
-set softtabstop=4 " number of spaces that <Tab> uses while editing
+set background=dark
+
+set tabstop=2 " number of spaces that <Tab> in file uses
+set softtabstop=2 " number of spaces that <Tab> uses while editing
+set shiftwidth=2 " number of spaces to use for (auto)indent step
 set expandtab " use spaces when <Tab> is inserted
 set autoindent " take indent for new line from previous line
-set shiftwidth=4 " number of spaces to use for (auto)indent step
 
 set cursorline " highlight line containing cursor
 set number " print the line number in front of each line
@@ -50,34 +63,80 @@ set ignorecase " ignore case in search patterns
 set incsearch " highlight match while typing search pattern
 set hlsearch " highlight matches with last search pattern
 
-set clipboard=unnamed " use the clipboard as the unnamed register
+set clipboard=unnamed " share clipboard with OS
 
-autocmd BufWritePre * %s/\s\+$//e " trim trailing whitespace on save
+colorscheme gruvbox
 
-" Misc Shortcuts
-cnoreabbrev ss set syntax=
-cnoreabbrev b buffer
-cnoreabbrev src source ~/.vimrc
+""""""""""""""""""""
+" Autocommands
+""""""""""""""""""""
 
-" Ripgrep
-let g:rg_command='rg --hidden --vimgrep --glob !.git'
-let g:rg_highlight=1
-cnoreabbrev rg Rg
-cnoreabbrev rgc cclose
+augroup read_buffer
+  autocmd!
+  " force syntax highlighting
+  autocmd BufRead *Fastfile set filetype=ruby
+  " autoformat config and data files
+  autocmd BufRead *.json :silent %!jq .
+  autocmd BufRead *.{yml,yaml} :silent %!yq -P -I 2 read -
+augroup END
 
-" NERDTree
-cnoreabbrev nt NERDTree
-cnoreabbrev ntc NERDTreeClose
-cnoreabbrev ntr NERDTreeVCS " nearest parent directory containing .git
-cnoreabbrev ntf NERDTree % " parent directory of current buffer
+augroup write_buffer
+  autocmd!
+  " trim trailing whitespace
+  autocmd BufWritePre * %s/\s\+$//e
+augroup END
 
-let g:NERDTreeShowHidden=1
-let g:NERDTreeNodeDelimiter="\u00a0"
-let g:NERDTreeShowLineNumbers=1
-let g:NERDTreeWinSize=50
+augroup reload_vimrc
+  autocmd!
+  autocmd BufWritePost *.vimrc source %
+augroup END
+
+""""""""""""""""""""
+" Key Mappings
+""""""""""""""""""""
+
+let mapleader=","
+
+" convenient buffer switching
+nnoremap <leader>bn :write<CR>:buffers<CR>:buffer<space>
+" avoid carpal tunnel in left hand
+inoremap jk <esc>
+vnoremap jk <esc>
+" seriously, don't use esc
+inoremap <esc> <nop>
+vnoremap <esc> <nop>
+" jump to previous line
+nnoremap <leader>g ``zz
+
+" Fugitive
+nnoremap <leader>gb :Git<space>blame<CR>
 
 " FZF
-cnoreabbrev f FZF!
+nnoremap <leader>f :write<CR>:FZF!<CR>
 
-" Git
-cnoreabbrev gb Git blame
+" Indentation
+function! Indent(num)
+  " :help let-option
+  let &tabstop=a:num " number of spaces that <Tab> in file uses
+  let &softtabstop=a:num " number of spaces that <Tab> uses while editing
+  let &shiftwidth=a:num " number of spaces to use for (auto)indent step
+endfunction
+nnoremap <leader>t :call<space>Indent(str2nr(input('Spaces: ')))<CR>
+" https://vim.fandom.com/wiki/Fix_indentation
+nnoremap <leader>i gg=G
+" keep visual selection after indentation
+vnoremap > >gv
+vnoremap < <gv
+vnoremap = =gv
+
+" NERDTree
+nnoremap <leader>nt :NERDTree<CR>
+nnoremap <leader>ntc :NERDTreeClose<CR>
+" open nearest git parent directory
+nnoremap <leader>ntr :NERDTreeVCS<CR>
+" open parent directory of buffer
+nnoremap <leader>ntf :NERDTree<space>%<CR>
+
+" Ripgrep
+nnoremap <leader>rg :Rg<space>
+nnoremap <leader>rgc :cclose<CR>

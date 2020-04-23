@@ -1,12 +1,13 @@
 ## It's been a while, let's get reacquainted with `vim`
 - `:PlugUpdate`
-- `less .vimrc`
+- `less ~/.vimrc`
 - Files: `:ntf`, `m|?`
-- Fuzzy Files: `:f`
+- Fuzzy Files: `f`
 - Search: `:rg PATTERN`
 - Multicursor: `Ctrl-N`
 - Shell: `:!COMMAND`
-- Syntax: `:ss LANGUAGE`
+- Syntax: `,s LANGUAGE`
+- Key Notation: `:help key-notation`
 
 ## Resources
 - https://vim.fandom.com/wiki/Quick_tips
