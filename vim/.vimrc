@@ -47,6 +47,9 @@ call plug#end()
 set background=dark
 
 set autoindent " take indent for new line from previous line
+set copyindent " use existing indent structure with autoindent
+set autoread " automatically update buffer if unmodified
+set autowriteall " always save to disk
 
 set cursorline " highlight line containing cursor
 set number " print the line number in front of each line
@@ -57,9 +60,11 @@ set lazyredraw " don't redraw while executing macros
 set showmatch " briefly jump to matching bracket if insert one
 
 set ignorecase " ignore case in search patterns
+set smartcase " case sensitive when query includes uppercase
 set incsearch " highlight match while typing search pattern
 set hlsearch " highlight matches with last search pattern
 
+set shell=zsh " shell to use for :!
 set clipboard=unnamed " share clipboard with OS
 
 colorscheme gruvbox
@@ -95,7 +100,7 @@ augroup END
 let mapleader=","
 
 " convenient buffer switching
-nnoremap <leader>bn :write<CR>:buffers<CR>:buffer<space>
+nnoremap <leader>bn :buffers<CR>:buffer<space>
 " avoid carpal tunnel in left hand
 inoremap jk <esc>
 vnoremap jk <esc>
@@ -109,7 +114,7 @@ nnoremap <leader>g ``zz
 nnoremap <leader>gb :Git<space>blame<CR>
 
 " FZF
-nnoremap <leader>f :write<CR>:FZF!<CR>
+nnoremap <leader>f :FZF!<CR>
 
 " Indentation
 " https://vim.fandom.com/wiki/Fix_indentation
