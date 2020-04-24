@@ -22,6 +22,7 @@ let g:rg_highlight=1
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sleuth'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -45,10 +46,6 @@ call plug#end()
 
 set background=dark
 
-set tabstop=2 " number of spaces that <Tab> in file uses
-set softtabstop=2 " number of spaces that <Tab> uses while editing
-set shiftwidth=2 " number of spaces to use for (auto)indent step
-set expandtab " use spaces when <Tab> is inserted
 set autoindent " take indent for new line from previous line
 
 set cursorline " highlight line containing cursor
@@ -115,13 +112,6 @@ nnoremap <leader>gb :Git<space>blame<CR>
 nnoremap <leader>f :write<CR>:FZF!<CR>
 
 " Indentation
-function! Indent(num)
-  " :help let-option
-  let &tabstop=a:num " number of spaces that <Tab> in file uses
-  let &softtabstop=a:num " number of spaces that <Tab> uses while editing
-  let &shiftwidth=a:num " number of spaces to use for (auto)indent step
-endfunction
-nnoremap <leader>t :call<space>Indent(str2nr(input('Spaces: ')))<CR>
 " https://vim.fandom.com/wiki/Fix_indentation
 nnoremap <leader>i gg=G
 " keep visual selection after indentation
