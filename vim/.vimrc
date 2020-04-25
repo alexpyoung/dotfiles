@@ -77,7 +77,8 @@ augroup read_buffer
   autocmd BufRead *Fastfile set filetype=ruby
   " autoformat config and data files
   autocmd BufRead *.json :silent %!jq .
-  autocmd BufRead *.{yml,yaml} :silent %!yq -P -I 2 read -
+  autocmd BufRead *.{yml,yaml} :silent %!yq --prettyPrint --indent 2 read -
+  autocmd BufRead *.xml :silent %!tidy -xml -indent -quiet -
 augroup END
 
 augroup write_buffer
