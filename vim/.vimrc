@@ -113,10 +113,6 @@ vnoremap <esc> <nop>
 xnoremap <esc> <nop>
 cnoremap <C-c> <nop>
 
-" Motion
-" jump to previous line
-nnoremap <leader>g ``zz
-
 " FZF
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>f :Files<CR>
