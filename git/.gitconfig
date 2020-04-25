@@ -50,9 +50,8 @@
   rbc = !git a && git rebase --continue
   rba = rebase --abort
   rbfz = !git rbi $(git tree | fzf | cut -d' ' -f2)~
-  squash = "!f() { git a; git c --fixup=$1; git rebase $2 --autosquash $1~; }; f"
+  squash = "!f() { git a; git c --fixup=$1; git rbi --autosquash $1~; }; f"
   fix = !git squash $(git tree | fzf | cut -d' ' -f2)
-  fixi = !git fix --interactive
 
   # Remote
   p = push
