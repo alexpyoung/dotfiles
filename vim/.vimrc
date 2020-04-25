@@ -13,6 +13,7 @@ Plug '/usr/local/opt/fzf' " point to homebrew installation
 Plug 'tpope/vim-fugitive' " git commands
 Plug 'tpope/vim-rhubarb' " open github
 Plug 'tpope/vim-vinegar' " enhance netrw
+let g:netrw_bufsettings='noma nomod rnu nowrap ro nobl'
 
 " Editor
 Plug 'quramy/tsuquyomi' " client for typescript server
