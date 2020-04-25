@@ -1,46 +1,42 @@
 """"""""""""""""""""
-" VimPlug
+" Plugins
 """"""""""""""""""""
 
 call plug#begin('~/.vim/vim-plug')
 
 " Navigation
-Plug 'scrooloose/nerdtree'
-let g:NERDTreeShowHidden=1
-let g:NERDTreeNodeDelimiter="\u00a0"
-let g:NERDTreeShowLineNumbers=1
-let g:NERDTreeWinSize=50
-
-" Search
-Plug '/usr/local/opt/fzf' " homebrew installation
-Plug 'junegunn/fzf.vim'
-Plug 'jremmen/vim-ripgrep'
+Plug 'jremmen/vim-ripgrep' " respect .gitignore
 let g:rg_command='rg --hidden --vimgrep --glob !.git'
 let g:rg_highlight=1
+Plug 'junegunn/fzf.vim' " fuzzy finder
+Plug '/usr/local/opt/fzf' " point to homebrew installation
+Plug 'tpope/vim-fugitive' " git commands
+Plug 'tpope/vim-vinegar' " enhance netrw
 
 " Editor
 Plug 'quramy/tsuquyomi' " client for typescript server
-Plug 'sheerun/vim-polyglot' " syntax and indentation
 Plug 'terryma/vim-multiple-cursors' " sublime style selection
 Plug 'tpope/vim-commentary' " polyglot commenting
 Plug 'tpope/vim-eunuch' " unix commands
 Plug 'tpope/vim-sleuth' " indentation
 Plug 'tpope/vim-surround' " quotes and parentheses
 
-" Git
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-
-" Theme
-Plug 'vim-airline/vim-airline'
-Plug 'morhetz/gruvbox'
-let g:gruvbox_contrast_dark='hard' " https://github.com/morhetz/gruvbox/wiki/Configuration#ggruvbox_contrast_dark
+" Display
+Plug 'airblade/vim-gitgutter' " show patches
+Plug 'morhetz/gruvbox' " colors
+let g:gruvbox_contrast_dark='hard'
+Plug 'sheerun/vim-polyglot' " syntax and indentation
+Plug 'vim-airline/vim-airline' " easy status line
 
 call plug#end()
 
 """"""""""""""""""""
 " Options
 """"""""""""""""""""
+
+colorscheme gruvbox
+filetype plugin indent on
+syntax enable
 
 set background=dark
 
@@ -65,13 +61,11 @@ set hlsearch " highlight matches with last search pattern
 set shell=zsh " shell to use for :!
 set clipboard=unnamed " share clipboard with OS
 
-colorscheme gruvbox
-
 """"""""""""""""""""
 " Autocommands
 """"""""""""""""""""
 
-augroup read_buffer
+augroup auto_read_buffer
   autocmd!
   " force syntax highlighting
   autocmd BufRead *Fastfile set filetype=ruby
@@ -81,14 +75,11 @@ augroup read_buffer
   autocmd BufRead *.xml :silent %!tidy -xml -indent -quiet -
 augroup END
 
-augroup write_buffer
+augroup auto_write_buffer
   autocmd!
   " trim trailing whitespace
   autocmd BufWritePre * %s/\s\+$//e
-augroup END
-
-augroup reload_vimrc
-  autocmd!
+  " reload vimrc
   autocmd BufWritePost *.vimrc source %
 augroup END
 
@@ -122,14 +113,6 @@ nnoremap <leader>i gg=G
 vnoremap > >gv
 vnoremap < <gv
 vnoremap = =gv
-
-" NERDTree
-nnoremap <leader>nt :NERDTree<CR>
-nnoremap <leader>ntc :NERDTreeClose<CR>
-" open nearest git parent directory
-nnoremap <leader>ntr :NERDTreeVCS<CR>
-" open parent directory of buffer
-nnoremap <leader>ntf :NERDTree<space>%<CR>
 
 " Ripgrep
 nnoremap <leader>rg :Rg<space>
