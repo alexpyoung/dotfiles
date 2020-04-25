@@ -81,6 +81,11 @@ augroup formatting
   autocmd BufWritePre * %s/\s\+$//e " trim trailing whitespace
 augroup END
 
+augroup gitgutter
+  autocmd!
+  autocmd TextChanged,TextChangedI,TextChangedP * GitGutterBufferEnable
+augroup END
+
 augroup vimrc
   autocmd!
   autocmd BufWritePost .vimrc source %
