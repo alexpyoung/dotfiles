@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-bindkey -v
-
 source ~/.exports
 source ~/.spaceship
 
@@ -17,6 +15,7 @@ plugins=(
   git-auto-fetch
   mbq
   ripgrep
+  vi-mode
   zsh-interactive-cd
   zsh_reload
   zsh-syntax-highlighting
