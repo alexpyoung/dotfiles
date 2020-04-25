@@ -21,6 +21,9 @@ plugins=(
   zsh-syntax-highlighting
 )
 
+setopt hist_reduce_blanks
+setopt hist_ignore_all_dups
+
 # Added by TravisCI gem
 [[ -f $HOME/.travis/travis.sh ]] && source $HOME/.travis/travis.sh
 
