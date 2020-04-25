@@ -48,7 +48,7 @@ set autoread " automatically update buffer if unmodified
 set autowriteall " always save to disk
 
 set cursorline " highlight line containing cursor
-set number " print the line number in front of each line
+set number relativenumber " hybrid line numbers
 set noshowmode  " redundant given airline
 set showcmd " show (partial) command in status line
 set wildmenu " use menu for command line completion
