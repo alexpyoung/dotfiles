@@ -12,31 +12,29 @@ let g:NERDTreeShowLineNumbers=1
 let g:NERDTreeWinSize=50
 
 " Search
-Plug '/usr/local/opt/fzf' " Homebrew installation
+Plug '/usr/local/opt/fzf' " homebrew installation
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
 let g:rg_command='rg --hidden --vimgrep --glob !.git'
 let g:rg_highlight=1
 
 " Editor
-Plug 'vim-airline/vim-airline'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-sleuth'
+Plug 'quramy/tsuquyomi' " client for typescript server
+Plug 'sheerun/vim-polyglot' " syntax and indentation
+Plug 'terryma/vim-multiple-cursors' " sublime style selection
+Plug 'tpope/vim-commentary' " polyglot commenting
+Plug 'tpope/vim-eunuch' " unix commands
+Plug 'tpope/vim-sleuth' " indentation
+Plug 'tpope/vim-surround' " quotes and parentheses
 
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
-" Colors
-Plug 'luochen1990/rainbow'
-Plug 'vim-scripts/SyntaxComplete'
+" Theme
+Plug 'vim-airline/vim-airline'
 Plug 'morhetz/gruvbox'
 let g:gruvbox_contrast_dark='hard' " https://github.com/morhetz/gruvbox/wiki/Configuration#ggruvbox_contrast_dark
-
-" TypeScript
-Plug 'HerringtonDarkholme/yats.vim' " syntax highlighting
-Plug 'Quramy/tsuquyomi' " client for TSServer
 
 call plug#end()
 
