@@ -67,22 +67,22 @@ set clipboard=unnamed " share clipboard with OS
 " Autocommands
 """"""""""""""""""""
 
-augroup auto_read_buffer
+augroup filetypes
   autocmd!
-  " force syntax highlighting
-  autocmd BufRead *Fastfile set filetype=ruby
-  " autoformat config and data files
+  autocmd BufRead Fastfile set filetype=ruby
+augroup END
+
+augroup formatting
+  autocmd!
   autocmd BufRead *.json :silent %!jq .
   autocmd BufRead *.{yml,yaml} :silent %!yq --prettyPrint --indent 2 read -
   autocmd BufRead *.xml :silent %!tidy -xml -indent -quiet -
+  autocmd BufWritePre * %s/\s\+$//e " trim trailing whitespace
 augroup END
 
-augroup auto_write_buffer
+augroup vimrc
   autocmd!
-  " trim trailing whitespace
-  autocmd BufWritePre * %s/\s\+$//e
-  " reload vimrc
-  autocmd BufWritePost *.vimrc source %
+  autocmd BufWritePost .vimrc source %
 augroup END
 
 """"""""""""""""""""
