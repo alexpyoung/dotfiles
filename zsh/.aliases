@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-alias h='$(history | fzf | cut -c8-)'
-alias l='ls -hAlF | fzf'
+alias hs='history -n | fzf --tac | source /dev/stdin'
 
 alias g=git
 alias gh='github ./'
