@@ -11,6 +11,7 @@ let g:rg_highlight=1
 Plug 'junegunn/fzf.vim' " fuzzy finder
 Plug '/usr/local/opt/fzf' " point to homebrew installation
 Plug 'tpope/vim-fugitive' " git commands
+Plug 'tpope/vim-rhubarb' " open github
 Plug 'tpope/vim-vinegar' " enhance netrw
 
 " Editor
@@ -18,6 +19,7 @@ Plug 'quramy/tsuquyomi' " client for typescript server
 Plug 'terryma/vim-multiple-cursors' " sublime style selection
 Plug 'tpope/vim-commentary' " polyglot commenting
 Plug 'tpope/vim-eunuch' " unix commands
+Plug 'tpope/vim-repeat' " enable repeat for plugin mappings
 Plug 'tpope/vim-sleuth' " indentation
 Plug 'tpope/vim-surround' " quotes and parentheses
 
