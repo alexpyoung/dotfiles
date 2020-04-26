@@ -10,10 +10,6 @@ alias gh='github ./'
 alias dk=docker
 alias dkc=docker-compose
 
-alias gpg-new='gpg --full-generate-key'
-alias gpg-secret='gpg --list-secret-keys --keyid-format LONG'
-alias gpg-kill='gpgconf --kill gpg-agent'
-
 alias zperf='/usr/bin/time -p zsh -i -c exit'
 alias size='du -h -d 1'
 alias xc='open *.xcworkspace([1])'

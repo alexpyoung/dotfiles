@@ -13,6 +13,7 @@ plugins=(
   eden
   gamechanger
   git-auto-fetch
+  gpg
   mbq
   ripgrep
   vi-mode
