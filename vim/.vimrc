@@ -66,6 +66,11 @@ set clipboard=unnamed " share clipboard with OS
 " Autocommands
 """"""""""""""""""""
 
+augroup committing
+  autocmd!
+  autocmd BufRead */.git/{*,**/*} inoremap wq <esc>:wq<CR>
+augroup END
+
 augroup filetypes
   autocmd!
   autocmd BufRead Fastfile set filetype=ruby
