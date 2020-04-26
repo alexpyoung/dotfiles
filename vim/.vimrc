@@ -97,31 +97,48 @@ augroup END
 
 let mapleader=","
 
-" convenient buffer switching
-nnoremap <leader>bn :buffers<CR>:buffer<space>
+" Recording
+" qq to record, Q to replay
+nnoremap Q @q
+
+" Modes
 " avoid carpal tunnel in left hand
 inoremap jk <esc>
 vnoremap jk <esc>
-" seriously, don't use esc
+xnoremap jk <esc>
+cnoremap jk <C-c>
+" force new muscle memory
 inoremap <esc> <nop>
 vnoremap <esc> <nop>
+xnoremap <esc> <nop>
+cnoremap <C-c> <nop>
+
+" Motion
 " jump to previous line
 nnoremap <leader>g ``zz
 
-" Fugitive
-nnoremap <leader>gb :Git<space>blame<CR>
-
 " FZF
-nnoremap <leader>f :FZF!<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>h :History:<CR>
+nnoremap <leader>rg :Rg<space>
+nnoremap <leader>w :Windows<CR>
+
+" Git
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>ggh :GitGutterLineHighlightsToggle<CR>
 
 " Indentation
-" https://vim.fandom.com/wiki/Fix_indentation
 nnoremap <leader>i gg=G
 " keep visual selection after indentation
 vnoremap > >gv
 vnoremap < <gv
 vnoremap = =gv
 
-" Ripgrep
-nnoremap <leader>rg :Rg<space>
-nnoremap <leader>rgc :cclose<CR>
+" Newlines
+nnoremap o o<esc>
+nnoremap O O<esc>
+
+" Vim Plug
+nnoremap <leader>pi :PlugInstall<CR>
+nnoremap <leader>pu :PlugUpdate<CR>
