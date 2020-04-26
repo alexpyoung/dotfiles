@@ -1,4 +1,52 @@
 """"""""""""""""""""
+" Key Mappings
+""""""""""""""""""""
+
+let mapleader="," " set this before installing plugins
+
+" Recording
+" qq to record, Q to replay
+nnoremap Q @q
+
+" Modes
+" avoid carpal tunnel in left hand
+inoremap jk <esc>
+vnoremap jk <esc>
+xnoremap jk <esc>
+cnoremap jk <C-c>
+" force new muscle memory
+inoremap <esc> <nop>
+vnoremap <esc> <nop>
+xnoremap <esc> <nop>
+cnoremap <C-c> <nop>
+
+" FZF
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>h :History:<CR>
+nnoremap <leader>rg :Rg<space>
+nnoremap <leader>w :Windows<CR>
+
+" Git
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>ggh :GitGutterLineHighlightsToggle<CR>
+
+" Indentation
+nnoremap <leader>i gg=G
+" keep visual selection after indentation
+vnoremap > >gv
+vnoremap < <gv
+vnoremap = =gv
+
+" Newlines
+nnoremap o o<esc>
+nnoremap O O<esc>
+
+" Vim Plug
+nnoremap <leader>pi :PlugInstall<CR>
+nnoremap <leader>pu :PlugUpdate<CR>
+
+""""""""""""""""""""
 " Plugins
 """"""""""""""""""""
 
@@ -93,51 +141,3 @@ augroup vimrc
   autocmd!
   autocmd BufWritePost .vimrc source %
 augroup END
-
-""""""""""""""""""""
-" Key Mappings
-""""""""""""""""""""
-
-let mapleader=","
-
-" Recording
-" qq to record, Q to replay
-nnoremap Q @q
-
-" Modes
-" avoid carpal tunnel in left hand
-inoremap jk <esc>
-vnoremap jk <esc>
-xnoremap jk <esc>
-cnoremap jk <C-c>
-" force new muscle memory
-inoremap <esc> <nop>
-vnoremap <esc> <nop>
-xnoremap <esc> <nop>
-cnoremap <C-c> <nop>
-
-" FZF
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>h :History:<CR>
-nnoremap <leader>rg :Rg<space>
-nnoremap <leader>w :Windows<CR>
-
-" Git
-nnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>ggh :GitGutterLineHighlightsToggle<CR>
-
-" Indentation
-nnoremap <leader>i gg=G
-" keep visual selection after indentation
-vnoremap > >gv
-vnoremap < <gv
-vnoremap = =gv
-
-" Newlines
-nnoremap o o<esc>
-nnoremap O O<esc>
-
-" Vim Plug
-nnoremap <leader>pi :PlugInstall<CR>
-nnoremap <leader>pu :PlugUpdate<CR>
