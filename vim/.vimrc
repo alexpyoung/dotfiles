@@ -17,7 +17,7 @@ Plug 'tpope/vim-vinegar' " enhance netrw
 let g:netrw_bufsettings='noma nomod rnu nowrap ro nobl'
 
 " Editor
-Plug 'quramy/tsuquyomi' " client for typescript server
+Plug 'quramy/tsuquyomi', { 'for': ['typescript', 'typecriptreact'] } " tsserver client
 Plug 'terryma/vim-multiple-cursors' " sublime style selection
 Plug 'tpope/vim-commentary' " polyglot commenting
 Plug 'tpope/vim-eunuch' " unix commands
