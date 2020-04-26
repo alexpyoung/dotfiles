@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+
+alias cb='open /System/Library/PreferencePanes/Appearance.prefPane'
 alias hs='history -n | fzf --tac | source /dev/stdin'
 
 alias g=git

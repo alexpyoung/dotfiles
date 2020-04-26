@@ -13,11 +13,6 @@ function dot() {
     esac
 }
 
-# change browser
-function cb() {
-    open /System/Library/PreferencePanes/Appearance.prefPane
-}
-
 # gpg
 function gpg-id() {
     gpg-long | grep -B 2 "$1" | head -n1 | cut -d/ -f2 | cut -d' ' -f1
@@ -50,38 +45,6 @@ function brew-own() {
     local -r USER=$(whoami)
     sudo chown -R "$USER" "$PREFIX"/Caskroom
     sudo chown -R "$USER" "$PREFIX"/Cellar
-}
-
-function yqfix() {
-    # booo yq does not support stdin
-    pbpaste > /tmp/yqfix
-    yq --prettyPrint --indent 2 read /tmp/yqfix | pbcopy
-}
-
-# fzf
-function rgvim() {
-    rg "$1" | fzf | cut -d':' -f1 | xargs -o vim
-}
-function fe() {
-    local EDITOR
-    local QUERY
-    if [ $# -eq 1 ]; then
-        EDITOR=$1
-        QUERY=$2
-    else
-        EDITOR=vim
-        QUERY=$1
-    fi
-    local FILES
-    # shellcheck disable=SC2207
-    IFS=$'\n' FILES=($(fzf-tmux --query="$QUERY" --multi --select-1 --exit-0))
-    # shellcheck disable=SC2128
-    [[ -n $FILES ]] && ${EDITOR:-$EDITOR} "${FILES[@]}"
-}
-function fzcd() {
-    local DIRECTORY
-    DIRECTORY=$(find "${1:-.}" -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) &&
-    cd "$DIRECTORY" || exit 1
 }
 
 # zsh
