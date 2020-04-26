@@ -9,6 +9,7 @@ Plug 'jremmen/vim-ripgrep' " respect .gitignore
 let g:rg_command='rg --hidden --vimgrep --glob !.git'
 let g:rg_highlight=1
 Plug 'junegunn/fzf.vim' " fuzzy finder
+let g:fzf_preview_window = ''
 Plug '/usr/local/opt/fzf' " point to homebrew installation
 Plug 'tpope/vim-fugitive' " git commands
 Plug 'tpope/vim-rhubarb' " open github
