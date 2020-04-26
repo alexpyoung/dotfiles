@@ -8,11 +8,9 @@ call plug#begin('~/.vim/vim-plug')
 Plug 'jremmen/vim-ripgrep' " respect .gitignore
 let g:rg_command='rg --hidden --vimgrep --glob !.git'
 let g:rg_highlight=1
-Plug 'junegunn/fzf.vim' " fuzzy finder
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim' " fuzzy finder
 let g:fzf_preview_window = ''
-Plug '/usr/local/opt/fzf' " point to homebrew installation
-Plug 'tpope/vim-fugitive' " git commands
-Plug 'tpope/vim-rhubarb' " open github
+Plug 'tpope/vim-fugitive' | Plug 'tpope/vim-rhubarb' " git commands
 Plug 'tpope/vim-vinegar' " enhance netrw
 let g:netrw_bufsettings='noma nomod rnu nowrap ro nobl'
 
@@ -21,9 +19,8 @@ Plug 'quramy/tsuquyomi', { 'for': ['typescript', 'typecriptreact'] } " tsserver 
 Plug 'terryma/vim-multiple-cursors' " sublime style selection
 Plug 'tpope/vim-commentary' " polyglot commenting
 Plug 'tpope/vim-eunuch' " unix commands
-Plug 'tpope/vim-repeat' " enable repeat for plugin mappings
 Plug 'tpope/vim-sleuth' " indentation
-Plug 'tpope/vim-surround' " quotes and parentheses
+Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat' " quotes and parentheses
 
 " Display
 Plug 'airblade/vim-gitgutter' " show patches
