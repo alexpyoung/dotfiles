@@ -4,47 +4,62 @@
 
 let mapleader="," " set this before installing plugins
 
-" Recording
-" qq to record, Q to replay
-nnoremap Q @q
-
-" Modes
+" Overrides
 " avoid carpal tunnel in left hand
-inoremap jk <esc>
-vnoremap jk <esc>
-xnoremap jk <esc>
+inoremap jk <Esc>
+vnoremap jk <Esc>
+xnoremap jk <Esc>
 cnoremap jk <C-c>
-" force new muscle memory
-inoremap <esc> <nop>
-vnoremap <esc> <nop>
-xnoremap <esc> <nop>
-cnoremap <C-c> <nop>
-
-" FZF
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>h :History:<CR>
-nnoremap <leader>rg :Rg<space>
-nnoremap <leader>w :Windows<CR>
-
-" Git
-nnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>ggh :GitGutterLineHighlightsToggle<CR>
-
-" Indentation
-nnoremap <leader>i gg=G
+" TODO: temporarily force new muscle memory
+inoremap <Esc> <Nop>
+vnoremap <Esc> <Nop>
+xnoremap <Esc> <Nop>
+cnoremap <C-c> <Nop>
 " keep visual selection after indentation
 vnoremap > >gv
 vnoremap < <gv
 vnoremap = =gv
+" stay in normal mode when inserting newlines
+nnoremap o o<Esc>
+nnoremap O O<Esc>
+" treat yank like change and delete
+nnoremap Y y$
 
-" Newlines
-nnoremap o o<esc>
-nnoremap O O<esc>
+" Complements
+" ; for next f{char}, ' for previous
+nnoremap ' ,
+" home row is faster
+noremap H <Home>
+noremap L <End>
+" TODO: temporarily force new muscle memory
+nnoremap $ <Nop>
+" qq to record, Q to replay
+nnoremap Q @q
+
+" Misc
+nnoremap <Leader>= gg=G
+" prefer vertical browsing
+" FIXME: this is unideal for things like :s/ h //
+cnoreabbrev h vertical<Space>botright<Space>help
+cnoreabbrev help vertical<Space>botright<Space>help
+
+" FZF
+nnoremap <silent> <Leader>b :Buffers<CR>
+nnoremap <silent> <Leader>f :Files<CR>
+nnoremap <silent> <Leader>hs :History:<CR>
+nnoremap <silent> <Leader>rg :Rg<Space>
+nnoremap <silent> <Leader>w :Windows<CR>
+
+" Git
+nnoremap <silent> <Leader>gb :Gblame<CR>
+nnoremap <silent> <Leader>gd :Gdiffsplit<CR>
+nnoremap <silent> <Leader>gs :Gstatus<CR>
+nnoremap <silent> <Leader>ggh :GitGutterLineHighlightsToggle<CR>
 
 " Vim Plug
-nnoremap <leader>pi :PlugInstall<CR>
-nnoremap <leader>pu :PlugUpdate<CR>
+nnoremap <silent> <Leader>pi :PlugInstall<CR>:q<CR>
+nnoremap <silent> <Leader>pu :PlugUpdate<CR>:q<CR>
+nnoremap <silent> <Leader>pc :PlugClean<CR>
 
 """"""""""""""""""""
 " Plugins
@@ -87,28 +102,47 @@ colorscheme gruvbox
 filetype plugin indent on
 syntax enable
 
+" Display
 set background=dark
+set antialias " use smooth fonts
+set number relativenumber " hybrid line numbers for easier motions
+set noshowmode  " airline shows mode
+set cursorline " highlight line containing cursor
+set shortmess+=I " hide startup message
+set scrolloff=10 " minimum line count to surround curor with
+set visualbell " flash screen instead of beeping
+set lazyredraw " don't redraw while executing macros
 
-set autoindent " take indent for new line from previous line
+" Editing
+set autoindent " use indentation of previous line during line insertion
 set copyindent " use existing indent structure with autoindent
+set backspace=indent,eol,start " make backspace work everywhere
+set tildeop " use ~ as an operator instead of just current character
+set matchpairs+=<:> " easier HTML and JSX matching with %
+set whichwrap=b,s,h,l " easier navigation of wrapped lines
+
+" External
 set autoread " automatically update buffer if unmodified
 set autowriteall " always save to disk
+set clipboard=unnamed " share OS clipboard with y, d, etc
+set mouse=a " enable mouse in all modes
+set mousefocus " change windows with mouse
+set mousehide " only show mouse when moving
+set shell=zsh " shell to use for :shell
+set undofile " enable undo after writes
+set undodir=$HOME/.vim/undo
 
-set cursorline " highlight line containing cursor
-set number relativenumber " hybrid line numbers
-set noshowmode  " redundant given airline
-set showcmd " show (partial) command in status line
-set wildmenu " use menu for command line completion
-set lazyredraw " don't redraw while executing macros
-set showmatch " briefly jump to matching bracket if insert one
+" Navigation
+set splitright " sensible split window
+set wildmenu " enable tab navigatable menu for command line completion
+set wildmode=list:full " 1st tab: show all matches, 2nd tab: show wildmenu
 
+" Search
+set magic " no more escaping regexes
 set ignorecase " ignore case in search patterns
 set smartcase " case sensitive when query includes uppercase
 set incsearch " highlight match while typing search pattern
-set hlsearch " highlight matches with last search pattern
-
-set shell=zsh " shell to use for :!
-set clipboard=unnamed " share clipboard with OS
+set hlsearch " highlight hits while traversing search matches
 
 """"""""""""""""""""
 " Autocommands
@@ -116,7 +150,7 @@ set clipboard=unnamed " share clipboard with OS
 
 augroup committing
   autocmd!
-  autocmd BufRead */.git/{*,**/*} inoremap wq <esc>:wq<CR>
+  autocmd BufRead */.git/{*,**/*} inoremap wq <Esc>:wq<CR>
 augroup END
 
 augroup filetypes
