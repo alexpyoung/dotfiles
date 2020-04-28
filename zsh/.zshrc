@@ -36,3 +36,6 @@ eval "$(rbenv init -)"
 
 source ~/.aliases
 source ~/.functions
+
+# Deduplicate PATH when re-sourcing .zshrc
+export PATH=$(echo $PATH | tr ':' '\n' | sort | uniq | tr '\n' ':' | sed 's/:$//')
