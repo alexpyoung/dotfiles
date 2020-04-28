@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
-
 alias cb='open /System/Library/PreferencePanes/Appearance.prefPane'
 alias hs='history -n | fzf --tac | source /dev/stdin'
+alias path='echo $PATH | tr ":" "\n"'
+alias n='pong fast.com 443'
+alias size='du -h -d 1'
+alias snip='pet search | pbcopy'
+alias spd='speedtest-cli'
+alias xc='open *.xcworkspace([1])'
+alias zperf='/usr/bin/time -p zsh -i -c exit'
 
 alias g=git
 alias gh='github ./'
@@ -10,13 +16,6 @@ alias gh='github ./'
 alias dk=docker
 alias dkc=docker-compose
 
-alias zperf='/usr/bin/time -p zsh -i -c exit'
-alias size='du -h -d 1'
-alias xc='open *.xcworkspace([1])'
-alias snip='pet search | pbcopy'
-alias spd='speedtest-cli'
-alias path='echo $PATH | tr ":" "\n"'
-alias jqfix='pbpaste | jq . | pbcopy'
 alias shrug='echo "¯\_(ツ)_/¯" | pbcopy'
 alias tflip='echo "(╯°□°)╯︵ ┻━┻" | pbcopy'
 alias shebang='echo "#!/usr/bin/env bash" | pbcopy'
