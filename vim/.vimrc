@@ -148,16 +148,19 @@ set hlsearch " highlight hits while traversing search matches
 " Autocommands
 """"""""""""""""""""
 
+" faster save when editing git
 augroup committing
   autocmd!
   autocmd BufRead */.git/{*,**/*} inoremap wq <Esc>:wq<CR>
 augroup END
 
+" proper filetypes for common files
 augroup filetypes
   autocmd!
   autocmd BufRead Fastfile set filetype=ruby
 augroup END
 
+" consistent formatting for machine-ish files
 augroup formatting
   autocmd!
   autocmd BufRead *.json :silent %!jq .
@@ -166,11 +169,26 @@ augroup formatting
   autocmd BufWritePre * %s/\s\+$//e " trim trailing whitespace
 augroup END
 
+" keep git gutter as fresh as possible
 augroup gitgutter
   autocmd!
   autocmd TextChanged,TextChangedI,TextChangedP * GitGutterBufferEnable
 augroup END
 
+" Create intermediate directories of current file as required
+" Credit: https://github.com/DataWraith/auto_mkdir
+function <SID>auto_mkdir()
+  let l:parent_dir = expand('<afile>:p:h')
+  if !isdirectory(l:parent_dir)
+    call mkdir(l:parent_dir, 'p')
+  endif
+endfunction
+augroup auto_mkdir
+  autocmd!
+  autocmd BufWritePre,FileWritePre * call <SID>auto_mkdir()
+augroup END
+
+" hot reload vimrc changes
 augroup vimrc
   autocmd!
   autocmd BufWritePost .vimrc source %
