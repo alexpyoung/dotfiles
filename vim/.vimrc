@@ -79,7 +79,6 @@ let g:netrw_bufsettings='noma nomod rnu nowrap ro nobl'
 
 " Editor
 Plug 'quramy/tsuquyomi', { 'for': ['typescript', 'typecriptreact'] } " tsserver client
-Plug 'terryma/vim-multiple-cursors' " sublime style selection
 Plug 'tpope/vim-commentary' " polyglot commenting
 Plug 'tpope/vim-eunuch' " unix commands
 Plug 'tpope/vim-sleuth' " indentation
