@@ -153,12 +153,6 @@ augroup committing
   autocmd BufRead */.git/{*,**/*} inoremap wq <Esc>:wq<CR>
 augroup END
 
-" proper filetypes for common files
-augroup filetypes
-  autocmd!
-  autocmd BufRead Fastfile set filetype=ruby
-augroup END
-
 " consistent formatting for machine-ish files
 augroup formatting
   autocmd!
