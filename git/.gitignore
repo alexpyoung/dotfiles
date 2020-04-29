@@ -1,3 +1,5 @@
 node_modules
+# Temporary vim files
 *.swp
 *.swo
+*.un~

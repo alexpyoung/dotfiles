@@ -129,7 +129,6 @@ set mousefocus " change windows with mouse
 set mousehide " only show mouse when moving
 set shell=zsh " shell to use for :shell
 set undofile " enable undo after writes
-set undodir=$HOME/.vim/undo
 
 " Navigation
 set splitright " sensible split window
