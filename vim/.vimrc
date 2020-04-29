@@ -94,15 +94,21 @@ Plug 'vim-airline/vim-airline' " easy status line
 call plug#end()
 
 """"""""""""""""""""
+" Packages
+""""""""""""""""""""
+
+packadd matchit " makes the % command work better
+
+""""""""""""""""""""
 " Options
 """"""""""""""""""""
 
-colorscheme gruvbox
-filetype plugin indent on
-syntax enable
+colorscheme gruvbox " managed via vim-plug
+filetype plugin indent on " source .vim/{ftplugin,indent}/*.vim files
+syntax enable " syntax highlighting
 
 " Display
-set background=dark
+set background=dark " 🧛
 set antialias " use smooth fonts
 set number relativenumber " hybrid line numbers for easier motions
 set noshowmode  " airline shows mode
