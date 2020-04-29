@@ -147,12 +147,6 @@ set hlsearch " highlight hits while traversing search matches
 " Autocommands
 """"""""""""""""""""
 
-" faster save when editing git
-augroup committing
-  autocmd!
-  autocmd BufRead */.git/{*,**/*} inoremap wq <Esc>:wq<CR>
-augroup END
-
 " consistent formatting for machine-ish files
 augroup formatting
   autocmd!
