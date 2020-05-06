@@ -70,9 +70,13 @@
   last = show HEAD
   name = rev-parse --abbrev-ref HEAD # name of branch
   tree = log --graph --date=relative --pretty=tree # better git log
+  history = "!f() { git log -- $1 | tig; }; f"
+  praise = blame -w
   stat = !git add --intent-to-add . && git --no-pager diff --stat && git --no-pager diff --numstat # line change summary
   changelog = !git log --oneline | fzf | cut -d' ' -f1 | xargs -I _ git log --oneline --pretty=diff _~..HEAD | sed -e 's/^/- /'
   users = shortlog --summary --numbered
+[blame]
+  date = human # default is ISO 8601
 [branch]
   autoSetupRebase = always # configure branch.name.rebase whenever creating a new branch
 [commit]
