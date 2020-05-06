@@ -47,8 +47,8 @@ cnoreabbrev help vertical<Space>botright<Space>help
 nnoremap <silent> <Leader>b :Buffers<CR>
 nnoremap <silent> <Leader>f :Files<CR>
 nnoremap <silent> <Leader>hs :History:<CR>
-nnoremap <silent> <Leader>rg :Rg<Space>
 nnoremap <silent> <Leader>w :Windows<CR>
+nnoremap <Leader>rg :Rg<Space>
 
 " Git
 nnoremap <silent> <Leader>gb :Gblame<CR>
@@ -112,6 +112,7 @@ set background=dark " 🧛
 set antialias " use smooth fonts
 set number relativenumber " hybrid line numbers for easier motions
 set noshowmode  " airline shows mode
+set showcmd " display ex command while typing
 set cursorline " highlight line containing cursor
 set shortmess+=I " hide startup message
 set scrolloff=10 " minimum line count to surround curor with
