@@ -2,12 +2,13 @@
 
 alias cb='open /System/Library/PreferencePanes/Appearance.prefPane'
 alias hs='history -n | fzf --tac | source /dev/stdin'
+alias lv='ps aux | grep vim | grep -v grep | wc -l | tr -d "[:blank:]" | xargs -I _ echo "_ vim processes found"'
 alias path='echo $PATH | tr ":" "\n"'
 alias n='pong fast.com 443'
 alias size='du -h -d 1'
 alias snip='pet search | pbcopy'
 alias spd='speedtest-cli'
-alias xc='open *.xcworkspace([1])'
+alias xc='open *.xcworkspace([1]) || open *.xcodeproj([1])'
 alias zperf='/usr/bin/time -p zsh -i -c exit'
 
 alias g=git
