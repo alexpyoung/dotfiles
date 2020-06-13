@@ -10,11 +10,8 @@ plugins=(
   command-not-found
   docker
   docker-compose
-  eden
-  gamechanger
   git-auto-fetch
   gpg
-  mbq
   ripgrep
   vi-mode
   zsh-interactive-cd
