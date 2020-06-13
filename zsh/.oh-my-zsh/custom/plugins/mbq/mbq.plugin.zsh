@@ -1,5 +1,13 @@
 #!/usr/bin/env zsh
 
+function convox-ssh() {
+    local -r RACK=$(convox racks | tail -n +2 | grep running | cut -d/ -f2 | cut -d" " -f1 | fzf)
+    local -r APP=$(convox apps -r "$RACK" | tail -n +2 | grep running | cut -d" " -f1 | fzf)
+    local -r SERVICE=$(convox services -r "$RACK" -a "$APP" | tail -n +2 | cut -d" " -f1 | fzf)
+    printf "%s\n" "SSHing into $APP $SERVICE..."
+    convox run "$SERVICE" bash -r "$RACK" -a "$APP"
+}
+
 alias mbqlog='open https://papertrailapp.com/systems/`curl -s -H "X-Papertrail-Token: $PAPERTRAIL_API_TOKEN" https://papertrailapp.com/api/v1/groups.json | jq -r ".[0].systems | map(.name) | .[]" | fzf`/events'
 alias mbqtail='curl -s -H "X-Papertrail-Token: $PAPERTRAIL_API_TOKEN" https://papertrailapp.com/api/v1/groups.json | jq -r ".[0].systems | map(.name) | .[]" | fzf | xargs papertrail -f -s'
 alias cpnpm='cat ~/.npmrc | cut -d= -f2'
