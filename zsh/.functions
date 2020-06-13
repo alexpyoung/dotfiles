@@ -39,6 +39,11 @@ function brew-own() {
     sudo chown -R "$USER" "$PREFIX"/Cellar
 }
 
+function wifi() {
+    networksetup -setairportpower en0 off
+    networksetup -setairportpower en0 on
+}
+
 # zsh
 function zhelp() {
     if [[ -d ~/.oh-my-zsh/plugins/$1 ]]; then
