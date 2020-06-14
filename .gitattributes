@@ -1,1 +1,2 @@
 *.scpt diff=applescript
+*.plist diff=plist
