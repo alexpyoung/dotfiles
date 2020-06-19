@@ -7,33 +7,30 @@
 [alias]
   choose = !git $(git aliases no-color | fzf | cut -d' ' -f1) # fuzzy execute an alias
 
-  # Working
+  # Staging
   a = !git add --intent-to-add . && git add --patch # interactive staging, including new files
   c = commit
   wip = !git a && git c --message='wip'
   untrack = rm --cache -- # remove from git but keep file system changes
-  shake = !git branch --merged | grep -v '\\*' | xargs -n 1 git branch --delete # delete branches that have been merged into origin
-  edit = !vim $(git status --short | fzf | cut -c 4-) # fuzzy edit a modified file
-  gui = !github . # open Github Desktop
 
   # Reset
   back = !git reset --soft HEAD~ && git reset && git d # undo last commit but keep changes
-  undo = reset --hard HEAD~ # hard delete last commit
-  clear = reset --hard HEAD # restore working directory to pristine state
-  wipe = !git checkout -- $(git status --porcelain | fzf | cut -c 4-) # hard undo on fuzzy file
+  undo = !git clear && git reset --hard HEAD~ # hard delete last commit
   save = !git reset && git a && git c # interactive committing
-  rho = !git fo && git reset --hard origin/$(git name)
+  rho = !git fo && git reset --hard origin/$(git name) # mirror origin
 
   # Checkout
   co = checkout
   com = checkout master
   cob = checkout -b
+  wipe = !git checkout -- $(git status --porcelain | fzf | cut -c 4-) # hard undo on fuzzy file
+  recent = !git committed | fzf | cut -d$'\t' -f1 | xargs git co # fuzzy select recently committed branch
   committed = !git for-each-ref --sort='-committerdate' --format='%(refname)%09%(committerdate:relative)' refs/heads | sed -e 's,refs/heads/,,'
-  recent = !git committed | fzf | cut -d$'\t' -f1 | xargs git co # checkout a recently committed branch
 
   # Stash
   store = !git a && git stash
   soon = !git add . && git stash
+  clear = !git rev-parse HEAD | pbcopy && git soon # restore working directory to pristine state
   stl = stash list
   sts = stash show
   stp = stash pop
@@ -46,24 +43,32 @@
   dom = !git fo && git d origin/master HEAD
 
   # Rebase
+  rb = rebase
+  rbr = "!f() { git fo; git rb origin/$1; }; f" # any remote branch
+  rbm = !git rbr master # remote master
+  rbo = !git name | xargs git rbr # remote tracking branch
   rbi = rebase --interactive
-  rbm = !git fo && git rebase origin/master
   rbmi = !git fo && git rbi origin/master
   rbc = !git a && git rebase --continue
   rba = rebase --abort
-  rbfz = !git rbi $(git tree | fzf | cut -d' ' -f2)~
+  rbfz = !git rbi $(git tree | fzf | cut -d' ' -f2)~ # interactive from a fuzzy commit
+  fix = !git squash $(git tree | fzf | cut -d' ' -f2) # apply working patch to fuzzy commit
   squash = "!f() { git a; git c --fixup=$1; git rbi --autosquash $1~; }; f"
-  fix = !git squash $(git tree | fzf | cut -d' ' -f2)
 
   # Remote
+  fo = fetch origin --tags
   p = push
   force = push --force
-  fo = fetch origin --tags
+  publish = !git name | xargs git push --set-upstream origin # automatic tracking
+  tg = "!f() { git tag $1; git push origin tags/$1; }; f" # parity with remote
+  untag = "!f() { git tag -d $1; git push origin :refs/tags/$1; }; f" # parity with remote
+  shake = !git branch --merged | grep -v '\\*' | xargs -n 1 git branch --delete # delete branches that have been merged into origin
+
+  # External
+  edit = !vim $(git status --short | fzf | cut -c 4-) # fuzzy edit a modified file
+  gui = !github . # open Github Desktop
   pr = !gh pr create --fill --web
   prs = !gh pr status
-  publish = !git name | xargs git push --set-upstream origin
-  tg = "!f() { git tag $1; git push origin tags/$1; }; f"
-  untag = "!f() { git tag -d $1; git push origin :refs/tags/$1; }; f"
 
   # Info
   st = status
