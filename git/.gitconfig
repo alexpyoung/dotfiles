@@ -30,7 +30,7 @@
   # Stash
   store = !git a && git stash
   soon = !git add . && git stash
-  clear = !git rev-parse HEAD | pbcopy && git soon # restore working directory to pristine state
+  clear = !git add . && git reset --hard HEAD
   stl = stash list
   sts = stash show
   stp = stash pop
