@@ -45,8 +45,10 @@
   # Rebase
   rb = rebase
   rbr = "!f() { git fo; git rb origin/$1; }; f" # any remote branch
+  rbir = "!f() { git fo; git rbi origin/$1; }; f" # any remote branch
   rbm = !git rbr master # remote master
   rbo = !git name | xargs git rbr # remote tracking branch
+  rbio = !git name | xargs git rbir # remote tracking branch
   rbi = rebase --interactive
   rbmi = !git fo && git rbi origin/master
   rbc = !git a && git rebase --continue
