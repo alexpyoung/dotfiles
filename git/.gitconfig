@@ -18,6 +18,7 @@
   undo = !git clear && git reset --hard HEAD~ # hard delete last commit
   save = !git reset && git a && git c # interactive committing
   rho = !git fo && git reset --hard origin/$(git name) # mirror origin
+  twig = !git committed | fzf | cut -d$'\t' -f1 | xargs git branch -D # fuzzy hard delete local branch
 
   # Checkout
   co = checkout
