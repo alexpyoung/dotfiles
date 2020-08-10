@@ -61,6 +61,9 @@ nnoremap <silent> <Leader>pi :PlugInstall<CR>:q<CR>
 nnoremap <silent> <Leader>pu :PlugUpdate<CR>:q<CR>
 nnoremap <silent> <Leader>pc :PlugClean<CR>
 
+" Format JSON, YAML, XML
+nnoremap <silent> <Leader>fmt :call Format()<CR>
+
 """"""""""""""""""""
 " Plugins
 """"""""""""""""""""
@@ -154,13 +157,13 @@ set hlsearch " highlight hits while traversing search matches
 """"""""""""""""""""
 
 " consistent formatting for machine-ish files
-augroup formatting
+function Format()
   autocmd!
   autocmd BufRead *.json :silent %!jq .
   autocmd BufRead *.{yml,yaml} :silent %!yq --prettyPrint --indent 2 read -
   autocmd BufRead *.xml :silent %!tidy -xml -indent -quiet -
   autocmd BufWritePre * %s/\s\+$//e " trim trailing whitespace
-augroup END
+endfunction
 
 " keep git gutter as fresh as possible
 augroup gitgutter
