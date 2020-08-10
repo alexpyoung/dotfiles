@@ -32,7 +32,7 @@ defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "$HOME/Drop
 defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 
 # .aliases should have been sourced by now
-setup_ducky
+ducky
 
 # Disable Resume system-wide
 defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
