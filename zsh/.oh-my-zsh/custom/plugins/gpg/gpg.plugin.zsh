@@ -9,7 +9,7 @@ GPG_TTY=$(tty)
 export GPG_TTY
 
 function gpg-id() {
-    gpg-long | grep -B 2 "$1" | head -n1 | cut -d/ -f2 | cut -d' ' -f1
+    gpg-secret | grep -B 2 "$1" | head -n1 | cut -d/ -f2 | cut -d' ' -f1
 }
 
 function gpg-export() { # gpg-export [-secret-key] ID
