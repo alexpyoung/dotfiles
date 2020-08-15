@@ -1,10 +1,20 @@
 #!/usr/bin/env zsh
 
+spaceship_vim() {
+  if [[ -n $(env | grep VIMRUNTIME) ]]; then
+    local -r SPACESHIP_VIM_COLOR="${SPACESHIP_VIM_COLOR=034}"
+    spaceship::section \
+      "$SPACESHIP_VIM_COLOR" \
+      ":v: "
+  fi
+}
+
 ZSH_THEME='spaceship'
 SPACESHIP_PROMPT_ORDER=(
   time
   exec_time
   jobs
+  vim
   vi_mode
   dir
   git
