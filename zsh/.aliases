@@ -18,6 +18,7 @@ alias dkc=docker-compose
 
 alias shrug='echo "¯\_(ツ)_/¯" | pbcopy'
 alias tflip='echo "(╯°□°)╯︵ ┻━┻" | pbcopy'
+alias gimme='echo "༼ つ ◕_◕ ༽つ" | pbcopy'
 alias shebang='echo "#!/usr/bin/env bash" | pbcopy'
 
 alias stan='bluetooth "Stanmore II"'
