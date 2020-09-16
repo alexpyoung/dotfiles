@@ -72,7 +72,7 @@
   # External
   edit = !vim $(git status --short | fzf | cut -c 4-) # fuzzy edit a modified file
   gui = !github . # open Github Desktop
-  pr = !gh pr create --fill --web
+  pr = !git publish && gh pr create --fill --web
   prs = !gh pr status
 
   # Info
