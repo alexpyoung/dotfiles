@@ -5,6 +5,7 @@ source ~/.spaceship
 
 # zhelp|zalias PLUGIN_NAME
 plugins=(
+  aicure
   brew
   colored-man-pages
   command-not-found
