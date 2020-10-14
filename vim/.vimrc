@@ -190,10 +190,3 @@ augroup vimrc
   autocmd BufWritePost .vimrc source %
 augroup END
 
-function StartUp()
-  if 0 == argc()
-    Files
-  end
-endfunction
-" open fzf if vim is invoked with no file
-autocmd VimEnter * call StartUp()
