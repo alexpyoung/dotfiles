@@ -4,7 +4,7 @@ source $HOME/Documents/fastlane_secrets
 
 function apk() {
 	local -r TOKEN=$1
-	local -r FLAVOR=$2
+	local -r FLAVOR=$2 # dev|intg|qa
 	local -r DIR=/tmp/apk
 	local -r ZIP="$DIR.zip"
 	local -r APK="$DIR/app-$FLAVOR-debug.apk"
