@@ -45,10 +45,6 @@ function redshift() {
 
 }
 
-# PAPI Aliases
-alias papi='psql -h papi-prod.crzmm8cpdhmt.us-east-1.rds.amazonaws.com -U gamechanger papi'
-export PGPASSWORD=0Ltli9BFuvROxbgU8AqDyrJtLIDCyvOFRrpLjEHWUtfjh0ZgTt
-
 gc_dir_decorator() {
     cd ~/gc/"$1" || return 1
     echo 'Fetching origin...' && g fo
