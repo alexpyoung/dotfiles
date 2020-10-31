@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 
-source $HOME/Documents/fastlane_secrets
+if [[ -e $HOME/Documents/fastlane_secrets ]]; then
+	source $HOME/Documents/fastlane_secrets
+fi
 
 function apk() {
 	local -r TOKEN=$1
