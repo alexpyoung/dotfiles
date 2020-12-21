@@ -21,4 +21,4 @@ alias tflip='echo "(╯°□°)╯︵ ┻━┻" | pbcopy'
 alias gimme='echo "༼ つ ◕_◕ ༽つ" | pbcopy'
 alias shebang='echo "#!/usr/bin/env bash" | pbcopy'
 
-alias stan='bluetooth "Stanmore II"'
+alias stan='bluetooth STANMORE'

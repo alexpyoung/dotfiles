@@ -5,7 +5,6 @@ set -euo pipefail
 
 main() {
     osacompile -o /dev/null "${0%/*}"/../../bin/ducky
-    osacompile -o /dev/null "${0%/*}"/../../bin/bluetooth
     local -r GREEN='\033[0;32m'
     local -r RESET='\033[0m'
     # shellcheck disable=SC2059

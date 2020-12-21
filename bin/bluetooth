@@ -1,23 +1,10 @@
-#!/usr/bin/env osascript
+#!/usr/bin/env bash
 
-on run argv
-	set DeviceName to item 1 of argv
-	tell application "System Events" to tell process "SystemUIServer"
-		set bt to (first menu bar item whose description is "bluetooth") of menu bar 1
-		click bt
-		if exists menu item DeviceName of menu of bt then
-			tell (first menu item whose title is DeviceName) of menu of bt
-				click
-				tell menu 1
-					if exists menu item "Connect" then
-						click menu item "Connect"
-					else
-						key code 53 -- hit Escape to close BT menu
-					end if
-				end tell
-			end tell
-		else
-			key code 53 -- hit Escape to close BT menu
-		end if
-	end tell
-end run
+main() {
+	local -r NAME=$1
+	local -r ID=$(blueutil --paired | grep "$NAME" | cut -c 10-26)
+	blueutil --connect "$ID"
+	blueutil --wait-disconnect "$ID" && blueutil --connect "$ID" && main "$@"
+}
+
+main "$@"
