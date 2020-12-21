@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
 
 if [[ -e $HOME/Documents/fastlane_secrets ]]; then
-	source $HOME/Documents/fastlane_secrets
+	# shellcheck disable=SC1090
+	source "$HOME"/Documents/fastlane_secrets
 fi
 
 function apk() {
@@ -14,11 +15,11 @@ function apk() {
 	local -r URL=$(curl -s -H "Accept: application/vnd.github.v3+json" -H "Authorization: Bearer $TOKEN" https://api.github.com/repos/aicure/ima_android/actions/artifacts | jq -r --arg flavor "$FLAVOR" '.artifacts | map(select(.name|contains($flavor))) | sort_by(.updated_at) | reverse | .[0].archive_download_url')
 
 	echo "Downloading APK from $URL"
-	curl -s -L -H "Authorization: Bearer $TOKEN" $URL -o $ZIP
+	curl -s -L -H "Authorization: Bearer $TOKEN" "$URL" -o $ZIP
 	unzip -o $ZIP -d $DIR
 
 	local -r DEVICE_ID=$(adb devices -l | fzf | cut -d' ' -f1)
-	adb -s $DEVICE_ID install -r $APK
+	adb -s "$DEVICE_ID" install -r "$APK"
 	echo "Successfully installed $APK onto $DEVICE_ID"
 
 	rm -rf $ZIP
