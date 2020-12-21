@@ -13,6 +13,7 @@ main() {
     export -f check
     check "$(file scripts/**/* | grep executable | cut -d: -f1)"
     check git/bin/*
+    check bin/bluetooth
     check zsh/.aliases
     check zsh/.exports
     check zsh/.functions
