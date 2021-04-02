@@ -28,18 +28,20 @@ function apk() {
 
 # Expects awscli to be configured with env profiles
 function mobilelogs() {
-	local -r env=$1
+	local -r env=${1:-'prod'} # Default to prod env
 	local -r bucket="s3://$env-cd-non-phi-patient-data.aicure.com"
 	local -r base="$bucket/non_phi/v2logs/"
-	local -r client=$(aws --profile $env s3 ls $base | cut -c 32- | fzf)
-	local -r patient=$(aws --profile $env s3 ls $base$client | cut -c 32- | fzf)
+	local -r client=$(aws --profile "$env" s3 ls "$base" | cut -c 32- | fzf)
+	local -r patient=$(aws --profile "$env" s3 ls "$base$client" | cut -c 32- | fzf)
 	local -r destination="/tmp/$client$patient"
-	mkdir -p $destination
-	aws --profile $env s3 cp --recursive $base$client$patient $destination
-	for archive in $(find $destination -name '*.zip'); do
-		unzip $archive -d $(dirname $archive)
-	done
-	printf "\ngrep path:\n$destination\n"
-	echo $destination | pbcopy
+	mkdir -p "$destination"
+	aws --profile "$env" s3 cp --recursive "$base$client$patient" "$destination"
+	find "$destination" -name '*.zip' > tmp
+	# https://github.com/koalaman/shellcheck/wiki/SC2044
+	while IFS= read -r archive; do
+		unzip "$archive" -d "$(dirname "$archive")"
+	done < tmp
+	rm tmp
+	printf "\ngrep path:\n%s\n" "$destination"
 }
 
