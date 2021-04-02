@@ -23,7 +23,7 @@
   snap = !git committed | fzf | cut -d$'\t' -f1 | xargs git branch -D # fuzzy hard delete local branch
 
   # Checkout
-  co = checkout
+  co = !git fo && git checkout
   com = checkout master
   cob = checkout -b
   wipe = !git checkout -- $(git status --porcelain | fzf | cut -c 4-) # hard undo on fuzzy file
