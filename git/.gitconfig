@@ -1,6 +1,4 @@
 # https://git-scm.com/docs/git-config
-[includeIf "gitdir:~/dotfiles"]
-  path = .git/config
 [include]
   path = ~/.gitconfig.local # obfuscate PII
 [user]
@@ -8,6 +6,7 @@
   useConfigOnly = true # do not infer defaults
 [alias]
   choose = !git $(git aliases no-color | fzf | cut -d' ' -f1) # fuzzy execute an alias
+  user = !~/dotfiles/scripts/setup/git
 
   # Staging
   a = !git add --intent-to-add . && git add --patch # interactive staging, including new files
