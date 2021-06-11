@@ -14,9 +14,9 @@ function gpg-id() {
 
 function gpg-export() { # gpg-export [-secret-key] ID
     if [[ -n $2 ]]; then
-        gpg "--export$1" --armor "$2" | pbcopy
+        gpg "--export$1" --armor "$2" | cat -e | sed 's/\$/\\n/g' | pbcopy
     else
-        gpg --export --armor "$1" | pbcopy
+        gpg --export --armor "$1" | cat -e | sed 's/\$/\\n/g' | pbcopy
     fi
 }
 
