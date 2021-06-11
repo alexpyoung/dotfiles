@@ -2,13 +2,25 @@
 
 set -eo pipefail
 
-configure_signing_key() {
+configure_git_user() {
+    local -r GIT_EMAIL=$1
+    git config --file ~/.gitconfig.local user.email "$GIT_EMAIL"
     gpg --list-secret-keys --keyid-format LONG\
-        | grep -B 2 "$1"\
+        | grep -B 2 "$GIT_EMAIL"\
         | head -n1\
         | cut -d/ -f2\
         | cut -d' ' -f1\
         | xargs git config --file ~/.gitconfig.local user.signingkey
+}
+
+import_gpg_private_key() {
+    local -r GIT_EMAIL=$1
+    read -r -p "Enter 1Password email: " OP_EMAIL
+    read -r -p "Enter 1Password secret key: " OP_SECRET_KEY
+    eval "$(op signin my "$OP_EMAIL" "$OP_SECRET_KEY")"
+
+    local -r UUID=$(op list items | jq --raw-output --arg GIT_EMAIL "$GIT_EMAIL" '.[] | select(.overview.url==$GIT_EMAIL and .overview.title=="GPG Private Key") | .uuid')
+    echo -e "$(op get item "$UUID" | jq -r '.details.password')" | gpg --import
 }
 
 configure_gpg_agent() {
@@ -24,21 +36,13 @@ configure_gpg_agent() {
     gpgconf --kill gpg-agent
 }
 
-# batch mode:
-# export GIT_EMAIL=...
-# export OP_SECRET_KEY=...
 main() {
     stow --verbose=2 git
 
-    [[ -z $GIT_EMAIL ]] && read -r -p "Enter git email: " GIT_EMAIL
-    git config --file ~/.gitconfig.local user.email "$GIT_EMAIL"
+    read -r -p "Enter git email: " GIT_EMAIL
 
-    [[ -z $OP_SECRET_KEY ]] && read -r -p "Enter 1Password secret key: " OP_SECRET_KEY
-    eval "$(op signin my "$GIT_EMAIL" "$OP_SECRET_KEY")"
-
-    local -r UUID=sxwjjzpdgndurmevma5ozxlxei
-    echo -e "$(op get item "$UUID" | jq -r '.details.password')" | gpg --import
-    configure_signing_key "$GIT_EMAIL"
+    import_gpg_private_key "$GIT_EMAIL"
+    configure_git_user "$GIT_EMAIL"
     configure_gpg_agent
 }
 
