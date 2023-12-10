@@ -1,11 +1,13 @@
 #!/usr/bin/env zsh
+#
+#
+#
 
 source ~/.exports
 source ~/.spaceship
 
 # zhelp|zalias PLUGIN_NAME
 plugins=(
-  aicure
   brew
   colored-man-pages
   command-not-found
@@ -13,6 +15,7 @@ plugins=(
   docker-compose
   git-auto-fetch
   gpg
+  img
   ripgrep
   vi-mode
   zsh-interactive-cd
