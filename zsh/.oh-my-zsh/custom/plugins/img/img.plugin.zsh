@@ -17,8 +17,9 @@ k8a() {
 			aws eks update-kubeconfig --region=us-east-1 --name=prod-0002 --profile ptc-gbl-ncsaprod-admin
 			;;
 	esac
-	which kubens || brew install kubectl
+	which kubens || brew install kubectx
 	kubens "team-athlete"
+	which kubectl || brew install kubectl
 }
 
 # choose a pod
