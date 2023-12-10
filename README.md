@@ -1,6 +1,6 @@
 # dotfiles
 
-![CI](https://github.com/alexpyoung/dotfiles/workflows/CI/badge.svg?branch=master)
+[![CI](https://github.com/alexpyoung/dotfiles/actions/workflows/main.yml/badge.svg)](https://github.com/alexpyoung/dotfiles/actions/workflows/main.yml)
 
 ## New Machine
 1. [Generate a new SSH key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
