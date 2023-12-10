@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 if [[ -e $HOME/Documents/fastlane_secrets ]]; then
-	# shellcheck disable=SC1090
+	# shellcheck disable=SC1090,SC1091
 	source "$HOME"/Documents/fastlane_secrets
 fi
 
