@@ -36,7 +36,7 @@ def post(url, data):
     headers = {
         "x-accept": "application/json",
     }
-    response = requests.post(url, data=data, headers=headers)
+    response = requests.post(url, data=data, headers=headers, timeout=5)
     error = response.headers.get("X-Error")
     if error:
         LOGGER.error("%s, %s", response.status_code, error)
