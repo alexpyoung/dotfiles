@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Product</key>
+	<string>Dash</string>
+	<key>Name</key>
+	<string>alexyoung1992</string>
+	<key>Email</key>
+	<string>alexyoung1992@gmail.com</string>
+	<key>Licenses</key>
+	<string>1</string>
+	<key>Timestamp</key>
+	<string>1546531782</string>
+	<key>Version</key>
+	<string>4</string>
+	<key>TransactionID</key>
+	<string>6fce42bb0ee78504699679657da4eb35</string>
+	<key>Signature</key>
+	<data>AjGyfCdXYoCn9PfmQTVM2/mBGjBQVx1OnJ0evp/tD5OtzZqpL2ah4dWJB+0K92rtHa61bSqio1f7
+eqWKdOVyezv2C6nGoihBDUDAQVzoF+iqgPf05BLbzvyfEUktmyDkVHEXs0jxStPt2CvSHFpWkL+t
+C2BWEUWPZ04bzZp16+4=
+</data>
+</dict>
+</plist>

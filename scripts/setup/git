@@ -41,7 +41,7 @@ main() {
 
     read -r -p "Enter git email: " GIT_EMAIL
 
-    import_gpg_private_key "$GIT_EMAIL"
+    # import_gpg_private_key "$GIT_EMAIL"
     configure_git_user "$GIT_EMAIL"
     configure_gpg_agent
 }

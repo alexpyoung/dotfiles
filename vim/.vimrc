@@ -51,10 +51,9 @@ nnoremap <silent> <Leader>w :Windows<CR>
 nnoremap <Leader>rg :Rg<Space>
 
 " Git
-nnoremap <silent> <Leader>gb :Gblame<CR>
-nnoremap <silent> <Leader>gd :Gdiffsplit<CR>
-nnoremap <silent> <Leader>gs :Gstatus<CR>
-nnoremap <silent> <Leader>ggh :GitGutterLineHighlightsToggle<CR>
+nnoremap <silent> <Leader>gb :Git blame<CR>
+nnoremap <silent> <Leader>gd :Git diff<CR>
+nnoremap <silent> <Leader>gs :Git status<CR>
 
 " Vim Plug
 nnoremap <silent> <Leader>pi :PlugInstall<CR>:q<CR>
@@ -62,7 +61,15 @@ nnoremap <silent> <Leader>pu :PlugUpdate<CR>:q<CR>
 nnoremap <silent> <Leader>pc :PlugClean<CR>
 
 " Format JSON, YAML, XML
-nnoremap <silent> <Leader>fmt :call Format()<CR>
+nnoremap <silent> <Leader>fmt :call FormatMachine()<CR>
+
+" COC Typescript
+" nnoremap <Leader>ac <Plug>(coc-codeaction)
+" nnoremap <Leader>qf <Plug>(coc-fix-current)
+" nnoremap <silent> gd <Plug>(coc-definition)
+" nnoremap <silent> gy <Plug>(coc-type-definition)
+" nnoremap <silent> gi <Plug>(coc-implementation)
+" nnoremap <silent> gr <Plug>(coc-references)
 
 """"""""""""""""""""
 " Plugins
@@ -74,14 +81,21 @@ call plug#begin('~/.vim/vim-plug')
 Plug 'jremmen/vim-ripgrep' " respect .gitignore
 let g:rg_command='rg --hidden --vimgrep --glob !.git'
 let g:rg_highlight=1
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim' " fuzzy finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim' " fuzzy finder
 let g:fzf_preview_window = ''
+
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" let g:coc_global_extensions = ['coc-tsserver']
+Plug 'leafgarland/typescript-vim'
+Plug 'maxmellon/vim-jsx-pretty'
+
 Plug 'tpope/vim-fugitive' | Plug 'tpope/vim-rhubarb' " git commands
 Plug 'tpope/vim-vinegar' " enhance netrw
 let g:netrw_bufsettings='noma nomod rnu nowrap ro nobl'
 
 " Editor
-Plug 'quramy/tsuquyomi', { 'for': ['typescript', 'typecriptreact'] } " tsserver client
+" Plug 'quramy/tsuquyomi', { 'for': ['typescript', 'typecriptreact'] } " tsserver client
 Plug 'tpope/vim-commentary' " polyglot commenting
 Plug 'tpope/vim-eunuch' " unix commands
 Plug 'tpope/vim-sleuth' " indentation
@@ -152,12 +166,15 @@ set smartcase " case sensitive when query includes uppercase
 set incsearch " highlight match while typing search pattern
 set hlsearch " highlight hits while traversing search matches
 
+" Performance
+set re=0 " newer regex engine for usable Typescript syntax highlighting
+
 """"""""""""""""""""
 " Autocommands
 """"""""""""""""""""
 
 " consistent formatting for machine-ish files
-function Format()
+function FormatMachine()
   autocmd!
   autocmd BufRead *.json :silent %!jq .
   autocmd BufRead *.{yml,yaml} :silent %!yq --prettyPrint --indent 2 read -

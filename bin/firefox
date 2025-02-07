@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+
+import argparse
+import sqlite3
+import sys
+
+from pyfzf.pyfzf import FzfPrompt
+
+
+def main():
+	parser = argparse.ArgumentParser()
+	parser.add_argument('input', type=open)
+	args = parser.parse_args()
+	connection = sqlite3.connect(args.input.name)
+	cursor = connection.cursor()
+	response = cursor.execute("SELECT guid, title FROM moz_bookmarks WHERE type=1")
+	bookmarks = response.fetchall()
+	fzf = FzfPrompt()
+	selection = fzf.prompt(bookmarks, '--nth 1')
+	# selection = fzf.prompt(list(map(lambda b: b[1], bookmarks)))
+	print(selection)
+	# subprocess.run("fzf", f"-q=${list(map(lambda b: b[1], bookmarks))}")
+	# print(list(map(lambda b: b[1], bookmarks)))
+	 # print(rows)
+		# print(row[0])
+
+
+if __name__ == '__main__':
+    sys.exit(main())
+
