@@ -4,6 +4,7 @@
 [user]
   name = Alex Young
   useConfigOnly = true # do not infer defaults
+  email = github@alexyoung.io
 [alias]
   choose = !git $(git aliases no-color | fzf | cut -d' ' -f1) # fuzzy execute an alias
   user = !~/dotfiles/scripts/setup/git
