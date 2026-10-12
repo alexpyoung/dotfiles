@@ -15,12 +15,18 @@ configure_git_user() {
 
 import_gpg_private_key() {
     local -r GIT_EMAIL=$1
-    read -r -p "Enter 1Password email: " OP_EMAIL
-    read -r -p "Enter 1Password secret key: " OP_SECRET_KEY
-    eval "$(op signin my "$OP_EMAIL" "$OP_SECRET_KEY")"
+    eval "$(op signin)"
 
-    local -r UUID=$(op list items | jq --raw-output --arg GIT_EMAIL "$GIT_EMAIL" '.[] | select(.overview.url==$GIT_EMAIL and .overview.title=="GPG Private Key") | .uuid')
-    echo -e "$(op get item "$UUID" | jq -r '.details.password')" | gpg --import
+    local id
+    for id in $(op item list --format=json | jq -r '.[] | select(.title=="GPG Private Key") | .id'); do
+        if op item get "$id" --format=json | jq -e --arg GIT_EMAIL "$GIT_EMAIL" 'any(.urls[]?; .href==$GIT_EMAIL)' >/dev/null; then
+            echo -e "$(op item get "$id" --format=json | jq -r '.fields[] | select(.purpose=="PASSWORD" or .id=="password") | .value')" | gpg --import
+            return
+        fi
+    done
+
+    echo "No 1Password item titled \"GPG Private Key\" with url=$GIT_EMAIL found" >&2
+    return 1
 }
 
 configure_gpg_agent() {
