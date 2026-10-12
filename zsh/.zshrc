@@ -9,13 +9,13 @@ source ~/.spaceship
 # zhelp|zalias PLUGIN_NAME
 plugins=(
   brew
+  claude
   colored-man-pages
   command-not-found
   docker
   docker-compose
   git-auto-fetch
   gpg
-  img
   ripgrep
   vi-mode
   zsh-interactive-cd
