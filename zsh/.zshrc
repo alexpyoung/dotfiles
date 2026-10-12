@@ -31,6 +31,7 @@ setopt hist_ignore_all_dups
 
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(nodenv init -)"
 eval "$(pyenv init -)"
 eval "$(rbenv init -)"
@@ -40,3 +41,11 @@ source ~/.functions
 
 # Deduplicate PATH when re-sourcing .zshrc
 export PATH=$(echo $PATH | tr ':' '\n' | sort | uniq | tr '\n' ':' | sed 's/:$//')
+
+# pnpm
+export PNPM_HOME="/Users/alex/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
