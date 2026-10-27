@@ -1,0 +1,11 @@
+# Global defaults, used outside any project. Projects pin their own versions
+# in mise.toml (globally git-ignored) or idiomatic files like .nvmrc.
+# https://mise.jdx.dev/configuration.html
+
+[tools]
+node = "lts"
+pnpm = "latest"
+
+[settings]
+# Honor .nvmrc / .node-version, .ruby-version and .python-version
+idiomatic_version_file_enable_tools = ["node", "ruby", "python"]

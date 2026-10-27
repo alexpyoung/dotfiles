@@ -3,6 +3,10 @@
 eval "$(/opt/homebrew/bin/brew shellenv)" # Homebrew ahead of system tools
 
 typeset -U path # keep PATH unique
+
+# mise shims for scripts, editors and Xcode build phases; .zshrc activates mise fully
+(( $+commands[mise] )) && eval "$(mise activate zsh --shims)"
+
 path=(~/.local/bin $path) # own scripts first
 
 export EDITOR=vim

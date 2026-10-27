@@ -48,6 +48,9 @@ unset plugin
 HOMEBREW_COMMAND_NOT_FOUND_HANDLER=$HOMEBREW_REPOSITORY/Library/Homebrew/command-not-found/handler.sh
 [[ -f $HOMEBREW_COMMAND_NOT_FOUND_HANDLER ]] && source $HOMEBREW_COMMAND_NOT_FOUND_HANDLER
 
+# Per-project tool versions, switched on cd
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
+
 eval "$(starship init zsh)"
 
 source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh

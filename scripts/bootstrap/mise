@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+    cd "$(dirname "$0")/../.." # stow packages are relative to the repo root
+    brew install mise
+    # --no-folding: link files, not whole directories like ~/.config
+    stow --verbose=2 --no-folding --target="$HOME" mise
+    mise install # global defaults from ~/.config/mise/config.toml
+}
+
+main
