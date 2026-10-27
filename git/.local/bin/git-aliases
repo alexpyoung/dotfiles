@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+format() {
+    # \033[0;36m - cyan
+    # %-10s - max width = 10 columns
+    # \033[0m - reset color
+    # $1 - print 0th column
+    # $1=""; - do not print 0th column
+    # %-40s - max width = 40 columns
+    # $0 - print row
+    if [[ $1 == "no-color" ]]; then
+        # shellcheck disable=SC2016,2028
+        echo '{ printf "%-10s", $1 } { $1=""; printf "%-40s\n", $0 }'
+    else
+        # shellcheck disable=SC2016,2028
+        echo '{ printf "\033[0;36m%-10s\033[0m", $1 } { $1=""; printf "%-40s\n", $0 }'
+    fi
+}
+
+main() {
+    # shellcheck disable=SC2026
+    git config --get-regexp alias\
+        | cut -c 7-\
+        | sed -e 's/!f() { //' -e 's/}.*//' -e 's/!git//'\
+        | awk "$(format "$1")"
+}
+
+main "$@"

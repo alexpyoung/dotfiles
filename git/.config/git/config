@@ -1,0 +1,146 @@
+# https://git-scm.com/docs/git-config
+[include]
+  path = ~/.config/git/config.local # machine-specific signing key, written by scripts/setup/git
+[user]
+  name = Alex Young
+  useConfigOnly = true # do not infer defaults
+  email = github@alexyoung.io
+[alias]
+  choose = !git $(git aliases no-color | fzf | cut -d' ' -f1) # fuzzy execute an alias
+  user = !~/dotfiles/scripts/setup/git
+  default = "!git symbolic-ref --short refs/remotes/origin/HEAD | sed 's,^origin/,,'" # name of default branch
+
+  # Staging
+  a = !git add --intent-to-add . && git add --patch # interactive staging, including new files
+  c = commit
+  wip = !git a && git c --message='wip'
+  untrack = rm --cached -- # remove from git but keep file system changes
+
+  # Reset
+  back = !git reset HEAD~ && git d # undo last commit but keep changes
+  undo = !git clear && git reset --hard HEAD~ # hard delete last commit
+  save = !git reset && git a && git c # interactive committing
+  rho = !git fo && git reset --hard origin/$(git name) # mirror origin
+  snap = !git committed | fzf | cut -d$'\t' -f1 | xargs git branch -D # fuzzy hard delete local branch
+
+  # Checkout
+  co = !git fo && git checkout
+  com = !git checkout $(git default)
+  cob = checkout -b
+  wipe = !git checkout -- $(git status --porcelain | fzf | cut -c 4-) # hard undo on fuzzy file
+  recent = !git committed | fzf | cut -d$'\t' -f1 | xargs git co # fuzzy select recently committed branch
+  committed = !git for-each-ref --sort='-committerdate' --format='%(refname)%09%(committerdate:relative)' refs/heads | sed -e 's,refs/heads/,,'
+
+  # Stash
+  store = !git a && git stash
+  soon = stash push --include-untracked
+  clear = !git add . && git reset --hard HEAD
+  stl = stash list
+  sts = stash show
+  stp = stash pop
+  sta = stash apply
+
+  # Diff
+  d = !git add --intent-to-add . && git diff
+  dsg = d --staged
+  dr = !git fo && git diff @{upstream} HEAD # diff against tracking branch
+  dom = !git fo && git d origin/$(git default) HEAD
+
+  # Rebase
+  rb = rebase
+  rbr = "!f() { git fo; git rb origin/$1; }; f" # any remote branch
+  rbir = "!f() { git fo; git rbi origin/$1; }; f" # any remote branch
+  rbm = !git rbr $(git default) # remote default branch
+  rbo = !git name | xargs git rbr # remote tracking branch
+  rbio = !git name | xargs git rbir # remote tracking branch
+  rbi = rebase --interactive
+  rbmi = !git rbir $(git default) # remote default branch
+  rbc = !git a && git rebase --continue
+  rba = rebase --abort
+  rbfz = !git rbi $(git log --oneline | fzf | cut -d' ' -f1)~ # interactive from a fuzzy commit
+  fix = !git squash $(git log --oneline | fzf | cut -d' ' -f1) # apply working patch to fuzzy commit
+  squash = "!f() { git a; git c --fixup=$1; git rbi --autosquash $1~; }; f"
+
+  # Remote
+  fo = fetch origin --tags
+  p = push
+  force = push --force-with-lease --force-if-includes # refuse to clobber unseen remote commits
+  tg = "!f() { git tag $1; git push origin tags/$1; }; f" # parity with remote
+  untag = "!f() { git tag -d $1; git push origin :refs/tags/$1; }; f" # parity with remote
+  shake = "!f() { d=$(git default); git fo; git branch --merged origin/$d --format='%(refname:short)' | grep -vxF -e \"$d\" -e \"$(git name)\" | xargs -n 1 git branch --delete; }; f" # delete branches merged into origin's default branch
+  gone = "!git fetch --prune && git branch -vv | grep ': gone]' | grep -v '^\\*' | awk '{print $1}' | xargs -n 1 git branch -D" # delete branches whose upstream was deleted
+
+  # External
+  edit = !vim $(git status --short | fzf | cut -c 4-) # fuzzy edit a modified file
+  gui = !github . # open Github Desktop
+  pr = !git push && gh pr create --fill --web
+  prs = !gh pr status
+
+  # Info
+  st = status
+  last = show HEAD
+  name = rev-parse --abbrev-ref HEAD # name of branch
+  tree = log --graph --date=relative --pretty=tree # better git log
+  history = log --follow --patch -- # patches for a file, across renames
+  praise = blame -w
+  stat = !git add --intent-to-add . && git --no-pager diff --stat && git --no-pager diff --numstat # line change summary
+  changelog = !git log --oneline | fzf | cut -d' ' -f1 | xargs -I _ git log --oneline --pretty=diff _~..HEAD | sed -e 's/^/- /'
+  users = shortlog --summary --numbered
+[blame]
+  date = human # default is ISO 8601
+[branch]
+  sort = -committerdate # most recently committed first
+[commit]
+  gpgsign = true
+  verbose = true # show changes while editing commit message
+[core]
+  editor = vim # use vim when editing git messages
+  pager = delta
+[delta]
+  features = diff-so-fancy
+  navigate = true # n/N to move between files
+[diff]
+  algorithm = histogram # anchor on unique lines for more readable diffs
+[fetch]
+  prune = true # automatically remove refs that no longer exist on remote
+[filter "lfs"] # configured via git-lfs
+  clean = git-lfs clean -- %f
+  process = git-lfs filter-process
+  required = true
+  smudge = git-lfs smudge -- %f
+[gpg]
+  program = /opt/homebrew/bin/gpg # GUI apps do not have Homebrew on PATH
+[help]
+  autocorrect = prompt # confirm before running a guessed command
+[init]
+  defaultBranch = main
+[interactive]
+  diffFilter = delta --color-only # delta in add --patch
+[merge]
+  ff = only # merge commits are noisy
+  conflictStyle = zdiff3 # include the common ancestor in conflicts
+[pull]
+  rebase = true # rebase instead of merge
+[push]
+  autoSetupRemote = true # track origin/<branch> on first push
+  followTags = true # automatically push tags
+  default = current # push to remote branch with the same name
+[pretty] # format templates
+  tree = "%Cgreen%h%Creset -%C(auto)%d%Creset %s %Cblue(%an %ad)%Creset"
+  diff = "[%h] %s (%aN)"
+[rebase]
+  autoStash = true # allow rebases on a dirty working directory
+  stat = true # show diffstat of upstream changes since last rebase
+[rerere]
+  enabled = true # cache conflict resolutions for reuse
+  autoUpdate = true # update cache after each successful resolution
+[stash]
+  showPatch = true # always show diff
+[status]
+  showStash = true # entry count in stash list
+  showUntrackedFiles = all # expand new directories
+[tag]
+  gpgsign = true
+  sort = version:refname # order by semver
+[url "ssh://git@github.com/"]
+  insteadOf = https://github.com/ # fast failure on ssh misconfiguration

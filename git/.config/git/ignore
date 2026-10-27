@@ -1,0 +1,6 @@
+node_modules
+# Temporary vim files
+*.swp
+*.swo
+*.un~
+.DS_Store

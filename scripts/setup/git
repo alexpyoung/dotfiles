@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+readonly LOCAL_CONFIG=~/.config/git/config.local
+
+link_config() {
+    # --no-folding: link files, not whole directories like ~/.config
+    stow --verbose=2 --no-folding --target="$HOME" git
+}
+
+import_gpg_private_key() {
+    local -r GIT_EMAIL=$1
+    if gpg --list-secret-keys "$GIT_EMAIL" >/dev/null 2>&1; then
+        echo "GPG key for $GIT_EMAIL already imported"
+        return
+    fi
+
+    eval "$(op signin)"
+
+    local id
+    for id in $(op item list --format=json | jq -r '.[] | select(.title=="GPG Private Key") | .id'); do
+        if op item get "$id" --format=json | jq -e --arg GIT_EMAIL "$GIT_EMAIL" 'any(.urls[]?; .href==$GIT_EMAIL)' >/dev/null; then
+            echo -e "$(op item get "$id" --format=json | jq -r '.fields[] | select(.purpose=="PASSWORD" or .id=="password") | .value')" | gpg --import
+            return
+        fi
+    done
+
+    echo "No 1Password item titled \"GPG Private Key\" with url=$GIT_EMAIL found" >&2
+    return 1
+}
+
+configure_signing_key() {
+    local -r GIT_EMAIL=$1
+    local key_id
+    key_id=$(gpg --list-secret-keys --with-colons "$GIT_EMAIL" | awk -F: '$1 == "sec" { print $5 }')
+    key_id=${key_id%%$'\n'*} # first key if there are several
+    git config --file "$LOCAL_CONFIG" user.signingkey "$key_id"
+    echo "Signing with $key_id"
+}
+
+configure_gpg_agent() {
+    local -r DIR=~/.gnupg
+    mkdir -p "$DIR"
+    chmod 700 "$DIR"
+    {
+        # 30 days
+        echo "default-cache-ttl 2592000"
+        echo "max-cache-ttl 2592000"
+        # GUI passphrase prompt, works without GPG_TTY
+        echo "pinentry-program $(brew --prefix)/bin/pinentry-mac"
+    } > "$DIR/gpg-agent.conf"
+    gpgconf --kill gpg-agent
+}
+
+main() {
+    cd "$(dirname "$0")/../.." # stow packages are relative to the repo root
+    link_config
+
+    local -r GIT_EMAIL=$(git config --global user.email)
+    import_gpg_private_key "$GIT_EMAIL"
+    configure_signing_key "$GIT_EMAIL"
+    configure_gpg_agent
+}
+
+main
