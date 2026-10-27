@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+readonly DOMAIN=com.manytricks.Moom
+
+main() {
+    if pgrep -x Moom >/dev/null; then
+        echo "Quit Moom first, or it overwrites the imported settings when it quits" >&2
+        exit 1
+    fi
+    local -r FILE=$(realpath "${0%/*}/../../moom/config.plist")
+    defaults import "$DOMAIN" "$FILE"
+    echo "Imported $FILE; open Moom to load it"
+}
+
+main

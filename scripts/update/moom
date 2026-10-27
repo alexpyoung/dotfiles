@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+readonly DOMAIN=com.manytricks.Moom
+
+# App state that changes on every run, not settings
+readonly STATE_KEYS=(
+    "Custom Controls" # Moom 3 controls, superseded by "Custom Controls (4001)"
+    "NSWindow Frame Settings Window (4001)"
+    "NSWindow Frame SUStatusFrame"
+    "PMSparkleWrapper Status"
+    "SUHasLaunchedBefore"
+    "SULastCheckTime"
+)
+
+main() {
+    local -r FILE="$(realpath "${0%/*}/../..")/moom/config.plist" # file may not exist yet
+    echo "Generating plist..."
+    defaults export "$DOMAIN" "$FILE"
+    local key
+    for key in "${STATE_KEYS[@]}"; do
+        plutil -remove "$key" "$FILE" 2>/dev/null || true # absent keys are fine
+    done
+    git diff -- "$FILE"
+}
+
+main

@@ -101,6 +101,8 @@
   navigate = true # n/N to move between files
 [diff]
   algorithm = histogram # anchor on unique lines for more readable diffs
+[diff "plist"] # readable diffs for binary plists, see .gitattributes
+  textconv = plutil -p
 [fetch]
   prune = true # automatically remove refs that no longer exist on remote
 [filter "lfs"] # configured via git-lfs
