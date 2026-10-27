@@ -1,0 +1,88 @@
+# Ported from spaceship (intel-archive:zsh/.spaceship)
+# https://starship.rs/config/
+
+format = """
+$time\
+$cmd_duration\
+$jobs\
+${env_var.VIMRUNTIME}\
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$python\
+$ruby\
+$swift\
+$docker_context\
+$line_break\
+$status\
+$character"""
+
+[time]
+disabled = false
+time_format = "%H:%M"
+format = '[$time]($style) '
+style = "bold white"
+
+[cmd_duration]
+min_time = 2000
+format = '[\($duration\)]($style) '
+style = "bold white"
+
+[jobs]
+symbol = "&"
+number_threshold = 1
+symbol_threshold = 1
+format = '[$symbol$number]($style) '
+style = "bold 197"
+
+# Shell running inside vim (:terminal, :shell)
+[env_var.VIMRUNTIME]
+format = '[:v:]($style) '
+style = "bold 34"
+
+[directory]
+truncation_length = 100
+truncate_to_repo = false
+read_only = "*"
+format = '[$path]($style)[$read_only]($read_only_style)'
+style = "bold 39"
+
+[git_branch]
+format = ' [$branch]($style)'
+style = "bold 208"
+
+[git_status]
+format = '([$all_status$ahead_behind]($style))'
+style = "bold 226"
+stashed = ""
+
+[nodejs]
+format = ' [$version]($style)'
+style = "bold 40"
+
+[python]
+format = ' [$version]($style)'
+style = "bold 226"
+
+[ruby]
+format = ' [$version]($style)'
+style = "bold 160"
+
+[swift]
+format = ' [$version]($style)'
+style = "bold 226"
+
+[docker_context]
+format = ' [$context]($style)'
+style = "bold cyan"
+
+[status]
+disabled = false
+format = '[✘ $status]($style) '
+style = "bold red"
+
+[character]
+success_symbol = '[\$](bold green)'
+error_symbol = '[\$](bold red)'
+vimcmd_symbol = '[:](bold 129)'

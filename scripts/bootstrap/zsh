@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+install_packages() {
+    brew install starship zsh-autosuggestions zsh-syntax-highlighting zsh-vi-mode fzf ripgrep
+}
+
+link_config() {
+    # --no-folding: link files, not whole directories like ~/.config
+    stow --verbose=2 --no-folding --target="$HOME" zsh
+}
+
+create_state_dirs() {
+    mkdir -p ~/.local/state/zsh ~/.cache/zsh
+}
+
+migrate_history() {
+    local -r OLD=~/.zsh_history
+    local -r NEW=~/.local/state/zsh/history
+    if [[ -f $OLD && ! -e $NEW ]]; then
+        mv "$OLD" "$NEW"
+        echo "Moved $OLD to $NEW"
+    elif [[ -f $OLD ]]; then
+        echo "Both $OLD and $NEW exist; merge them by hand" >&2
+    fi
+}
+
+main() {
+    cd "$(dirname "$0")/../.." # stow packages are relative to the repo root
+    install_packages
+    link_config
+    create_state_dirs
+    migrate_history
+}
+
+main
