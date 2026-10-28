@@ -4,7 +4,8 @@ set -euo pipefail
 
 main() {
     cd "$(dirname "$0")/../.."
-    # shellcheck doesn't support zsh, so check syntax with zsh itself
+    # Check syntax with zsh itself; shellcheck doesn't support zsh
+    # (a comment starting with "shellcheck" is parsed as a directive)
     local -a files=()
     local file
     while IFS= read -r file; do
