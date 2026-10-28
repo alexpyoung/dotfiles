@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+readonly BREW=/opt/homebrew/bin/brew
+
+install_homebrew() {
+    if [[ ! -x $BREW ]]; then
+        echo "Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+    eval "$("$BREW" shellenv)"
+}
+
+main() {
+    local -r ROOT=$(cd "$(dirname "$0")/../.." && pwd)
+    install_homebrew
+    echo "Installing packages..."
+    brew bundle install --file "$ROOT/Brewfile"
+}
+
+main

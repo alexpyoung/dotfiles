@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+    local -r FILE=$(cd "$(dirname "$0")/../.." && pwd)/Brewfile
+
+    echo "Updating Homebrew packages..."
+    brew update
+    brew upgrade # self-updating casks are skipped; they update themselves
+
+    # Drift report only: edit the Brewfile by hand, nothing is removed here
+    echo "In the Brewfile but not installed:"
+    brew bundle check --verbose --file "$FILE" || true
+    echo "Installed but not in the Brewfile:"
+    brew bundle cleanup --file "$FILE" || true
+}
+
+main
