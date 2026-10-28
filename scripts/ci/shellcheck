@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+    cd "$(dirname "$0")/../.."
+    # Tracked scripts with a bash shebang; zsh files are checked by scripts/ci/zsh
+    local -a files=()
+    local file
+    while IFS= read -r file; do
+        if head -n1 "$file" | grep -q 'bash'; then
+            files+=("$file")
+        fi
+    done < <(git ls-files scripts git/.local/bin)
+    shellcheck "${files[@]}"
+    local -r GREEN='\033[0;32m'
+    local -r RESET='\033[0m'
+    # shellcheck disable=SC2059
+    printf "${GREEN}✔︎${RESET} shellcheck passed (${#files[@]} scripts)\n"
+}
+
+main

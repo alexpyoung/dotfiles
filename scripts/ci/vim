@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Load the repo's vimrc headless and fail on any error message.
+# Expects plugins to be installed already (CI does that first).
+main() {
+    cd "$(dirname "$0")/../.."
+    # -N: -u alone would start vim in vi-compatible mode, breaking line continuations
+    # -es skips vimrc unless given with -u; -i NONE leaves viminfo alone
+    vim -N -es -i NONE -u vim/.config/vim/vimrc \
+        -c 'if !empty(v:errmsg) | echo v:errmsg | cquit | endif' \
+        -c 'qall'
+    local -r GREEN='\033[0;32m'
+    local -r RESET='\033[0m'
+    # shellcheck disable=SC2059
+    printf "${GREEN}✔︎${RESET} vimrc loads without errors\n"
+}
+
+main

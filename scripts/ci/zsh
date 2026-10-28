@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+    cd "$(dirname "$0")/../.."
+    # shellcheck doesn't support zsh, so check syntax with zsh itself
+    local -a files=()
+    local file
+    while IFS= read -r file; do
+        files+=("$file")
+    done < <(git ls-files zsh/.zshenv zsh/.config/zsh)
+    for file in "${files[@]}"; do
+        zsh -n "$file"
+    done
+    local -r GREEN='\033[0;32m'
+    local -r RESET='\033[0m'
+    # shellcheck disable=SC2059
+    printf "${GREEN}✔︎${RESET} zsh syntax ok (${#files[@]} files)\n"
+}
+
+main
