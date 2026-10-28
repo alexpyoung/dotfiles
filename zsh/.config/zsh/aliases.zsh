@@ -1,5 +1,8 @@
 alias g=git
 
+alias dk=docker
+alias dkc='docker compose'
+
 # Navigation (.. works via auto_cd)
 alias ...='cd ../..'
 alias ....='cd ../../..'
