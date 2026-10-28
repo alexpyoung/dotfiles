@@ -37,6 +37,8 @@ keyboard() {
     # Fastest repeat, shortest delay
     defaults write NSGlobalDomain KeyRepeat -int 1
     defaults write NSGlobalDomain InitialKeyRepeat -int 10
+    # Don't capitalize the first word of a sentence
+    defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 }
 
 general() {
