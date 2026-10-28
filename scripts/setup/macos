@@ -50,7 +50,18 @@ general() {
     # Screenshots go to their own folder instead of the Desktop
     mkdir -p ~/Pictures/Screenshots
     defaults write com.apple.screencapture location -string ~/Pictures/Screenshots
+    # Play a sound when the volume is changed
+    defaults write NSGlobalDomain com.apple.sound.beep.feedback -int 1
     killall SystemUIServer
+}
+
+menu_bar() {
+    defaults write com.apple.controlcenter "NSStatusItem VisibleCC Bluetooth" -bool true
+    defaults write com.apple.controlcenter "NSStatusItem VisibleCC AirDrop" -bool true
+    defaults write com.apple.controlcenter "NSStatusItem VisibleCC Sound" -bool true
+    # Show Sound always, not only while audio is playing (18 = Always)
+    defaults -currentHost write com.apple.controlcenter Sound -int 18
+    killall ControlCenter
 }
 
 power() {
@@ -117,6 +128,22 @@ dock() {
     killall Dock
 }
 
+# Alfred keeps its preferences in a folder, not in defaults. The folder exists once
+# Alfred has run, so skip until then.
+alfred() {
+    local -r DIR=~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/preferences
+    local -r FILE=$DIR/appearance/options/prefs.plist
+    if [[ ! -d $DIR ]]; then
+        echo "Alfred hasn't run yet; skipping its preferences" >&2
+        return
+    fi
+    mkdir -p "$(dirname "$FILE")"
+    [[ -e $FILE ]] || plutil -create binary1 "$FILE"
+    # No menu bar icon, and no hat logo in the search window
+    plutil -replace hidemenu -bool true "$FILE"
+    plutil -replace hidehat -bool true "$FILE"
+}
+
 xcode() {
     # Show build durations in the activity bar
     defaults write com.apple.dt.Xcode ShowBuildOperationDuration -bool true
@@ -127,10 +154,12 @@ main() {
     touch_id_sudo
     keyboard
     general
+    menu_bar
     power
     finder
     finder_icon_views
     dock
+    alfred
     xcode
     echo "Done. Log out and back in for the keyboard changes."
 }
