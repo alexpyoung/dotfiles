@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+# macOS preferences. Idempotent, so safe to re-run.
+# Keyboard changes take effect after logging out and back in.
+
+set -euo pipefail
+
+preamble() {
+    # Keep System Settings from overwriting what we change
+    osascript -e 'tell application "System Settings" to quit'
+    sudo -v
+    # Keep sudo alive until the script finishes
+    while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+}
+
+# Touch ID for sudo. sudo_local survives macOS updates, unlike /etc/pam.d/sudo.
+touch_id_sudo() {
+    local -r FILE=/etc/pam.d/sudo_local
+    if grep -q '^auth.*pam_tid\.so' "$FILE" 2>/dev/null; then
+        return
+    fi
+    # tee can report "Operation not permitted" on macOS 26 even when the write succeeds,
+    # so check the result instead of its exit status
+    if [[ -e $FILE ]]; then
+        echo "auth       sufficient     pam_tid.so" | sudo tee -a "$FILE" >/dev/null || true
+    else
+        sed 's/^#auth/auth/' /etc/pam.d/sudo_local.template | sudo tee "$FILE" >/dev/null || true
+    fi
+    if ! grep -q '^auth.*pam_tid\.so' "$FILE" 2>/dev/null; then
+        echo "Could not enable Touch ID for sudo in $FILE" >&2
+        return 1
+    fi
+}
+
+keyboard() {
+    # Hold a key to repeat it instead of showing the accent picker
+    defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+    # Fastest repeat, shortest delay
+    defaults write NSGlobalDomain KeyRepeat -int 1
+    defaults write NSGlobalDomain InitialKeyRepeat -int 10
+}
+
+general() {
+    # Don't reopen an app's windows after quitting it
+    defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
+    defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+    # No drop shadow on window screenshots
+    defaults write com.apple.screencapture disable-shadow -bool true
+}
+
+power() {
+    # Minutes until system sleep
+    sudo pmset -b sleep 10
+    sudo pmset -c sleep 30
+}
+
+finder() {
+    chflags nohidden ~/Library
+    sudo chflags nohidden /Volumes
+    defaults write com.apple.finder WarnOnEmptyTrash -bool false
+    defaults write com.apple.finder ShowStatusBar -bool true
+    defaults write com.apple.finder ShowPathbar -bool true
+    # Folders above files when sorting by name
+    defaults write com.apple.finder _FXSortFoldersFirst -bool true
+    # Search the current folder by default
+    defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+    defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+    # Open a Finder window when a volume is mounted
+    defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
+    defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
+    defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
+    # List view in new windows: icnv | Nlsv | clmv | glyv
+    defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+}
+
+# Desktop and icon views: a grid sorted by name, with larger spacing and icons.
+# The keys are nested, so edit an export with plutil and import it back;
+# that goes through cfprefsd instead of editing Finder's plist directly.
+finder_icon_views() {
+    local -r TMP=$(mktemp)
+    osascript -e 'tell application "Finder" to quit'
+    defaults export com.apple.finder "$TMP"
+
+    local view key
+    for view in DesktopViewSettings StandardViewSettings; do
+        # Create the parent dictionaries if Finder hasn't yet
+        plutil -insert "$view" -dictionary "$TMP" 2>/dev/null || true
+        plutil -insert "$view.IconViewSettings" -dictionary "$TMP" 2>/dev/null || true
+        for key in arrangeBy gridSpacing iconSize; do
+            plutil -remove "$view.IconViewSettings.$key" "$TMP" 2>/dev/null || true
+        done
+        plutil -insert "$view.IconViewSettings.arrangeBy" -string name "$TMP"
+        plutil -insert "$view.IconViewSettings.gridSpacing" -float 100 "$TMP"
+        plutil -insert "$view.IconViewSettings.iconSize" -float 80 "$TMP"
+    done
+
+    defaults import com.apple.finder "$TMP"
+    rm "$TMP"
+    open -a Finder
+}
+
+dock() {
+    defaults write com.apple.dock autohide -bool true
+    # Appear instantly
+    defaults write com.apple.dock autohide-delay -float 0
+    # Running apps only: no pinned apps
+    defaults write com.apple.dock persistent-apps -array
+    defaults write com.apple.dock static-only -bool true
+    defaults write com.apple.dock tilesize -int 36
+    # Keep Spaces in order instead of rearranging by recent use
+    defaults write com.apple.dock mru-spaces -bool false
+    killall Dock
+}
+
+xcode() {
+    # Show build durations in the activity bar
+    defaults write com.apple.dt.Xcode ShowBuildOperationDuration -bool true
+}
+
+main() {
+    preamble
+    touch_id_sudo
+    keyboard
+    general
+    power
+    finder
+    finder_icon_views
+    dock
+    xcode
+    echo "Done. Log out and back in for the keyboard changes."
+}
+
+main
