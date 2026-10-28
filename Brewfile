@@ -19,6 +19,9 @@ brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 brew "zsh-vi-mode"
 
+# editor
+brew "vim" # newer than macOS's, reads ~/.config/vim
+
 # runtimes
 brew "mise" # node, pnpm and per-project versions
 

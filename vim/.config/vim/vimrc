@@ -1,0 +1,187 @@
+" Vim 9.1+ reads this from ~/.config/vim (XDG). State and plugins live in
+" ~/.local/state/vim and ~/.local/share/vim, outside this repo.
+
+""""""""""""""""""""
+" Key Mappings
+""""""""""""""""""""
+
+let mapleader="," " set this before installing plugins
+
+" Overrides
+" avoid carpal tunnel in left hand
+inoremap jk <Esc>
+cnoremap jk <C-c>
+" keep visual selection after indentation
+vnoremap > >gv
+vnoremap < <gv
+vnoremap = =gv
+" stay in normal mode when inserting newlines
+nnoremap o o<Esc>
+nnoremap O O<Esc>
+" treat yank like change and delete
+nnoremap Y y$
+
+" Complements
+" ; for next f{char}, ' for previous
+nnoremap ' ,
+" home row is faster
+noremap H <Home>
+noremap L <End>
+" TODO: temporarily force new muscle memory
+nnoremap $ <Nop>
+" qq to record, Q to replay
+nnoremap Q @q
+
+" Misc
+" re-indent the whole file without losing your place
+nnoremap <Leader>= mzgg=G`z
+
+" FZF
+nnoremap <silent> <Leader>b :Buffers<CR>
+nnoremap <silent> <Leader>f :Files<CR>
+nnoremap <silent> <Leader>hs :History:<CR>
+nnoremap <silent> <Leader>w :Windows<CR>
+nnoremap <Leader>rg :Rg<Space>
+
+" Vim Plug
+nnoremap <silent> <Leader>pi :PlugInstall<CR>
+nnoremap <silent> <Leader>pu :PlugUpdate<CR>
+nnoremap <silent> <Leader>pc :PlugClean<CR>
+
+" Format JSON, YAML, XML
+nnoremap <silent> <Leader>fmt :call <SID>Format()<CR>
+
+""""""""""""""""""""
+" Plugins
+""""""""""""""""""""
+
+" plug.vim is downloaded to ~/.local/share/vim/autoload by scripts/bootstrap/vim
+set runtimepath^=~/.local/share/vim
+call plug#begin('~/.local/share/vim/plugged')
+
+" Navigation
+Plug '/opt/homebrew/opt/fzf' | Plug 'junegunn/fzf.vim' " fuzzy finder
+let g:fzf_preview_window = ''
+Plug 'tpope/vim-vinegar' " enhance netrw
+let g:netrw_bufsettings='noma nomod rnu nowrap ro nobl'
+let g:netrw_home=expand('~/.local/state/vim') " .netrwhist
+
+" Editor
+Plug 'tpope/vim-eunuch' " unix commands
+Plug 'tpope/vim-sleuth' " indentation
+Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat' " quotes and parentheses
+
+" Display
+Plug 'morhetz/gruvbox' " colors
+let g:gruvbox_contrast_dark='hard'
+
+call plug#end() " also enables syntax and filetype plugin indent
+
+""""""""""""""""""""
+" Packages
+""""""""""""""""""""
+
+packadd comment " gc/gcc to toggle comments
+packadd matchit " makes the % command work better
+
+""""""""""""""""""""
+" Options
+""""""""""""""""""""
+
+set termguicolors " 24-bit color
+set background=dark " 🧛
+silent! colorscheme gruvbox " managed via vim-plug; silent until installed
+
+" Display
+set number relativenumber " hybrid line numbers for easier motions
+set showcmd " display ex command while typing
+set cursorline " highlight line containing cursor
+set shortmess+=I " hide startup message
+set scrolloff=10 " minimum line count to surround curor with
+set visualbell " flash screen instead of beeping
+set lazyredraw " don't redraw while executing macros
+set laststatus=2 " always show the status line
+set statusline=%f\ %m%r%h%w%=%y\ %l:%c\ %p%% " file, flags ... type, position
+
+" Editing
+set autoindent " use indentation of previous line during line insertion
+set copyindent " use existing indent structure with autoindent
+set backspace=indent,eol,start " make backspace work everywhere
+set tildeop " use ~ as an operator instead of just current character
+set matchpairs+=<:> " easier HTML and JSX matching with %
+set whichwrap=b,s,h,l " easier navigation of wrapped lines
+
+" External
+set autoread " automatically update buffer if unmodified
+set autowriteall " always save to disk
+set clipboard=unnamed " share OS clipboard with y, d, etc
+set mouse=a " enable mouse in all modes
+set undofile " enable undo after writes
+" keep undo, swap and viminfo out of project folders
+set undodir=~/.local/state/vim/undo//
+set directory=~/.local/state/vim/swap//
+set viminfofile=~/.local/state/vim/viminfo
+
+" Navigation
+set splitright splitbelow " sensible split windows
+set wildmenu " enable tab navigatable menu for command line completion
+set wildmode=list:full " 1st tab: show all matches, 2nd tab: show wildmenu
+
+" Search
+set ignorecase " ignore case in search patterns
+set smartcase " case sensitive when query includes uppercase
+set incsearch " highlight match while typing search pattern
+set hlsearch " highlight hits while traversing search matches
+set grepprg=rg\ --vimgrep\ --hidden\ --glob\ !.git " :grep via ripgrep
+
+""""""""""""""""""""
+" Functions
+""""""""""""""""""""
+
+" Format the current buffer by filetype, then trim trailing whitespace
+function! s:Format() abort
+  let l:view = winsaveview()
+  let l:formatter = get({
+        \ 'json': 'jq .',
+        \ 'yaml': 'yq --prettyPrint --indent 2 . -',
+        \ 'xml': 'xmllint --format -',
+        \ }, &filetype, '')
+  if !empty(l:formatter)
+    execute '%!' . l:formatter
+    if v:shell_error
+      silent undo
+      echoerr l:formatter . ' failed'
+    endif
+  endif
+  keeppatterns %s/\s\+$//e
+  call winrestview(l:view)
+endfunction
+
+""""""""""""""""""""
+" Autocommands
+""""""""""""""""""""
+
+" help opens in a vertical split on the right
+augroup help
+  autocmd!
+  autocmd FileType help wincmd L
+augroup END
+
+" Create intermediate directories of current file as required
+" Credit: https://github.com/DataWraith/auto_mkdir
+function <SID>auto_mkdir()
+  let l:parent_dir = expand('<afile>:p:h')
+  if !isdirectory(l:parent_dir)
+    call mkdir(l:parent_dir, 'p')
+  endif
+endfunction
+augroup auto_mkdir
+  autocmd!
+  autocmd BufWritePre,FileWritePre * call <SID>auto_mkdir()
+augroup END
+
+" hot reload vimrc changes
+augroup vimrc
+  autocmd!
+  autocmd BufWritePost */vim/vimrc source %
+augroup END

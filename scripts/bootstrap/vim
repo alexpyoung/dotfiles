@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+readonly DATA=~/.local/share/vim
+
+main() {
+    cd "$(dirname "$0")/../.." # stow packages are relative to the repo root
+    brew install vim fzf
+    # --no-folding: link files, not whole directories like ~/.config
+    stow --verbose=2 --no-folding --target="$HOME" vim
+    mkdir -p ~/.local/state/vim/undo ~/.local/state/vim/swap
+    curl -fLo "$DATA/autoload/plug.vim" --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    vim +'PlugInstall --sync' +qall
+}
+
+main

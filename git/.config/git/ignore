@@ -2,7 +2,6 @@ node_modules
 # Temporary vim files
 *.swp
 *.swo
-*.un~
 .DS_Store
 # Per-project mise config stays local; git add -f to share one
 mise.toml
