@@ -45,6 +45,10 @@ general() {
     defaults write NSGlobalDomain AppleShowAllExtensions -bool true
     # No drop shadow on window screenshots
     defaults write com.apple.screencapture disable-shadow -bool true
+    # Screenshots go to their own folder instead of the Desktop
+    mkdir -p ~/Pictures/Screenshots
+    defaults write com.apple.screencapture location -string ~/Pictures/Screenshots
+    killall SystemUIServer
 }
 
 power() {
