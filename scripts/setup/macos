@@ -73,6 +73,8 @@ power() {
 finder() {
     chflags nohidden ~/Library
     sudo chflags nohidden /Volumes
+    # Show hidden files and folders (dotfiles, .git); Cmd-Shift-. toggles it
+    defaults write com.apple.finder AppleShowAllFiles -bool true
     defaults write com.apple.finder WarnOnEmptyTrash -bool false
     defaults write com.apple.finder ShowStatusBar -bool true
     defaults write com.apple.finder ShowPathbar -bool true
